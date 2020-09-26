@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>BlueHeron.Cron</RootNamespace>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OptionStrict>On</OptionStrict>
+    <Authors>Michael Bakker</Authors>
+    <Company>The Blue Heron</Company>
+    <Product>CronBuilder</Product>
+    <Description>Creates Cron expressions using a fluent pattern.</Description>
+    <Copyright>All rights released</Copyright>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Cron, .NET Standard</PackageTags>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <DocumentationFile>BlueHeron.CronBuilder.xml</DocumentationFile>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <DocumentationFile>BlueHeron.CronBuilder.xml</DocumentationFile>
+  </PropertyGroup>
+</Project>
