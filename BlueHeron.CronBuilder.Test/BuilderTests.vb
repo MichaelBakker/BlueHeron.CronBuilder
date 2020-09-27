@@ -8,7 +8,7 @@ Namespace BlueHeron.Cron.Test
 		<TestMethod>
 		Sub TestDefault()
 			Dim builder As New CronBuilder
-			Dim defaultExpression As String = builder.Build
+			Dim defaultExpression As String = builder.Build.ToString
 
 			Debug.Assert(defaultExpression = "* * * * *")
 

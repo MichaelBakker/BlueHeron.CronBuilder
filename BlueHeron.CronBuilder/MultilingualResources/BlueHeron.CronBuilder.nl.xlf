@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="nl" original="BLUEHERON.CRONBUILDER/RESOURCES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6916.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="BLUEHERON.CRONBUILDER/RESOURCES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="errArgumentCount" translate="yes" xml:space="preserve">
+          <source>Invalid number of arguments.</source>
+          <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal argumenten.</target>
+        </trans-unit>
+        <trans-unit id="errParameter" translate="yes" xml:space="preserve">
+          <source>{0} is invalid.</source>
+          <target state="final">{0} is ongeldig.</target>
+        </trans-unit>
+        <trans-unit id="errParameterCount" translate="yes" xml:space="preserve">
+          <source>Invalid number of parameters.</source>
+          <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal parameters.</target>
+        </trans-unit>
+        <trans-unit id="errParameterValueType" translate="yes" xml:space="preserve">
+          <source>Invalid ParameterValueType value (or combination).</source>
+          <target state="needs-review-translation">Ongeldige ParameterValueType waarde (of combinatie).</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="errParameterWithMessage" translate="yes" xml:space="preserve">
+          <source>{0} is invalid. {1}.</source>
+          <target state="final" state-qualifier="tm-suggestion">{0} is ongeldig. {1}</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
