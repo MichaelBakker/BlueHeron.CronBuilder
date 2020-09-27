@@ -5,12 +5,6 @@
 Public NotInheritable Class CronListParameter
 	Inherits CronParameter
 
-#Region " Objects and variables "
-
-	Private ReadOnly mList As List(Of Object)
-
-#End Region
-
 #Region " Properties "
 
 	''' <summary>
@@ -30,14 +24,14 @@ Public NotInheritable Class CronListParameter
 	''' <inheritdoc cref="CronParameter.ToString()" />
 	Public Overrides Function ToString() As String
 
-		Return String.Join(Comma, mList)
+		Return String.Join(Comma, Values)
 
 	End Function
 
 	''' <inheritdoc cref="CronParameter.Validate()" />
 	Public Overrides Function Validate() As Boolean
 
-		For Each it As Object In mList
+		For Each it As Object In Values
 			If Not ParameterType.Validate(ValueType, it) Then
 				Return False
 			End If
@@ -52,7 +46,7 @@ Public NotInheritable Class CronListParameter
 		Dim messages As String = String.Empty
 		Dim blValid As Boolean = True
 
-		For Each it As Object In mList
+		For Each it As Object In Values
 			If Not ParameterType.Validate(ValueType, it) Then
 				blValid = False
 				messages &= vbCrLf & String.Format(My.Resources.errParameter, it)
@@ -77,7 +71,7 @@ Public NotInheritable Class CronListParameter
 
 		MyBase.New(paramType)
 		Me.ValueType = valueType
-		mList = New List(Of Object)(values)
+		Me.Values = New List(Of Object)(values)
 
 	End Sub
 

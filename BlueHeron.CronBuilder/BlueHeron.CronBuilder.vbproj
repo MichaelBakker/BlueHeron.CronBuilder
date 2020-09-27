@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>BlueHeron.Cron</RootNamespace>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <OptionStrict>On</OptionStrict>
     <Authors>Michael Bakker</Authors>
     <Company>The Blue Heron</Company>

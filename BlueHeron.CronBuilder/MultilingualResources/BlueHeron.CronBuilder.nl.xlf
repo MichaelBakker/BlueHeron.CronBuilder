@@ -20,8 +20,7 @@
         </trans-unit>
         <trans-unit id="errParameterValueType" translate="yes" xml:space="preserve">
           <source>Invalid ParameterValueType value (or combination).</source>
-          <target state="needs-review-translation">Ongeldige ParameterValueType waarde (of combinatie).</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="final">Ongeldige ParameterValueType waarde (of combinatie).</target>
         </trans-unit>
         <trans-unit id="errParameterWithMessage" translate="yes" xml:space="preserve">
           <source>{0} is invalid. {1}.</source>

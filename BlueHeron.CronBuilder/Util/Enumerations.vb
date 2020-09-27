@@ -27,8 +27,8 @@ End Enum
 
 ''' <summary>
 ''' Enumeration of possible parameter value types.
+''' Valid values:
 ''' <list type="bullet">
-''' <listheader>Valid values:</listheader>
 ''' <item>0:	Any</item>
 ''' <item>8:	A single integer value</item>
 ''' <item>9:	List of integers</item>
@@ -43,8 +43,9 @@ End Enum
 ''' <item>34:	Range of <see cref="DayOfWeek"/> values</item> 
 ''' <item>36:	Step of <see cref="DayOfWeek"/> values</item>
 ''' </list>
+''' <hr />
+''' Valid combinations:
 ''' <list type="bullet">
-''' <listheader>Valid combinations:</listheader>
 ''' <item>Minute:	0,8,9,10,12</item>
 ''' <item>Hour:		0,8,9,10,12</item>
 ''' <item>Day:		0,8,9,10,12</item>

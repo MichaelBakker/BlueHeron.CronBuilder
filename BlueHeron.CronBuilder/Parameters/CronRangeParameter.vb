@@ -5,14 +5,6 @@
 Public NotInheritable Class CronRangeParameter
 	Inherits CronParameter
 
-#Region " Objects and variables "
-
-	Private ReadOnly mValueFrom As Object
-
-	Private ReadOnly mValueTo As Object
-
-#End Region
-
 #Region " Properties "
 
 	''' <summary>
@@ -37,7 +29,7 @@ Public NotInheritable Class CronRangeParameter
 	''' <inheritdoc cref="CronParameter.ToString()" />
 	Public Overrides Function ToString() As String
 
-		Return String.Format(fmtRange, mValueFrom, mValueTo)
+		Return String.Format(fmtRange, From, [To])
 
 	End Function
 
@@ -56,13 +48,13 @@ Public NotInheritable Class CronRangeParameter
 	Public Overrides Function Validate(ByRef errorMessage As String) As Boolean
 		Dim blValid As Boolean = True
 
-		If Not ParameterType.Validate(ValueType, mValueFrom) Then
+		If Not ParameterType.Validate(ValueType, From) Then
 			blValid = False
-			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, mValueFrom)
+			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, From)
 		End If
-		If Not ParameterType.Validate(ValueType, mValueTo) Then
+		If Not ParameterType.Validate(ValueType, [To]) Then
 			blValid = False
-			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, mValueTo)
+			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, [To])
 		End If
 
 		Return blValid
@@ -83,8 +75,8 @@ Public NotInheritable Class CronRangeParameter
 
 		MyBase.New(paramType)
 		Me.ValueType = valueType
-		mValueFrom = fromValue
-		mValueTo = toValue
+		From = fromValue
+		[To] = toValue
 
 	End Sub
 

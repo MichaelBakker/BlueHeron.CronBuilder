@@ -27,7 +27,7 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\BlueHeron.CronBuilder\BlueHeron.CronBuilder.vbproj" xmlns="" />
+      <DocumentationSource sourceFile="..\BlueHeron.CronBuilder\BlueHeron.CronBuilder.vbproj" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>

@@ -5,12 +5,6 @@
 Public NotInheritable Class CronValueParameter
 	Inherits CronParameter
 
-#Region " Objects and variables "
-
-	Private ReadOnly mValue As Object
-
-#End Region
-
 #Region " Properties "
 
 	''' <summary>
@@ -71,7 +65,7 @@ Public NotInheritable Class CronValueParameter
 
 		MyBase.New(paramType)
 		Me.ValueType = valueType
-		mValue = value
+		Me.Value = value
 
 	End Sub
 

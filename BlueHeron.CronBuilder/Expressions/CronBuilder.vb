@@ -57,7 +57,7 @@ Public NotInheritable Class CronBuilder
 	''' <exception cref="ArgumentException">The expression contains one or more invalid parameters</exception>
 	''' <returns>A <see cref="CronExpression"/></returns>
 	Public Function Build(cronExpression As String, Optional validate As Boolean = True, Optional throwErrorMessages As Boolean = True) As CronExpression
-		Dim parts As String() = cronExpression.Split(Space, StringSplitOptions.RemoveEmptyEntries)
+		Dim parts As String() = cronExpression.Split({Space}, StringSplitOptions.RemoveEmptyEntries)
 
 		If parts.Count <> 5 Then
 			Throw New ArgumentException(My.Resources.errParameterCount)
@@ -82,14 +82,15 @@ Public NotInheritable Class CronBuilder
 		Dim intValueType As Integer = CInt(parameterValueType)
 
 		If Not ValidIntegerCombinations.Contains(intValueType) Then
-			Throw New ArgumentException(My.Resources.errParameterValueType)
-		End If
-		If parameterType = ParameterType.Month Then
-			If Not ValidMonthCombinations.Contains(intValueType) Then
-				Throw New ArgumentException(My.Resources.errParameterValueType)
-			End If
-		ElseIf parameterType = ParameterType.WeekDay Then
-			If Not ValidWeekCombinations.Contains(intValueType) Then
+			If parameterType = ParameterType.Month Then
+				If Not ValidMonthCombinations.Contains(intValueType) Then
+					Throw New ArgumentException(My.Resources.errParameterValueType)
+				End If
+			ElseIf parameterType = ParameterType.WeekDay Then
+				If Not ValidWeekCombinations.Contains(intValueType) Then
+					Throw New ArgumentException(My.Resources.errParameterValueType)
+				End If
+			Else
 				Throw New ArgumentException(My.Resources.errParameterValueType)
 			End If
 		End If
