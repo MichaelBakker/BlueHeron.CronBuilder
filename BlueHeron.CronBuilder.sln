@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BlueHeron.CronBuilder", "BlueHeron.CronBuilder.vbproj", "{A88DDBF0-06EF-48D8-82A6-6EAB3A2FC5D4}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BlueHeron.CronBuilder", "BlueHeron.CronBuilder\BlueHeron.CronBuilder.vbproj", "{A88DDBF0-06EF-48D8-82A6-6EAB3A2FC5D4}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BlueHeron.CronBuilder.Test", "..\BlueHeron.CronBuilder.Test\BlueHeron.CronBuilder.Test.vbproj", "{F54258E2-69F1-40B1-9B24-C8350E7844E7}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BlueHeron.CronBuilder.Test", "BlueHeron.CronBuilder.Test\BlueHeron.CronBuilder.Test.vbproj", "{F54258E2-69F1-40B1-9B24-C8350E7844E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
