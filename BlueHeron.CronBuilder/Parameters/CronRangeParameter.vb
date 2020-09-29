@@ -3,7 +3,13 @@
 ''' Parameter that consists of a range of values.
 ''' </summary>
 Public NotInheritable Class CronRangeParameter
-	Inherits CronParameter
+	Implements ICronParameter
+
+#Region " Objects and variables "
+
+	Private mValues As List(Of Integer)
+
+#End Region
 
 #Region " Properties "
 
@@ -13,6 +19,11 @@ Public NotInheritable Class CronRangeParameter
 	Public ReadOnly Property From As Object
 
 	''' <summary>
+	''' The <see cref="ParameterType"/> of this parameter.
+	''' </summary>
+	Public ReadOnly Property ParameterType As ParameterType Implements ICronParameter.ParameterType
+
+	''' <summary>
 	''' The assigned end value.
 	''' </summary>
 	Public ReadOnly Property [To] As Object
@@ -20,21 +31,38 @@ Public NotInheritable Class CronRangeParameter
 	''' <summary>
 	''' The expected <see cref="ParameterValueType"/>.
 	''' </summary>
-	Public ReadOnly Property ValueType As ParameterValueType
+	Public ReadOnly Property ValueType As ParameterValueType Implements ICronParameter.ValueType
 
 #End Region
 
 #Region " Public methods and functions "
 
-	''' <inheritdoc cref="CronParameter.ToString()" />
-	Public Overrides Function ToString() As String
+	''' <inheritdoc cref="ICronParameter.ToList()" />
+	Public Function ToList() As List(Of Integer) Implements ICronParameter.ToList
+
+		If mValues Is Nothing Then
+			Dim fromVal As Integer = ToInteger(From)
+			Dim toVal As Integer = ToInteger([To])
+
+			mValues = New List(Of Integer)
+			For i As Integer = fromVal To toVal
+				mValues.Add(i)
+			Next
+		End If
+
+		Return mValues
+
+	End Function
+
+	''' <inheritdoc cref="ICronParameter.ToString()" />
+	Public Overrides Function ToString() As String Implements ICronParameter.ToString
 
 		Return String.Format(fmtRange, From, [To])
 
 	End Function
 
-	''' <inheritdoc cref="CronParameter.Validate()" />
-	Public Overrides Function Validate() As Boolean
+	''' <inheritdoc cref="ICronParameter.Validate()" />
+	Public Function Validate() As Boolean Implements ICronParameter.Validate
 
 		If Not (ParameterType.Validate(ValueType, From) AndAlso ParameterType.Validate(ValueType, [To])) Then
 			Return False
@@ -44,8 +72,8 @@ Public NotInheritable Class CronRangeParameter
 
 	End Function
 
-	''' <inheritdoc cref="CronParameter.Validate(ByRef String)" />
-	Public Overrides Function Validate(ByRef errorMessage As String) As Boolean
+	''' <inheritdoc cref="ICronParameter.Validate(ByRef String)" />
+	Public Function Validate(ByRef errorMessage As String) As Boolean Implements ICronParameter.Validate
 		Dim blValid As Boolean = True
 
 		If Not ParameterType.Validate(ValueType, From) Then
@@ -73,7 +101,7 @@ Public NotInheritable Class CronRangeParameter
 	''' <param name="toValue">The assigned start value</param>
 	Friend Sub New(paramType As ParameterType, valueType As ParameterValueType, fromValue As Object, toValue As Object)
 
-		MyBase.New(paramType)
+		ParameterType = paramType
 		Me.ValueType = valueType
 		From = fromValue
 		[To] = toValue

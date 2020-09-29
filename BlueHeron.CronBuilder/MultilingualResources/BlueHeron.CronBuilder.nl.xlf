@@ -24,7 +24,7 @@
         </trans-unit>
         <trans-unit id="errParameterWithMessage" translate="yes" xml:space="preserve">
           <source>{0} is invalid. {1}.</source>
-          <target state="final" state-qualifier="tm-suggestion">{0} is ongeldig. {1}</target>
+          <target state="final">{0} is ongeldig. {1}.</target>
         </trans-unit>
       </group>
     </body>

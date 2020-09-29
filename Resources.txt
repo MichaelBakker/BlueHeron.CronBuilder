@@ -1,0 +1,3 @@
+Nuget Package creation: https://docs.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package-using-visual-studio?tabs=netcore-cli
+
+Cron expression reference: https://crontab.guru/

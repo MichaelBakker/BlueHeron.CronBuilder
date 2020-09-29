@@ -25,6 +25,6 @@
     <value>Ongeldige ParameterValueType waarde (of combinatie).</value>
   </data>
   <data name="errParameterWithMessage" xml:space="preserve">
-    <value>{0} is ongeldig. {1}</value>
+    <value>{0} is ongeldig. {1}.</value>
   </data>
 </root>

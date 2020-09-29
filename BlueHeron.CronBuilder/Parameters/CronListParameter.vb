@@ -3,9 +3,20 @@
 ''' Parameter that consists of a comma-separated list of values.
 ''' </summary>
 Public NotInheritable Class CronListParameter
-	Inherits CronParameter
+	Implements ICronParameter
+
+#Region " Objects and variables "
+
+	Private mValues As List(Of Integer)
+
+#End Region
 
 #Region " Properties "
+
+	''' <summary>
+	''' The <see cref="ParameterType"/> of this parameter.
+	''' </summary>
+	Public ReadOnly Property ParameterType As ParameterType Implements ICronParameter.ParameterType
 
 	''' <summary>
 	''' List of assigned values.
@@ -15,21 +26,33 @@ Public NotInheritable Class CronListParameter
 	''' <summary>
 	''' The expected <see cref="ParameterValueType"/>.
 	''' </summary>
-	Public ReadOnly Property ValueType As ParameterValueType
+	Public ReadOnly Property ValueType As ParameterValueType Implements ICronParameter.ValueType
 
 #End Region
 
 #Region " Public methods and functions "
 
-	''' <inheritdoc cref="CronParameter.ToString()" />
-	Public Overrides Function ToString() As String
+	''' <inheritdoc cref="ICronParameter.ToList()" />
+	Public Function ToList() As List(Of Integer) Implements ICronParameter.ToList
+
+		If mValues Is Nothing Then
+			mValues = New List(Of Integer)
+			Values.ForEach(Sub(v) mValues.Add(ToInteger(v)))
+		End If
+
+		Return mValues
+
+	End Function
+
+	''' <inheritdoc cref="ICronParameter.ToString()" />
+	Public Overrides Function ToString() As String Implements ICronParameter.ToString
 
 		Return String.Join(Comma, Values)
 
 	End Function
 
-	''' <inheritdoc cref="CronParameter.Validate()" />
-	Public Overrides Function Validate() As Boolean
+	''' <inheritdoc cref="ICronParameter.Validate()" />
+	Public Function Validate() As Boolean Implements ICronParameter.Validate
 
 		For Each it As Object In Values
 			If Not ParameterType.Validate(ValueType, it) Then
@@ -41,8 +64,8 @@ Public NotInheritable Class CronListParameter
 
 	End Function
 
-	''' <inheritdoc cref="CronParameter.Validate(ByRef String)" />
-	Public Overrides Function Validate(ByRef errorMessage As String) As Boolean
+	''' <inheritdoc cref="ICronParameter.Validate(ByRef String)" />
+	Public Function Validate(ByRef errorMessage As String) As Boolean Implements ICronParameter.Validate
 		Dim messages As String = String.Empty
 		Dim blValid As Boolean = True
 
@@ -69,7 +92,7 @@ Public NotInheritable Class CronListParameter
 	''' <param name="values">The assigned values</param>
 	Friend Sub New(paramType As ParameterType, valueType As ParameterValueType, values As Object())
 
-		MyBase.New(paramType)
+		ParameterType = paramType
 		Me.ValueType = valueType
 		Me.Values = New List(Of Object)(values)
 

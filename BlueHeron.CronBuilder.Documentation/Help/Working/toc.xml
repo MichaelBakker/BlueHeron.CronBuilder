@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topics>
+  <topic id="N:BlueHeron.Cron" project="_Namespaces" file="9c515168-c278-deaa-2475-2ca173ac4c0e" sortOrder="2">
+    <topic id="T:BlueHeron.Cron.CronAnyParameter" project="BlueHeron.CronBuilder" file="02fd4fc9-bfcf-78a5-1d25-13f90be81455">
+      <topic id="Properties.T:BlueHeron.Cron.CronAnyParameter" project="BlueHeron.CronBuilder" file="8d6a6ac6-aa10-7d5f-6ebf-b0865f4040f6">
+        <topic id="P:BlueHeron.Cron.CronAnyParameter.ParameterType" project="BlueHeron.CronBuilder" file="8ad8ae44-0e8c-7fe8-39fc-d10006f222e4" />
+        <topic id="P:BlueHeron.Cron.CronAnyParameter.ValueType" project="BlueHeron.CronBuilder" file="95a3d94f-ce1d-ffef-fd5c-f51c119be5e2" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronAnyParameter" project="BlueHeron.CronBuilder" file="2f1256ef-be79-6846-e23a-edd062cc7171">
+        <topic id="M:BlueHeron.Cron.CronAnyParameter.ToList" project="BlueHeron.CronBuilder" file="6b91ba4c-7556-1903-c98e-d50c4df59756" />
+        <topic id="M:BlueHeron.Cron.CronAnyParameter.ToString" project="BlueHeron.CronBuilder" file="1bd6b12d-dd2c-d095-8e1b-12e6549bac8d" />
+        <topic id="Overload:BlueHeron.Cron.CronAnyParameter.Validate" project="BlueHeron.CronBuilder" file="4b745a0f-e54e-edfa-1627-03c698c6db77">
+          <topic id="M:BlueHeron.Cron.CronAnyParameter.Validate" project="BlueHeron.CronBuilder" file="5181b2ed-b098-d2a3-7b33-701e5af851ff" />
+          <topic id="M:BlueHeron.Cron.CronAnyParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="f8119ad6-6a6a-0caf-c5ae-c6800d26b81a" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronBuilder" project="BlueHeron.CronBuilder" file="5a67cf8b-d2dc-0c61-5727-9a36d269ba57">
+      <topic id="M:BlueHeron.Cron.CronBuilder.#ctor" project="BlueHeron.CronBuilder" file="602fac7f-0708-2141-4ee9-0791afc8def6" />
+      <topic id="Methods.T:BlueHeron.Cron.CronBuilder" project="BlueHeron.CronBuilder" file="102a7a3f-22bf-7d76-196c-2ee717a000bb">
+        <topic id="Overload:BlueHeron.Cron.CronBuilder.Build" project="BlueHeron.CronBuilder" file="09fecdf9-17ef-4c4d-29cd-6438494dbb97">
+          <topic id="M:BlueHeron.Cron.CronBuilder.Build(System.Boolean,System.Boolean)" project="BlueHeron.CronBuilder" file="536fd41e-12f1-980c-fdca-12e93cce87f1" />
+          <topic id="M:BlueHeron.Cron.CronBuilder.Build(System.String,System.Boolean,System.Boolean)" project="BlueHeron.CronBuilder" file="e5346c3c-40e1-9cd0-2cb8-4ce003565e05" />
+        </topic>
+        <topic id="M:BlueHeron.Cron.CronBuilder.With(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValueType,System.Object[])" project="BlueHeron.CronBuilder" file="037235cd-ae95-ddaa-5c1a-35257e10c8e3" />
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronExpression" project="BlueHeron.CronBuilder" file="2c83b3f5-543d-c97f-4be1-7956af0c76fd">
+      <topic id="Properties.T:BlueHeron.Cron.CronExpression" project="BlueHeron.CronBuilder" file="4eb49161-a87d-ac48-a103-75a230360295">
+        <topic id="P:BlueHeron.Cron.CronExpression.Parameters" project="BlueHeron.CronBuilder" file="4ce668d8-82ba-d607-5dc8-6d1800dc26f9" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronExpression" project="BlueHeron.CronBuilder" file="cb5a3176-0f0f-ab05-5080-6f55cc7fccd2">
+        <topic id="M:BlueHeron.Cron.CronExpression.FirstOccurrenceAfter(System.DateTime)" project="BlueHeron.CronBuilder" file="a474d699-068b-42fd-dfee-ebf3d67b1da2" />
+        <topic id="M:BlueHeron.Cron.CronExpression.LastOccurrenceBefore(System.DateTime)" project="BlueHeron.CronBuilder" file="63b294ca-3b23-eb8a-dc6e-339d3832fa4a" />
+        <topic id="M:BlueHeron.Cron.CronExpression.ToString" project="BlueHeron.CronBuilder" file="afb8a5b6-d77e-f70a-78e0-6b95104ac96d" />
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronListParameter" project="BlueHeron.CronBuilder" file="4eed6452-2e28-bb9c-0367-e59bd7d5b528">
+      <topic id="Properties.T:BlueHeron.Cron.CronListParameter" project="BlueHeron.CronBuilder" file="1214a78b-bbeb-e8c6-4c50-fa5e708f689d">
+        <topic id="P:BlueHeron.Cron.CronListParameter.ParameterType" project="BlueHeron.CronBuilder" file="a888fa68-bde4-153c-db9c-c6f8de95be5b" />
+        <topic id="P:BlueHeron.Cron.CronListParameter.Values" project="BlueHeron.CronBuilder" file="a98e61d9-af9c-cce1-a93a-b91776097cb5" />
+        <topic id="P:BlueHeron.Cron.CronListParameter.ValueType" project="BlueHeron.CronBuilder" file="edb832e7-6778-7219-80d3-47f26ccc921a" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronListParameter" project="BlueHeron.CronBuilder" file="222c1573-3ab0-9dbf-b5a1-671e7c399d5a">
+        <topic id="M:BlueHeron.Cron.CronListParameter.ToList" project="BlueHeron.CronBuilder" file="35385380-3e12-1ed4-424e-e74a542a80b6" />
+        <topic id="M:BlueHeron.Cron.CronListParameter.ToString" project="BlueHeron.CronBuilder" file="32d24e28-56a6-5dee-8ee8-cfc10cefd36a" />
+        <topic id="Overload:BlueHeron.Cron.CronListParameter.Validate" project="BlueHeron.CronBuilder" file="97452e42-1d7b-5f7e-9a79-73f92b07f90e">
+          <topic id="M:BlueHeron.Cron.CronListParameter.Validate" project="BlueHeron.CronBuilder" file="ba1f0da6-0654-0ced-0b41-9e5a4eab1061" />
+          <topic id="M:BlueHeron.Cron.CronListParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="92f5e7f5-8d33-0c93-bd89-15360fc8e527" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronRangeParameter" project="BlueHeron.CronBuilder" file="26ae6ac1-0f76-946d-3763-95728b6d5e50">
+      <topic id="Properties.T:BlueHeron.Cron.CronRangeParameter" project="BlueHeron.CronBuilder" file="706674bc-458b-f791-de3f-987ceb4bfe0d">
+        <topic id="P:BlueHeron.Cron.CronRangeParameter.From" project="BlueHeron.CronBuilder" file="e49a2e8a-f8ea-9b1d-4de9-4ac12fe4e606" />
+        <topic id="P:BlueHeron.Cron.CronRangeParameter.ParameterType" project="BlueHeron.CronBuilder" file="09f0a446-5316-9138-9c71-0e0459d23fb8" />
+        <topic id="P:BlueHeron.Cron.CronRangeParameter.To" project="BlueHeron.CronBuilder" file="e121d5a5-2235-4732-7447-380160757ad5" />
+        <topic id="P:BlueHeron.Cron.CronRangeParameter.ValueType" project="BlueHeron.CronBuilder" file="d55f8e97-0179-d21f-e8d7-2527fec92596" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronRangeParameter" project="BlueHeron.CronBuilder" file="99632501-d2ee-f544-25b1-d1e2d48efe1a">
+        <topic id="M:BlueHeron.Cron.CronRangeParameter.ToList" project="BlueHeron.CronBuilder" file="902a5074-8dbb-af0b-3f9c-874890a58c64" />
+        <topic id="M:BlueHeron.Cron.CronRangeParameter.ToString" project="BlueHeron.CronBuilder" file="ea88b3c5-4bbd-a4b7-ca43-2a6d997eddc0" />
+        <topic id="Overload:BlueHeron.Cron.CronRangeParameter.Validate" project="BlueHeron.CronBuilder" file="9efcfd2e-1a12-0f78-50fb-dc1e6144a7a9">
+          <topic id="M:BlueHeron.Cron.CronRangeParameter.Validate" project="BlueHeron.CronBuilder" file="98a4739e-1db1-10cf-bfa2-76193ef1639f" />
+          <topic id="M:BlueHeron.Cron.CronRangeParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="d4b40b2f-df69-2bba-882c-dcd8ad9b5134" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronStepParameter" project="BlueHeron.CronBuilder" file="f07866aa-0463-eb11-e323-7c73f151c471">
+      <topic id="Properties.T:BlueHeron.Cron.CronStepParameter" project="BlueHeron.CronBuilder" file="747d154c-4f8e-e3b1-8967-cbef6bc4b364">
+        <topic id="P:BlueHeron.Cron.CronStepParameter.Increment" project="BlueHeron.CronBuilder" file="4b8dfaf1-e3df-0c8b-312e-8b1130acd60c" />
+        <topic id="P:BlueHeron.Cron.CronStepParameter.ParameterType" project="BlueHeron.CronBuilder" file="0cb6bc65-e997-7c5a-abec-07c1dc79a4ed" />
+        <topic id="P:BlueHeron.Cron.CronStepParameter.Value" project="BlueHeron.CronBuilder" file="9335813a-6e04-ddc9-080b-f40e3c779adb" />
+        <topic id="P:BlueHeron.Cron.CronStepParameter.ValueType" project="BlueHeron.CronBuilder" file="78ffa7b4-7914-78c4-bbcf-9139ac90524b" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronStepParameter" project="BlueHeron.CronBuilder" file="50d80d28-8190-221c-d9ad-07742f1fbab8">
+        <topic id="M:BlueHeron.Cron.CronStepParameter.ToList" project="BlueHeron.CronBuilder" file="e2980f54-abb4-f5bf-6045-2dc7731498c9" />
+        <topic id="M:BlueHeron.Cron.CronStepParameter.ToString" project="BlueHeron.CronBuilder" file="2cb429f9-c78b-f02a-b32f-dc2718ae09a4" />
+        <topic id="Overload:BlueHeron.Cron.CronStepParameter.Validate" project="BlueHeron.CronBuilder" file="dae2f77b-f7e1-f465-9534-a385dbdf3ada">
+          <topic id="M:BlueHeron.Cron.CronStepParameter.Validate" project="BlueHeron.CronBuilder" file="0e2f5e85-9809-8e0e-9709-7e27e4897576" />
+          <topic id="M:BlueHeron.Cron.CronStepParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="80812089-11dc-ea92-4e7c-e35153d9ddba" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.CronValueParameter" project="BlueHeron.CronBuilder" file="0856c7aa-c222-6d86-7914-1fe3138e872b">
+      <topic id="Properties.T:BlueHeron.Cron.CronValueParameter" project="BlueHeron.CronBuilder" file="47ba712d-a71d-f2c3-aa0c-3a36cbaff03a">
+        <topic id="P:BlueHeron.Cron.CronValueParameter.ParameterType" project="BlueHeron.CronBuilder" file="e53e1ce0-215b-eed8-cb38-5782435529e4" />
+        <topic id="P:BlueHeron.Cron.CronValueParameter.Value" project="BlueHeron.CronBuilder" file="7f879ecc-aae5-df43-79d1-e257ce4ea965" />
+        <topic id="P:BlueHeron.Cron.CronValueParameter.ValueType" project="BlueHeron.CronBuilder" file="2aa20a9a-f4e6-e29a-46b5-74013c27c179" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.CronValueParameter" project="BlueHeron.CronBuilder" file="ae5ea333-dedc-7476-ef58-9c44f924c262">
+        <topic id="M:BlueHeron.Cron.CronValueParameter.ToList" project="BlueHeron.CronBuilder" file="035a97b3-ff0a-8b58-64d0-9d37da727584" />
+        <topic id="M:BlueHeron.Cron.CronValueParameter.ToString" project="BlueHeron.CronBuilder" file="705186f2-ad62-e7d6-f17e-e1917ef17099" />
+        <topic id="Overload:BlueHeron.Cron.CronValueParameter.Validate" project="BlueHeron.CronBuilder" file="7a1b8d1a-a236-8f64-4890-50d742a9c56e">
+          <topic id="M:BlueHeron.Cron.CronValueParameter.Validate" project="BlueHeron.CronBuilder" file="173d6d1d-d7c2-4737-2764-88d1dafb27ff" />
+          <topic id="M:BlueHeron.Cron.CronValueParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="799d1017-b07e-51e6-f9f7-83a351a31251" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.DayOfWeek" project="BlueHeron.CronBuilder" file="d37d5f78-59fd-6c16-c7df-18ac1ef99db4" />
+    <topic id="T:BlueHeron.Cron.ICronParameter" project="BlueHeron.CronBuilder" file="9923e9df-fd1d-72b8-0f1b-d78930318b29">
+      <topic id="Properties.T:BlueHeron.Cron.ICronParameter" project="BlueHeron.CronBuilder" file="70bfdfe9-8777-e836-86e5-bb203847585d">
+        <topic id="P:BlueHeron.Cron.ICronParameter.ParameterType" project="BlueHeron.CronBuilder" file="5baa4476-bb23-c809-55f8-8d9581870fbb" />
+        <topic id="P:BlueHeron.Cron.ICronParameter.ValueType" project="BlueHeron.CronBuilder" file="04780491-f0ca-682e-176a-b80489cb8e73" />
+      </topic>
+      <topic id="Methods.T:BlueHeron.Cron.ICronParameter" project="BlueHeron.CronBuilder" file="85bb6cd6-9176-8990-d472-3b3ed68260ed">
+        <topic id="M:BlueHeron.Cron.ICronParameter.ToList" project="BlueHeron.CronBuilder" file="9e39f6de-0f78-f1c5-16c3-20c668968044" />
+        <topic id="M:BlueHeron.Cron.ICronParameter.ToString" project="BlueHeron.CronBuilder" file="5f015c72-88f2-79b2-4744-e21309c26b39" />
+        <topic id="Overload:BlueHeron.Cron.ICronParameter.Validate" project="BlueHeron.CronBuilder" file="ffbd029d-40be-66dd-3627-2dd05d23f1b1">
+          <topic id="M:BlueHeron.Cron.ICronParameter.Validate" project="BlueHeron.CronBuilder" file="f6e30136-8749-5184-0940-c411e101b18b" />
+          <topic id="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)" project="BlueHeron.CronBuilder" file="6e4dd0fc-6767-8e9b-8d78-c3498df7b4cf" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:BlueHeron.Cron.MonthOfYear" project="BlueHeron.CronBuilder" file="a3ab19ac-3731-9593-9da0-64f0f679911d" />
+    <topic id="T:BlueHeron.Cron.ParameterType" project="BlueHeron.CronBuilder" file="886442ea-5d5d-cf0d-a0ca-8d03b07007e2" />
+    <topic id="T:BlueHeron.Cron.ParameterValueType" project="BlueHeron.CronBuilder" file="46155a56-93cf-45d1-de64-0bc6eab15ce4" />
+  </topic>
+</topics>

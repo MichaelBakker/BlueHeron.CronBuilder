@@ -77,7 +77,7 @@ Public NotInheritable Class CronBuilder
 	''' <param name="values">Variable length array of values. Valid argument count depends on the <paramref name="parameterValueType"/> value</param>
 	''' <returns>The modified <see cref="CronBuilder"/>. Call <see cref="CronBuilder.Build(Boolean, Boolean)"/> to obtain the modified expression</returns>
 	Public Function [With](parameterType As ParameterType, parameterValueType As ParameterValueType, ParamArray values As Object()) As CronBuilder
-		Dim parameter As CronParameter
+		Dim parameter As ICronParameter
 		Dim valueCount As Integer = If(values Is Nothing, 0, values.Count)
 		Dim intValueType As Integer = CInt(parameterValueType)
 
@@ -110,7 +110,7 @@ Public NotInheritable Class CronBuilder
 				Throw New ArgumentException(My.Resources.errArgumentCount)
 			End If
 			parameter = New CronStepParameter(parameterType, parameterValueType, values(0), values(1))
-		ElseIf (parameterValueType And ParameterValueType.Value) = ParameterValueType.Value Then ' 1 value needed
+		ElseIf parameterValueType.IsSingleValueType Then ' 1 value needed
 			If valueCount <> 1 Then
 				Throw New ArgumentException(My.Resources.errArgumentCount)
 			End If

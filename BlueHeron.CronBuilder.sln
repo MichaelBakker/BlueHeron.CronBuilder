@@ -9,6 +9,11 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BlueHeron.CronBuilder.Test"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "BlueHeron.CronBuilder.Documentation", "BlueHeron.CronBuilder.Documentation\BlueHeron.CronBuilder.Documentation.shfbproj", "{956AF179-B8F9-47F0-AC37-293E8237C4CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7F71B98-F48E-4311-A927-BD2EE35DCA90}"
+	ProjectSection(SolutionItems) = preProject
+		Resources.txt = Resources.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,7 +30,6 @@ Global
 		{F54258E2-69F1-40B1-9B24-C8350E7844E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{956AF179-B8F9-47F0-AC37-293E8237C4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{956AF179-B8F9-47F0-AC37-293E8237C4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{956AF179-B8F9-47F0-AC37-293E8237C4CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

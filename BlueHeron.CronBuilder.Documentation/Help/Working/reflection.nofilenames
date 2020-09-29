@@ -1,0 +1,2542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<reflection>
+  <assemblies>
+    <assembly name="BlueHeron.CronBuilder">
+      <assemblydata version="1.0.0.0" culture="" key="" hash="SHA1" />
+      <attributes>
+        <attribute>
+          <type api="T:System.Runtime.CompilerServices.ExtensionAttribute" ref="true" />
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyCompanyAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>The Blue Heron</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyConfigurationAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>Release</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyCopyrightAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>All rights released</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyDescriptionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>Creates Cron expressions using a fluent pattern.</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyFileVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>1.0.0.0</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyInformationalVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>1.0.0</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyProductAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>CronBuilder</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyTitleAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>BlueHeron.CronBuilder</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Resources.NeutralResourcesLanguageAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>en-US</value>
+          </argument>
+        </attribute>
+      </attributes>
+    </assembly>
+  </assemblies>
+  <apis>
+    <api id="N:BlueHeron.Cron">
+      <topicdata group="api" />
+      <apidata name="BlueHeron.Cron" group="namespace" />
+      <elements>
+        <element api="T:BlueHeron.Cron.CronBuilder" />
+        <element api="T:BlueHeron.Cron.CronExpression" />
+        <element api="T:BlueHeron.Cron.CronAnyParameter" />
+        <element api="T:BlueHeron.Cron.CronListParameter" />
+        <element api="T:BlueHeron.Cron.CronRangeParameter" />
+        <element api="T:BlueHeron.Cron.CronStepParameter" />
+        <element api="T:BlueHeron.Cron.CronValueParameter" />
+        <element api="T:BlueHeron.Cron.ICronParameter" />
+        <element api="T:BlueHeron.Cron.ParameterType" />
+        <element api="T:BlueHeron.Cron.ParameterValueType" />
+        <element api="T:BlueHeron.Cron.MonthOfYear" />
+        <element api="T:BlueHeron.Cron.DayOfWeek" />
+      </elements>
+    </api>
+    <api id="T:BlueHeron.Cron.CronAnyParameter">
+      <topicdata group="api" />
+      <apidata name="CronAnyParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </implements>
+      <elements>
+        <element api="P:BlueHeron.Cron.CronAnyParameter.ParameterType" />
+        <element api="M:BlueHeron.Cron.CronAnyParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronAnyParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronAnyParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronAnyParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronAnyParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.CronAnyParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronAnyParameter">
+      <topicdata name="CronAnyParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronAnyParameter" />
+      <apidata name="CronAnyParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronAnyParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronAnyParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronAnyParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronAnyParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronAnyParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronAnyParameter">
+      <topicdata name="CronAnyParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronAnyParameter" />
+      <apidata name="CronAnyParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronAnyParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronAnyParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronAnyParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronAnyParameter.Validate" />
+        <element api="M:BlueHeron.Cron.CronAnyParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronAnyParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ParameterType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronAnyParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToList">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronAnyParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToString">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronAnyParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronAnyParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronAnyParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronAnyParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronAnyParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ValueType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronBuilder">
+      <topicdata group="api" />
+      <apidata name="CronBuilder" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:BlueHeron.Cron.CronBuilder.#ctor" />
+        <element api="Overload:BlueHeron.Cron.CronBuilder.Build">
+          <element api="M:BlueHeron.Cron.CronBuilder.Build(System.Boolean,System.Boolean)" />
+          <element api="M:BlueHeron.Cron.CronBuilder.Build(System.String,System.Boolean,System.Boolean)" />
+        </element>
+        <element api="M:BlueHeron.Cron.CronBuilder.With(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValueType,System.Object[])" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronBuilder">
+      <topicdata name="CronBuilder" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronBuilder" />
+      <apidata name="CronBuilder" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="Overload:BlueHeron.Cron.CronBuilder.Build">
+          <element api="M:BlueHeron.Cron.CronBuilder.Build(System.Boolean,System.Boolean)" />
+          <element api="M:BlueHeron.Cron.CronBuilder.Build(System.String,System.Boolean,System.Boolean)" />
+        </element>
+        <element api="M:BlueHeron.Cron.CronBuilder.With(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValueType,System.Object[])" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronBuilder.Build">
+      <topicdata name="Build" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Build" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronBuilder.Build(System.Boolean,System.Boolean)" />
+        <element api="M:BlueHeron.Cron.CronBuilder.Build(System.String,System.Boolean,System.Boolean)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronBuilder.#ctor">
+      <topicdata group="api" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronBuilder.Build(System.Boolean,System.Boolean)">
+      <topicdata group="api" />
+      <apidata name="Build" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronBuilder.Build" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="validate" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>True</value>
+          </argument>
+        </parameter>
+        <parameter name="throwErrorMessages" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>True</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronBuilder.Build(System.String,System.Boolean,System.Boolean)">
+      <topicdata group="api" />
+      <apidata name="Build" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronBuilder.Build" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="cronExpression">
+          <type api="T:System.String" ref="true" />
+        </parameter>
+        <parameter name="validate" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>True</value>
+          </argument>
+        </parameter>
+        <parameter name="throwErrorMessages" optional="true">
+          <type api="T:System.Boolean" ref="false" />
+          <argument>
+            <type api="T:System.Boolean" ref="false" />
+            <value>True</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronBuilder.With(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValueType,System.Object[])">
+      <topicdata group="api" />
+      <apidata name="With" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="parameterType">
+          <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+        </parameter>
+        <parameter name="parameterValueType">
+          <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+        </parameter>
+        <parameter name="values" params="true">
+          <arrayOf rank="1">
+            <type api="T:System.Object" ref="true" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronBuilder" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronExpression">
+      <topicdata group="api" />
+      <apidata name="CronExpression" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:BlueHeron.Cron.CronExpression.FirstOccurrenceAfter(System.DateTime)" />
+        <element api="M:BlueHeron.Cron.CronExpression.LastOccurrenceBefore(System.DateTime)" />
+        <element api="P:BlueHeron.Cron.CronExpression.Parameters" />
+        <element api="M:BlueHeron.Cron.CronExpression.ToString" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronExpression">
+      <topicdata name="CronExpression" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronExpression" />
+      <apidata name="CronExpression" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronExpression.FirstOccurrenceAfter(System.DateTime)" />
+        <element api="M:BlueHeron.Cron.CronExpression.LastOccurrenceBefore(System.DateTime)" />
+        <element api="M:BlueHeron.Cron.CronExpression.ToString" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronExpression">
+      <topicdata name="CronExpression" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronExpression" />
+      <apidata name="CronExpression" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronExpression.Parameters" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronExpression.FirstOccurrenceAfter(System.DateTime)">
+      <topicdata group="api" />
+      <apidata name="FirstOccurrenceAfter" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="datum">
+          <type api="T:System.DateTime" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.DateTime" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronExpression.LastOccurrenceBefore(System.DateTime)">
+      <topicdata group="api" />
+      <apidata name="LastOccurrenceBefore" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="datum">
+          <type api="T:System.DateTime" ref="false" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.DateTime" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronExpression.Parameters">
+      <topicdata group="api" />
+      <apidata name="Parameters" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Parameters" />
+      <returns>
+        <type api="T:System.Collections.Generic.Dictionary`2" ref="true">
+          <specialization>
+            <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+            <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronExpression.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronExpression" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronListParameter">
+      <topicdata group="api" />
+      <apidata name="CronListParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </implements>
+      <elements>
+        <element api="P:BlueHeron.Cron.CronListParameter.ParameterType" />
+        <element api="M:BlueHeron.Cron.CronListParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronListParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronListParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronListParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronListParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.CronListParameter.Values" />
+        <element api="P:BlueHeron.Cron.CronListParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronListParameter">
+      <topicdata name="CronListParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronListParameter" />
+      <apidata name="CronListParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronListParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronListParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronListParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronListParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronListParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronListParameter">
+      <topicdata name="CronListParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronListParameter" />
+      <apidata name="CronListParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronListParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronListParameter.Values" />
+        <element api="P:BlueHeron.Cron.CronListParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronListParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronListParameter.Validate" />
+        <element api="M:BlueHeron.Cron.CronListParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronListParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ParameterType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronListParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToList">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronListParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToString">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronListParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronListParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronListParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronListParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronListParameter.Values">
+      <topicdata group="api" />
+      <apidata name="Values" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Values" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Object" ref="true" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronListParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ValueType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronRangeParameter">
+      <topicdata group="api" />
+      <apidata name="CronRangeParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </implements>
+      <elements>
+        <element api="P:BlueHeron.Cron.CronRangeParameter.From" />
+        <element api="P:BlueHeron.Cron.CronRangeParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronRangeParameter.To" />
+        <element api="M:BlueHeron.Cron.CronRangeParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronRangeParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronRangeParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronRangeParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronRangeParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.CronRangeParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronRangeParameter">
+      <topicdata name="CronRangeParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronRangeParameter" />
+      <apidata name="CronRangeParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronRangeParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronRangeParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronRangeParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronRangeParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronRangeParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronRangeParameter">
+      <topicdata name="CronRangeParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronRangeParameter" />
+      <apidata name="CronRangeParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronRangeParameter.From" />
+        <element api="P:BlueHeron.Cron.CronRangeParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronRangeParameter.To" />
+        <element api="P:BlueHeron.Cron.CronRangeParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronRangeParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronRangeParameter.Validate" />
+        <element api="M:BlueHeron.Cron.CronRangeParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronRangeParameter.From">
+      <topicdata group="api" />
+      <apidata name="From" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_From" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronRangeParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ParameterType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronRangeParameter.To">
+      <topicdata group="api" />
+      <apidata name="To" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_To" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronRangeParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToList">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronRangeParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToString">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronRangeParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronRangeParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronRangeParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronRangeParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronRangeParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ValueType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronStepParameter">
+      <topicdata group="api" />
+      <apidata name="CronStepParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </implements>
+      <elements>
+        <element api="P:BlueHeron.Cron.CronStepParameter.Increment" />
+        <element api="P:BlueHeron.Cron.CronStepParameter.ParameterType" />
+        <element api="M:BlueHeron.Cron.CronStepParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronStepParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronStepParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronStepParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronStepParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.CronStepParameter.Value" />
+        <element api="P:BlueHeron.Cron.CronStepParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronStepParameter">
+      <topicdata name="CronStepParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronStepParameter" />
+      <apidata name="CronStepParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronStepParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronStepParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronStepParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronStepParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronStepParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronStepParameter">
+      <topicdata name="CronStepParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronStepParameter" />
+      <apidata name="CronStepParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronStepParameter.Increment" />
+        <element api="P:BlueHeron.Cron.CronStepParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronStepParameter.Value" />
+        <element api="P:BlueHeron.Cron.CronStepParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronStepParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronStepParameter.Validate" />
+        <element api="M:BlueHeron.Cron.CronStepParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronStepParameter.Increment">
+      <topicdata group="api" />
+      <apidata name="Increment" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Increment" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronStepParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ParameterType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronStepParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToList">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronStepParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToString">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronStepParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronStepParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronStepParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronStepParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronStepParameter.Value">
+      <topicdata group="api" />
+      <apidata name="Value" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Value" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronStepParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ValueType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.CronValueParameter">
+      <topicdata group="api" />
+      <apidata name="CronValueParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <implements>
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </implements>
+      <elements>
+        <element api="P:BlueHeron.Cron.CronValueParameter.ParameterType" />
+        <element api="M:BlueHeron.Cron.CronValueParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronValueParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronValueParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronValueParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronValueParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.CronValueParameter.Value" />
+        <element api="P:BlueHeron.Cron.CronValueParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.CronValueParameter">
+      <topicdata name="CronValueParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.CronValueParameter" />
+      <apidata name="CronValueParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronValueParameter.ToList" />
+        <element api="M:BlueHeron.Cron.CronValueParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.CronValueParameter.Validate">
+          <element api="M:BlueHeron.Cron.CronValueParameter.Validate" />
+          <element api="M:BlueHeron.Cron.CronValueParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.CronValueParameter">
+      <topicdata name="CronValueParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.CronValueParameter" />
+      <apidata name="CronValueParameter" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.CronValueParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.CronValueParameter.Value" />
+        <element api="P:BlueHeron.Cron.CronValueParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.CronValueParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.CronValueParameter.Validate" />
+        <element api="M:BlueHeron.Cron.CronValueParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronValueParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ParameterType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronValueParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToList">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronValueParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" />
+      <overrides>
+        <member api="M:System.Object.ToString">
+          <type api="T:System.Object" ref="true" />
+        </member>
+      </overrides>
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.ToString">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronValueParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronValueParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.CronValueParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.CronValueParameter.Validate" />
+      <proceduredata virtual="true" final="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <implements>
+        <member api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronValueParameter.Value">
+      <topicdata group="api" />
+      <apidata name="Value" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Value" />
+      <returns>
+        <type api="T:System.Object" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.CronValueParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="true" final="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <implements>
+        <member api="P:BlueHeron.Cron.ICronParameter.ValueType">
+          <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+        </member>
+      </implements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.DayOfWeek">
+      <topicdata group="api" />
+      <apidata name="DayOfWeek" group="type" subgroup="enumeration" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="F:BlueHeron.Cron.DayOfWeek.MON" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.TUE" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.WED" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.THU" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.FRI" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.SAT" />
+        <element api="F:BlueHeron.Cron.DayOfWeek.SUN" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.FRI">
+      <topicdata group="api" notopic="" />
+      <apidata name="FRI" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>5</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.MON">
+      <topicdata group="api" notopic="" />
+      <apidata name="MON" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>1</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.SAT">
+      <topicdata group="api" notopic="" />
+      <apidata name="SAT" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>6</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.SUN">
+      <topicdata group="api" notopic="" />
+      <apidata name="SUN" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>0</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.THU">
+      <topicdata group="api" notopic="" />
+      <apidata name="THU" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>4</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.TUE">
+      <topicdata group="api" notopic="" />
+      <apidata name="TUE" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>2</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.DayOfWeek.WED">
+      <topicdata group="api" notopic="" />
+      <apidata name="WED" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </returns>
+      <value>3</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.DayOfWeek" ref="false" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.ICronParameter">
+      <topicdata group="api" />
+      <apidata name="ICronParameter" group="type" subgroup="interface" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <implementors>
+        <type api="T:BlueHeron.Cron.CronAnyParameter" ref="true" />
+        <type api="T:BlueHeron.Cron.CronListParameter" ref="true" />
+        <type api="T:BlueHeron.Cron.CronRangeParameter" ref="true" />
+        <type api="T:BlueHeron.Cron.CronStepParameter" ref="true" />
+        <type api="T:BlueHeron.Cron.CronValueParameter" ref="true" />
+      </implementors>
+      <elements>
+        <element api="P:BlueHeron.Cron.ICronParameter.ParameterType" />
+        <element api="M:BlueHeron.Cron.ICronParameter.ToList" />
+        <element api="M:BlueHeron.Cron.ICronParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.ICronParameter.Validate">
+          <element api="M:BlueHeron.Cron.ICronParameter.Validate" />
+          <element api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)" />
+        </element>
+        <element api="P:BlueHeron.Cron.ICronParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="Methods.T:BlueHeron.Cron.ICronParameter">
+      <topicdata name="ICronParameter" group="list" subgroup="Methods" typeTopicId="T:BlueHeron.Cron.ICronParameter" />
+      <apidata name="ICronParameter" group="type" subgroup="interface" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <elements>
+        <element api="M:BlueHeron.Cron.ICronParameter.ToList" />
+        <element api="M:BlueHeron.Cron.ICronParameter.ToString" />
+        <element api="Overload:BlueHeron.Cron.ICronParameter.Validate">
+          <element api="M:BlueHeron.Cron.ICronParameter.Validate" />
+          <element api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)" />
+        </element>
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" />
+      </containers>
+    </api>
+    <api id="Properties.T:BlueHeron.Cron.ICronParameter">
+      <topicdata name="ICronParameter" group="list" subgroup="Properties" typeTopicId="T:BlueHeron.Cron.ICronParameter" />
+      <apidata name="ICronParameter" group="type" subgroup="interface" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <elements>
+        <element api="P:BlueHeron.Cron.ICronParameter.ParameterType" />
+        <element api="P:BlueHeron.Cron.ICronParameter.ValueType" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" />
+      </containers>
+    </api>
+    <api id="Overload:BlueHeron.Cron.ICronParameter.Validate">
+      <topicdata name="Validate" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" allMembersTopicId="" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <elements>
+        <element api="M:BlueHeron.Cron.ICronParameter.Validate" />
+        <element api="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.ICronParameter.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata abstract="true" virtual="true" />
+      <propertydata get="true" />
+      <getter name="get_ParameterType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.ICronParameter.ToList">
+      <topicdata group="api" />
+      <apidata name="ToList" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata abstract="true" virtual="true" />
+      <returns>
+        <type api="T:System.Collections.Generic.List`1" ref="true">
+          <specialization>
+            <type api="T:System.Int32" ref="false" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.ICronParameter.ToString">
+      <topicdata group="api" />
+      <apidata name="ToString" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata abstract="true" virtual="true" />
+      <returns>
+        <type api="T:System.String" ref="true" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.ICronParameter.Validate">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.ICronParameter.Validate" />
+      <proceduredata abstract="true" virtual="true" />
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="M:BlueHeron.Cron.ICronParameter.Validate(System.String@)">
+      <topicdata group="api" />
+      <apidata name="Validate" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:BlueHeron.Cron.ICronParameter.Validate" />
+      <proceduredata abstract="true" virtual="true" />
+      <parameters>
+        <parameter name="errorMessage">
+          <referenceTo>
+            <type api="T:System.String" ref="true" />
+          </referenceTo>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="P:BlueHeron.Cron.ICronParameter.ValueType">
+      <topicdata group="api" />
+      <apidata name="ValueType" group="member" subgroup="property" />
+      <memberdata visibility="public" />
+      <proceduredata abstract="true" virtual="true" />
+      <propertydata get="true" />
+      <getter name="get_ValueType" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ICronParameter" ref="true" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.MonthOfYear">
+      <topicdata group="api" />
+      <apidata name="MonthOfYear" group="type" subgroup="enumeration" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="F:BlueHeron.Cron.MonthOfYear.JAN" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.FEB" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.MAR" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.APR" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.MAY" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.JUN" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.JUL" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.AUG" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.SEP" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.OCT" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.NOV" />
+        <element api="F:BlueHeron.Cron.MonthOfYear.DEC" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.APR">
+      <topicdata group="api" notopic="" />
+      <apidata name="APR" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>4</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.AUG">
+      <topicdata group="api" notopic="" />
+      <apidata name="AUG" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>8</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.DEC">
+      <topicdata group="api" notopic="" />
+      <apidata name="DEC" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>12</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.FEB">
+      <topicdata group="api" notopic="" />
+      <apidata name="FEB" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>2</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.JAN">
+      <topicdata group="api" notopic="" />
+      <apidata name="JAN" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>1</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.JUL">
+      <topicdata group="api" notopic="" />
+      <apidata name="JUL" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>7</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.JUN">
+      <topicdata group="api" notopic="" />
+      <apidata name="JUN" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>6</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.MAR">
+      <topicdata group="api" notopic="" />
+      <apidata name="MAR" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>3</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.MAY">
+      <topicdata group="api" notopic="" />
+      <apidata name="MAY" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>5</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.NOV">
+      <topicdata group="api" notopic="" />
+      <apidata name="NOV" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>11</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.OCT">
+      <topicdata group="api" notopic="" />
+      <apidata name="OCT" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>10</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.MonthOfYear.SEP">
+      <topicdata group="api" notopic="" />
+      <apidata name="SEP" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </returns>
+      <value>9</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.MonthOfYear" ref="false" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.ParameterType">
+      <topicdata group="api" />
+      <apidata name="ParameterType" group="type" subgroup="enumeration" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="F:BlueHeron.Cron.ParameterType.Minute" />
+        <element api="F:BlueHeron.Cron.ParameterType.Hour" />
+        <element api="F:BlueHeron.Cron.ParameterType.Day" />
+        <element api="F:BlueHeron.Cron.ParameterType.Month" />
+        <element api="F:BlueHeron.Cron.ParameterType.WeekDay" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterType.Day">
+      <topicdata group="api" notopic="" />
+      <apidata name="Day" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <value>2</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterType.Hour">
+      <topicdata group="api" notopic="" />
+      <apidata name="Hour" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <value>1</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterType.Minute">
+      <topicdata group="api" notopic="" />
+      <apidata name="Minute" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <value>0</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterType.Month">
+      <topicdata group="api" notopic="" />
+      <apidata name="Month" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <value>3</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterType.WeekDay">
+      <topicdata group="api" notopic="" />
+      <apidata name="WeekDay" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </returns>
+      <value>4</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterType" ref="false" />
+      </containers>
+    </api>
+    <api id="T:BlueHeron.Cron.ParameterValueType">
+      <topicdata group="api" />
+      <apidata name="ParameterValueType" group="type" subgroup="enumeration" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="F:BlueHeron.Cron.ParameterValueType.Any" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.List" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.Range" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.Step" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.Value" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.Month" />
+        <element api="F:BlueHeron.Cron.ParameterValueType.DayOfweek" />
+      </elements>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+      </containers>
+      <attributes>
+        <attribute>
+          <type api="T:System.FlagsAttribute" ref="true" />
+        </attribute>
+      </attributes>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.Any">
+      <topicdata group="api" notopic="" />
+      <apidata name="Any" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>0</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.DayOfweek">
+      <topicdata group="api" notopic="" />
+      <apidata name="DayOfweek" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>32</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.List">
+      <topicdata group="api" notopic="" />
+      <apidata name="List" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>1</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.Month">
+      <topicdata group="api" notopic="" />
+      <apidata name="Month" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>16</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.Range">
+      <topicdata group="api" notopic="" />
+      <apidata name="Range" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>2</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.Step">
+      <topicdata group="api" notopic="" />
+      <apidata name="Step" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>4</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+    <api id="F:BlueHeron.Cron.ParameterValueType.Value">
+      <topicdata group="api" notopic="" />
+      <apidata name="Value" group="member" subgroup="field" />
+      <memberdata visibility="public" static="true" />
+      <fielddata literal="true" initonly="false" serialized="true" />
+      <returns>
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </returns>
+      <value>8</value>
+      <containers>
+        <library assembly="BlueHeron.CronBuilder" module="BlueHeron.CronBuilder" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="1.0.0" />
+          <noAptca />
+        </library>
+        <namespace api="N:BlueHeron.Cron" />
+        <type api="T:BlueHeron.Cron.ParameterValueType" ref="false" />
+      </containers>
+    </api>
+  </apis>
+</reflection>
