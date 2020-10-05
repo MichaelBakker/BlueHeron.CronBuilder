@@ -14,11 +14,16 @@
     <Company>The Blue Heron</Company>
     <Product>CronBuilder</Product>
     <Description>Creates Cron expressions using a fluent pattern.</Description>
-    <Copyright>All rights released</Copyright>
+    <Copyright>Copyright © 2020 The Blue Heron</Copyright>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Cron, Schedule, .NET Standard</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>AppLogo.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -54,5 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\OneDrive - draaijer+partners bv\Afbeeldingen\The Blue Heron\AppLogo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>

@@ -89,6 +89,10 @@ Public Enum ParameterValueType
 	''' May be combined with the <see cref="ParameterValueType.List"/>,<see cref="ParameterValueType.Range"/>,<see cref="ParameterValueType.Step"/>, or <see cref="ParameterValueType.Value"/> parameter types.
 	''' </summary>
 	DayOfweek = 32
+	''' <summary>
+	''' The value could not be determined.
+	''' </summary>
+	Unknown = 1024
 End Enum
 
 ''' <summary>

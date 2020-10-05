@@ -77,11 +77,12 @@ Module Extensions
 	''' Converts the given value to its corresponding integer value.
 	''' </summary>
 	''' <param name="value">The value to convert</param>
-	''' <returns>An integer</returns>
-	Friend Function ToInteger(value As Object) As Integer
-		Dim rst As Integer
+	''' <returns>An integer if parsing was successful, else Null / Nothing</returns>
+	<DebuggerStepThrough()>
+	Friend Function ToInteger(value As Object) As Integer?
+		Dim rst As Integer = -1
 
-		If Not Integer.TryParse(CStr(value), rst) Then ' also catches enum values
+		If Not Integer.TryParse(CStr(value), rst) Then ' also parses enum values like. DayOfWeek.MON or MonthOfYear.JAN
 			Dim rstDow As DayOfWeek
 
 			If [Enum].TryParse(value.ToString, rstDow) Then
@@ -89,13 +90,16 @@ Module Extensions
 			Else
 				Dim rstMoy As MonthOfYear
 
-				[Enum].TryParse(value.ToString, rstMoy)
-				rst = rstMoy
+				If [Enum].TryParse(value.ToString, rstMoy) Then
+					rst = rstMoy
+				End If
 			End If
 		End If
 
-		Return rst
+		Return If(rst < 0, Nothing, rst)
 
 	End Function
+
+
 
 End Module

@@ -7,6 +7,12 @@ Public Interface ICronParameter
 #Region " Properties "
 
 	''' <summary>
+	''' Returns a value, determining whether this parameter has passed validation.
+	''' </summary>
+	''' <returns>True, if the parameter passed validation, False if it failed, and Null / Nothing if the parameter has not been validated</returns>
+	ReadOnly Property IsValid As Boolean?
+
+	''' <summary>
 	''' The <see cref="ParameterType" /> of this parameter.
 	''' </summary>
 	ReadOnly Property ParameterType As ParameterType

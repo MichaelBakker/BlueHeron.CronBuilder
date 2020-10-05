@@ -13,6 +13,8 @@ Public NotInheritable Class CronAnyParameter
 
 #Region " Properties "
 
+	Public ReadOnly Property IsValid As Boolean? = True Implements ICronParameter.IsValid
+
 	''' <summary>
 	''' The <see cref="ParameterType"/> of this parameter.
 	''' </summary>

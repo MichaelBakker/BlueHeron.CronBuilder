@@ -8,6 +8,7 @@ Public NotInheritable Class CronRangeParameter
 #Region " Objects and variables "
 
 	Private mValues As List(Of Integer)
+	Private mValid As Boolean?
 
 #End Region
 
@@ -17,6 +18,13 @@ Public NotInheritable Class CronRangeParameter
 	''' The assigned start value.
 	''' </summary>
 	Public ReadOnly Property From As Object
+
+	''' <inheritdoc cref="ICronParameter.IsValid" />
+	Public ReadOnly Property IsValid As Boolean? Implements ICronParameter.IsValid
+		Get
+			Return mValid
+		End Get
+	End Property
 
 	''' <summary>
 	''' The <see cref="ParameterType"/> of this parameter.
@@ -40,9 +48,9 @@ Public NotInheritable Class CronRangeParameter
 	''' <inheritdoc cref="ICronParameter.ToList()" />
 	Public Function ToList() As List(Of Integer) Implements ICronParameter.ToList
 
-		If mValues Is Nothing Then
-			Dim fromVal As Integer = ToInteger(From)
-			Dim toVal As Integer = ToInteger([To])
+		If mValid AndAlso mValues Is Nothing Then
+			Dim fromVal As Integer = ToInteger(From).Value
+			Dim toVal As Integer = ToInteger([To]).Value
 
 			mValues = New List(Of Integer)
 			For i As Integer = fromVal To toVal
@@ -64,28 +72,29 @@ Public NotInheritable Class CronRangeParameter
 	''' <inheritdoc cref="ICronParameter.Validate()" />
 	Public Function Validate() As Boolean Implements ICronParameter.Validate
 
+		mValid = True
 		If Not (ParameterType.Validate(ValueType, From) AndAlso ParameterType.Validate(ValueType, [To])) Then
-			Return False
+			mValid = False
 		End If
 
-		Return True
+		Return mValid.Value
 
 	End Function
 
 	''' <inheritdoc cref="ICronParameter.Validate(ByRef String)" />
 	Public Function Validate(ByRef errorMessage As String) As Boolean Implements ICronParameter.Validate
-		Dim blValid As Boolean = True
 
+		mValid = True
 		If Not ParameterType.Validate(ValueType, From) Then
-			blValid = False
+			mValid = False
 			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, From)
 		End If
 		If Not ParameterType.Validate(ValueType, [To]) Then
-			blValid = False
+			mValid = False
 			errorMessage = vbCrLf & String.Format(My.Resources.errParameter, [To])
 		End If
 
-		Return blValid
+		Return mValid.Value
 
 	End Function
 

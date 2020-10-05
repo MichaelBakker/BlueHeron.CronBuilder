@@ -2,6 +2,7 @@
 ''' <summary>
 ''' Object, that represents a Cron expression.
 ''' </summary>
+<DebuggerDisplay("{Expression}")>
 Public NotInheritable Class CronExpression
 
 #Region " Objects and variables "
@@ -18,6 +19,21 @@ Public NotInheritable Class CronExpression
 	''' <returns>A <see cref="Dictionary(Of ParameterType, ICronParameter)"/></returns>
 	Public ReadOnly Property Parameters As Dictionary(Of ParameterType, ICronParameter)
 
+	''' <summary>
+	''' Returns the textual representation of this expression.
+	''' </summary>
+	Public Property Expression As String
+		Get
+			If String.IsNullOrEmpty(mExpression) Then
+				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).ToString, Parameters(ParameterType.Hour).ToString, Parameters(ParameterType.Day).ToString, Parameters(ParameterType.Month).ToString, Parameters(ParameterType.WeekDay).ToString)
+			End If
+			Return mExpression
+		End Get
+		Friend Set(value As String)
+			mExpression = value
+		End Set
+	End Property
+
 #End Region
 
 #Region " Public methods and functions "
@@ -26,8 +42,8 @@ Public NotInheritable Class CronExpression
 	''' Returns the first date and time on or after the given date when the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the future must be found</param>
-	''' <returns>A date</returns>
-	Public Function FirstOccurrenceAfter(datum As Date) As Date
+	''' <returns>A date and time</returns>
+	Public Function [Next](datum As Date) As Date
 
 		Return FindClosestDate(datum, False)
 
@@ -37,8 +53,8 @@ Public NotInheritable Class CronExpression
 	''' Returns the first date and time on or before the given date when the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the past must be found</param>
-	''' <returns>A date</returns>
-	Public Function LastOccurrenceBefore(datum As Date) As Date
+	''' <returns>A date and time</returns>
+	Public Function Previous(datum As Date) As Date
 
 		Return FindClosestDate(datum, True)
 
@@ -50,10 +66,7 @@ Public NotInheritable Class CronExpression
 	<DebuggerStepThrough()>
 	Public Overrides Function ToString() As String
 
-		If String.IsNullOrEmpty(mExpression) Then
-			mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).ToString, Parameters(ParameterType.Hour).ToString, Parameters(ParameterType.Day).ToString, Parameters(ParameterType.Month).ToString, Parameters(ParameterType.WeekDay).ToString)
-		End If
-		Return mExpression
+		Return Expression
 
 	End Function
 
@@ -69,7 +82,8 @@ Public NotInheritable Class CronExpression
 	''' <returns>A date</returns>
 	Private Function FindClosestDate(datum As Date, goBack As Boolean) As Date
 		Dim carry As Integer = 0 ' remembered value to add to next level (-1, 0 or +1)
-		Dim matchedMinute, matchedHour, matchedDay, matchedMonth As Integer
+		Dim matchedMinute, matchedHour, matchedDay, matchedMonth, matchedYear As Integer
+		Dim isMatch As Boolean
 
 		matchedMinute = FindClosestValue(Parameters(ParameterType.Minute).ToList, datum.Minute, goBack, carry) ' start with smallest component and work up
 		datum = New Date(datum.Year, datum.Month, datum.Day, datum.Hour, matchedMinute, 0).AddHours(carry)
@@ -77,12 +91,19 @@ Public NotInheritable Class CronExpression
 		matchedHour = FindClosestValue(Parameters(ParameterType.Hour).ToList, datum.Hour, goBack, carry)
 		datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, matchedMinute, 0).AddDays(carry)
 		carry = 0
-		matchedDay = FindClosestDay(datum, goBack, carry)
-		datum = New Date(datum.Year, datum.Month, matchedDay, matchedHour, matchedMinute, 0).AddMonths(carry)
-		carry = 0
-		matchedMonth = FindClosestValue(Parameters(ParameterType.Month).ToList, datum.Month, goBack, carry)
 
-		Return New Date(datum.Year + carry, matchedMonth, matchedDay, matchedHour, matchedMinute, 0)
+		Do Until isMatch ' if WeekDay parameter is not any, recalculation of the day is necessary after matching the month and year
+			matchedDay = FindClosestDay(datum, goBack, carry)
+			datum = New Date(datum.Year, datum.Month, matchedDay, matchedHour, matchedMinute, 0).AddMonths(carry)
+			carry = 0
+			matchedMonth = FindClosestValue(Parameters(ParameterType.Month).ToList, datum.Month, goBack, carry)
+			matchedYear = datum.Year + carry
+			isMatch = (Parameters(ParameterType.WeekDay).ValueType = ParameterValueType.Any) OrElse ((matchedMonth = datum.Month) AndAlso (matchedYear = datum.Year) AndAlso (carry = 0)) ' Day, DayOfWeek, Month ánd Year have been matched
+			datum = New Date(matchedYear, matchedMonth, matchedDay, matchedHour, matchedMinute, 0)
+			carry = 0
+		Loop
+
+		Return datum
 
 	End Function
 
@@ -98,25 +119,25 @@ Public NotInheritable Class CronExpression
 	Private Function FindClosestValue(pattern As List(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
 
 		If pattern.Contains(value) Then
-			Return value
+			Return value ' exact match
 		Else
 			If goBack Then
 				Dim backwardPattern As List(Of Integer) = pattern.Where(Function(v) v < value).ToList
 
 				If backwardPattern.Count = 0 Then
 					carry = -1
-					Return pattern.Last(Function(v) v > value)
+					Return pattern.Last(Function(v) v > value) ' highest value of previous cycle
 				Else
-					Return backwardPattern.Last
+					Return backwardPattern.Last ' closest smaller value
 				End If
 			Else
 				Dim forwardPattern As List(Of Integer) = pattern.Where(Function(v) v > value).ToList
 
 				If forwardPattern.Count = 0 Then
 					carry = 1
-					Return pattern.First(Function(v) v < value)
+					Return pattern.First(Function(v) v < value) ' lowest value of next cycle
 				Else
-					Return forwardPattern.First
+					Return forwardPattern.First ' closest higher value
 				End If
 			End If
 		End If
@@ -148,7 +169,7 @@ Public NotInheritable Class CronExpression
 		End If
 
 		If dayPattern.Contains(datum.Day) Then
-			Return datum.Day
+			Return datum.Day ' exact match
 		Else
 			If goBack Then
 				Dim backwardPattern As List(Of Integer) = dayPattern.Where(Function(v) v < datum.Day).ToList
@@ -157,7 +178,7 @@ Public NotInheritable Class CronExpression
 					carry -= 1
 					Return FindClosestDay(New Date(datum.Year, datum.Month, 1).AddDays(-1), goBack, carry) ' continue search starting from the last day of the previous month
 				Else
-					Return backwardPattern.Last
+					Return backwardPattern.Last ' closest day in past
 				End If
 			Else
 				Dim forwardPattern As List(Of Integer) = dayPattern.Where(Function(v) v > datum.Day).ToList
@@ -166,7 +187,7 @@ Public NotInheritable Class CronExpression
 					carry += 1
 					Return FindClosestDay(New Date(datum.Year, datum.Month, daysInMonth).AddDays(1), goBack, carry)  ' continue search starting from the first day of the next month
 				Else
-					Return forwardPattern.First
+					Return forwardPattern.First ' closest day in future
 				End If
 			End If
 		End If

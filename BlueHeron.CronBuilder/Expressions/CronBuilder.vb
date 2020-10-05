@@ -15,33 +15,22 @@ Public NotInheritable Class CronBuilder
 	''' <summary>
 	''' Returns the <see cref="CronExpression"/>, optionally validating it.
 	''' </summary>
-	''' <param name="validate">If true, validation is performed and an error thrown upon failure</param>
-	''' <param name="throwErrorMessages">Include detailed error messages when throwing an error</param>
 	''' <exception cref="ArgumentException">The expression contains one or more invalid parameters</exception>
 	''' <returns>A <see cref="CronExpression"/></returns>
-	Public Function Build(Optional validate As Boolean = True, Optional throwErrorMessages As Boolean = True) As CronExpression
+	Public Function Build() As CronExpression
+		Dim messages As String = String.Empty
 
-		If validate Then
-			If throwErrorMessages Then
-				Dim messages As String = String.Empty
+		mExpression.Expression = String.Empty ' force recreation (necessary when the same CronBuilder is used multiple times)
+		mExpression.Parameters.Values.ToList.ForEach(Sub(p)
+														 Dim msg As String = String.Empty
 
-				mExpression.Parameters.Values.ToList.ForEach(Sub(p)
-																 Dim msg As String = String.Empty
+														 If Not p.Validate(msg) Then
+															 messages &= vbCrLf & msg
+														 End If
+													 End Sub)
 
-																 If Not p.Validate(msg) Then
-																	 messages &= vbCrLf & msg
-																 End If
-															 End Sub)
-				If Not String.IsNullOrEmpty(messages) Then
-					Throw New ArgumentException(String.Format(My.Resources.errParameterWithMessage, mExpression, messages))
-				End If
-			Else
-				mExpression.Parameters.Values.ToList.ForEach(Sub(p)
-																 If Not p.Validate Then
-																	 Throw New ArgumentException(String.Format(My.Resources.errParameter, p))
-																 End If
-															 End Sub)
-			End If
+		If Not String.IsNullOrEmpty(messages) Then
+			Throw New ArgumentException(String.Format(My.Resources.errParameterWithMessage, mExpression, messages))
 		End If
 
 		Return mExpression
@@ -49,23 +38,42 @@ Public NotInheritable Class CronBuilder
 	End Function
 
 	''' <summary>
-	''' Creates a <see cref="CronExpression" /> from the given string and returns it, optionally validating it.
+	''' Creates a <see cref="CronExpression" /> from the given string and returns it after validation.
 	''' </summary>
 	''' <param name="cronExpression">The string representation of a Cron expression</param>
-	''' <param name="validate">If true, validation is performed and an error thrown upon failure</param>
-	''' <param name="throwErrorMessages">Include detailed error messages when throwing an error</param>
 	''' <exception cref="ArgumentException">The expression contains one or more invalid parameters</exception>
 	''' <returns>A <see cref="CronExpression"/></returns>
-	Public Function Build(cronExpression As String, Optional validate As Boolean = True, Optional throwErrorMessages As Boolean = True) As CronExpression
+	Public Function Build(cronExpression As String) As CronExpression
 		Dim parts As String() = cronExpression.Split({Space}, StringSplitOptions.RemoveEmptyEntries)
 
 		If parts.Count <> 5 Then
 			Throw New ArgumentException(My.Resources.errParameterCount)
 		End If
 
-		' ...
+		For i As Integer = 0 To 4
+			Dim paramType As ParameterType = CType(i, ParameterType)
+			Dim part As String = parts(i)
 
-		Return mExpression
+			If part = Asterix Then
+				mExpression.Parameters(paramType) = New CronAnyParameter(paramType)
+			Else
+				Dim intValue As Integer
+
+				If Integer.TryParse(part, intValue) Then
+					mExpression.Parameters(paramType) = New CronValueParameter(paramType, ParameterValueType.Value, intValue)
+				Else
+					If paramType = ParameterType.Month Then ' check for MonthOfYear value
+
+					ElseIf paramType = ParameterType.WeekDay Then ' check for DayOfWeek value
+
+					Else ' list, range or step
+
+					End If
+				End If
+			End If
+		Next
+
+		Return Build()
 
 	End Function
 
@@ -75,11 +83,16 @@ Public NotInheritable Class CronBuilder
 	''' <param name="parameterType">The <paramref name="parameterType">expression part</paramref> to modify</param>
 	''' <param name="parameterValueType">The <paramref name="parameterValueType">type of the value(s) to apply</paramref></param>
 	''' <param name="values">Variable length array of values. Valid argument count depends on the <paramref name="parameterValueType"/> value</param>
-	''' <returns>The modified <see cref="CronBuilder"/>. Call <see cref="CronBuilder.Build(Boolean, Boolean)"/> to obtain the modified expression</returns>
+	''' <returns>The modified <see cref="CronBuilder"/>. Call <see cref="CronBuilder.Build()"/> to obtain the modified expression</returns>
 	Public Function [With](parameterType As ParameterType, parameterValueType As ParameterValueType, ParamArray values As Object()) As CronBuilder
 		Dim parameter As ICronParameter
 		Dim valueCount As Integer = If(values Is Nothing, 0, values.Count)
-		Dim intValueType As Integer = CInt(parameterValueType)
+		Dim intValueType As Integer
+
+		If parameterValueType = ParameterValueType.List OrElse parameterValueType = ParameterValueType.Range OrElse parameterValueType = ParameterValueType.Step Then
+			parameterValueType = parameterValueType Or ParameterValueType.Value ' Accept step, range and list without specification and assume its a ParameterValue.Value type
+		End If
+		intValueType = CInt(parameterValueType)
 
 		If Not ValidIntegerCombinations.Contains(intValueType) Then
 			If parameterType = ParameterType.Month Then
@@ -120,9 +133,16 @@ Public NotInheritable Class CronBuilder
 		End If
 
 		mExpression.Parameters(parameterType) = parameter
+
 		Return Me
 
 	End Function
+
+#End Region
+
+#Region " Private methods and functions "
+
+
 
 #End Region
 
