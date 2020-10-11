@@ -11,20 +11,124 @@
           <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal argumenten.</target>
         </trans-unit>
         <trans-unit id="errParameter" translate="yes" xml:space="preserve">
-          <source>{0} is invalid.</source>
-          <target state="final">{0} is ongeldig.</target>
+          <source>'{0}' is invalid.</source>
+          <target state="final">'{0}' is ongeldig.</target>
         </trans-unit>
         <trans-unit id="errParameterCount" translate="yes" xml:space="preserve">
           <source>Invalid number of parameters.</source>
           <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal parameters.</target>
         </trans-unit>
         <trans-unit id="errParameterValueType" translate="yes" xml:space="preserve">
-          <source>Invalid ParameterValueType value (or combination).</source>
-          <target state="final">Ongeldige ParameterValueType waarde (of combinatie).</target>
+          <source>Invalid ParameterValueType value: '{0}'.</source>
+          <target state="final">Ongeldige ParameterValueType waarde: '{0}'.</target>
         </trans-unit>
         <trans-unit id="errParameterWithMessage" translate="yes" xml:space="preserve">
-          <source>{0} is invalid. {1}.</source>
-          <target state="final">{0} is ongeldig. {1}.</target>
+          <source>'{0}' is invalid. {1}</source>
+          <target state="final">'{0}' is ongeldig. {1}</target>
+        </trans-unit>
+        <trans-unit id="errParameterValueTypes" translate="yes" xml:space="preserve">
+          <source>Value types of '{0}' do not match.</source>
+          <target state="final">ParameterValueType waarden van '{0}' komen niet overeen.</target>
+        </trans-unit>
+        <trans-unit id="errAggregateMessage" translate="yes" xml:space="preserve">
+          <source>One or more errors occurred when validating parameter values.</source>
+          <target state="final">Eén of meer fouten zijn opgetreden tijdens het valideren van de parameter waarden.</target>
+        </trans-unit>
+        <trans-unit id="and" translate="yes" xml:space="preserve">
+          <source>and</source>
+          <target state="final">en</target>
+        </trans-unit>
+        <trans-unit id="andThen" translate="yes" xml:space="preserve">
+          <source>and then</source>
+          <target state="final">en daarna</target>
+        </trans-unit>
+        <trans-unit id="atHour" translate="yes" xml:space="preserve">
+          <source>at</source>
+          <target state="final">op</target>
+        </trans-unit>
+        <trans-unit id="day" translate="yes" xml:space="preserve">
+          <source>day</source>
+          <target state="final">dag</target>
+        </trans-unit>
+        <trans-unit id="days" translate="yes" xml:space="preserve">
+          <source>days</source>
+          <target state="final">dagen</target>
+        </trans-unit>
+        <trans-unit id="every" translate="yes" xml:space="preserve">
+          <source>every</source>
+          <target state="final">elke</target>
+        </trans-unit>
+        <trans-unit id="friday" translate="yes" xml:space="preserve">
+          <source>friday</source>
+          <target state="final">vrijdag</target>
+        </trans-unit>
+        <trans-unit id="hour" translate="yes" xml:space="preserve">
+          <source>hour</source>
+          <target state="final">uur</target>
+        </trans-unit>
+        <trans-unit id="hours" translate="yes" xml:space="preserve">
+          <source>hours</source>
+          <target state="final">uren</target>
+        </trans-unit>
+        <trans-unit id="inMonth" translate="yes" xml:space="preserve">
+          <source>in</source>
+          <target state="final">in</target>
+        </trans-unit>
+        <trans-unit id="minute" translate="yes" xml:space="preserve">
+          <source>minute</source>
+          <target state="final">minuut</target>
+        </trans-unit>
+        <trans-unit id="minutes" translate="yes" xml:space="preserve">
+          <source>minutes</source>
+          <target state="final">minuten</target>
+        </trans-unit>
+        <trans-unit id="monday" translate="yes" xml:space="preserve">
+          <source>monday</source>
+          <target state="final">maandag</target>
+        </trans-unit>
+        <trans-unit id="month" translate="yes" xml:space="preserve">
+          <source>month</source>
+          <target state="final">maand</target>
+        </trans-unit>
+        <trans-unit id="months" translate="yes" xml:space="preserve">
+          <source>months</source>
+          <target state="final">maanden</target>
+        </trans-unit>
+        <trans-unit id="onDay" translate="yes" xml:space="preserve">
+          <source>on</source>
+          <target state="final">op</target>
+        </trans-unit>
+        <trans-unit id="saturday" translate="yes" xml:space="preserve">
+          <source>saturday</source>
+          <target state="final">zaterdag</target>
+        </trans-unit>
+        <trans-unit id="starting" translate="yes" xml:space="preserve">
+          <source>starting</source>
+          <target state="final">beginnend</target>
+        </trans-unit>
+        <trans-unit id="startingWith" translate="yes" xml:space="preserve">
+          <source>starting with</source>
+          <target state="final">beginnend met</target>
+        </trans-unit>
+        <trans-unit id="sunday" translate="yes" xml:space="preserve">
+          <source>sunday</source>
+          <target state="final">zondag</target>
+        </trans-unit>
+        <trans-unit id="through" translate="yes" xml:space="preserve">
+          <source>through</source>
+          <target state="final">t/m</target>
+        </trans-unit>
+        <trans-unit id="thursday" translate="yes" xml:space="preserve">
+          <source>thursday</source>
+          <target state="final">donderdag</target>
+        </trans-unit>
+        <trans-unit id="tuesday" translate="yes" xml:space="preserve">
+          <source>tuesday</source>
+          <target state="final">dinsdag</target>
+        </trans-unit>
+        <trans-unit id="wednesday" translate="yes" xml:space="preserve">
+          <source>wednesday</source>
+          <target state="final">woensdag</target>
         </trans-unit>
       </group>
     </body>

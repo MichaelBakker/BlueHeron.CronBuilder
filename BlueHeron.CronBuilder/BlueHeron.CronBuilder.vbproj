@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>BlueHeron.Cron</RootNamespace>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
     <OptionStrict>On</OptionStrict>
     <Authors>Michael Bakker</Authors>
     <Company>The Blue Heron</Company>
@@ -16,7 +16,7 @@
     <Description>Creates Cron expressions using a fluent pattern.</Description>
     <Copyright>Copyright © 2020 The Blue Heron</Copyright>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>Cron, Schedule, .NET Standard</PackageTags>
+    <PackageTags>Cron, Schedule, .NET Standard, .NET Core</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -44,6 +44,11 @@
     <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
   </Target>
   <ItemGroup>
+    <Compile Remove="Parameters\**" />
+    <EmbeddedResource Remove="Parameters\**" />
+    <None Remove="Parameters\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Resources\Resources.Designer.vb">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -52,8 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Resources.resx">
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Localization</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

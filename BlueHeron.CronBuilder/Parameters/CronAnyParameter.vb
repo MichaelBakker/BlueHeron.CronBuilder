@@ -3,34 +3,12 @@
 ''' The wildcard parameter, i.e. '*', that matches all values.
 ''' </summary>
 Public NotInheritable Class CronAnyParameter
-	Implements ICronParameter
-
-#Region " Objects and variables "
-
-	Private mValues As List(Of Integer)
-
-#End Region
-
-#Region " Properties "
-
-	Public ReadOnly Property IsValid As Boolean? = True Implements ICronParameter.IsValid
-
-	''' <summary>
-	''' The <see cref="ParameterType"/> of this parameter.
-	''' </summary>
-	Public ReadOnly Property ParameterType As ParameterType Implements ICronParameter.ParameterType
-
-	''' <summary>
-	''' The expected <see cref="ParameterValueType"/>.
-	''' </summary>
-	Public ReadOnly Property ValueType As ParameterValueType = ParameterValueType.Any Implements ICronParameter.ValueType
-
-#End Region
+	Inherits CronParameterBase
 
 #Region " Public Methods and functions "
 
-	''' <inheritdoc cref="ICronParameter.ToList()" />
-	Public Function ToList() As List(Of Integer) Implements ICronParameter.ToList
+	''' <inheritdoc cref="ICronParameter.AsEnumerable()" />
+	Public Overrides Function AsEnumerable() As IEnumerable(Of Integer)
 
 		If mValues Is Nothing Then
 			mValues = New List(Of Integer)
@@ -44,23 +22,9 @@ Public NotInheritable Class CronAnyParameter
 	End Function
 
 	''' <inheritdoc cref="ICronParameter.ToString()" />
-	Public Overrides Function ToString() As String Implements ICronParameter.ToString
+	Public Overrides Function ToString() As String
 
 		Return Asterix
-
-	End Function
-
-	''' <inheritdoc cref="ICronParameter.Validate()" />
-	Public Function Validate() As Boolean Implements ICronParameter.Validate
-
-		Return True
-
-	End Function
-
-	''' <inheritdoc cref="ICronParameter.Validate(ByRef String)" />
-	Public Function Validate(ByRef errorMessage As String) As Boolean Implements ICronParameter.Validate
-
-		Return True
 
 	End Function
 
@@ -74,7 +38,7 @@ Public NotInheritable Class CronAnyParameter
 	''' <param name="paramType">The <see cref="ParameterType"/></param>
 	Friend Sub New(paramType As ParameterType)
 
-		ParameterType = paramType
+		MyBase.New(paramType, ParameterValue.Any)
 
 	End Sub
 

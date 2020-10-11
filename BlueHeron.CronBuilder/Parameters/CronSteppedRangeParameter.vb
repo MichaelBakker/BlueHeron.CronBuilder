@@ -1,8 +1,9 @@
 ﻿
 ''' <summary>
-''' Parameter that consists of a range of values.
+''' Parameter that consists of a range of values and an increment value.
+''' E.g.: 1-6/2 -> 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, ...
 ''' </summary>
-Public NotInheritable Class CronRangeParameter
+Public NotInheritable Class CronSteppedRangeParameter
 	Inherits CronParameterBase
 
 #Region " Public methods and functions "
@@ -13,6 +14,7 @@ Public NotInheritable Class CronRangeParameter
 		If mValues Is Nothing Then
 			Dim fromVal As Integer = Value.Values(0).Value
 			Dim toVal As Integer = Value.Values(1).Value
+			Dim incr As Integer = Value.Values(2).Value
 			Dim maxVal As Integer = MaximumValues(ParameterType)
 			Dim minVal As Integer = MinimumValues(ParameterType)
 
@@ -20,16 +22,21 @@ Public NotInheritable Class CronRangeParameter
 			For i As Integer = Math.Max(minVal, fromVal) To Math.Min(maxVal, toVal)
 				mValues.Add(i)
 			Next
+			If toVal <= (maxVal - incr) Then
+				For i As Integer = toVal To maxVal Step incr
+					mValues.Add(i)
+				Next
+			End If
 		End If
 
-		Return mValues
+		Return mValues.Distinct
 
 	End Function
 
 	''' <inheritdoc cref="ICronParameter.ToString()" />
 	Public Overrides Function ToString() As String
 
-		Return String.Format(fmtRange, Value.Values(0), Value.Values(1))
+		Return String.Format(fmtSteppedRange, Value.Values(0), Value.Values(1), Value.Values(2))
 
 	End Function
 
@@ -38,13 +45,14 @@ Public NotInheritable Class CronRangeParameter
 #Region " Construction "
 
 	''' <summary>
-	''' Creates a new CronRangeParameter.
+	''' Creates a new CronSteppedRangeParameter.
 	''' </summary>
 	''' <param name="fromValue">The assigned start value</param>
 	''' <param name="toValue">The assigned end value</param>
-	Friend Sub New(paramType As ParameterType, fromValue As ParameterValue, toValue As ParameterValue)
+	''' <param name="incrementValue">The assigned increment value</param>
+	Friend Sub New(paramType As ParameterType, fromValue As ParameterValue, toValue As ParameterValue, incrementValue As ParameterValue)
 
-		MyBase.New(paramType, ParameterValue.Range(fromValue, toValue))
+		MyBase.New(paramType, ParameterValue.SteppedRange(fromValue, toValue, incrementValue))
 
 	End Sub
 

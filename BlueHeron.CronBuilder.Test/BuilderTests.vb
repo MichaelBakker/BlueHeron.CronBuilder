@@ -1,149 +1,213 @@
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
+Imports BlueHeron.Cron.Localization
 
-Namespace BlueHeron.Cron.Test
-
-	''' <summary>
-	''' Tests can be double-checked at: https://crontab.guru
-	''' </summary>
-	<TestClass>
-	Public Class BuilderTests
+''' <summary>
+''' Tests can be double-checked at: https://crontab.guru .
+''' </summary>
+<TestClass>
+Public Class BuilderTests
 
 #Region " Objects and variables "
 
-		Private Shared mBuilder As CronBuilder
+	Private Const _ANY As String = "* * * * *"
+
+	Private Shared mBuilder As Builder
 
 #End Region
 
-		<TestMethod>
-		Sub Test0_Default()
-			Dim defaultExpression As String
+	<TestMethod>
+	Sub Test00_Default()
+		Dim defaultExpression As String
 
-			mBuilder = New CronBuilder
-			defaultExpression = mBuilder.Build.Expression
+		mBuilder = New Builder
+		defaultExpression = mBuilder.Build.Expression
 
-			Debug.Assert(defaultExpression = "* * * * *")
+		Debug.Assert(defaultExpression = _ANY)
 
-		End Sub
+	End Sub
 
-		Sub Test0_ValidationAndMessages()
+	<TestMethod>
+	Sub Test01_ValueParameters()
+		Dim expectedExpression As String = "23 0-20 1/2 1 *"
+		Dim parameterizedExpression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(23)).
+			WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(20)).
+			WithStep(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(2)).
+			WithValue(ParameterType.Month, ParameterValue.Number(1)).
+			WithAny(ParameterType.WeekDay). ' not always necessary; when using a new CronBuilder instance all parameters default to 'Any' (see Test00_Default)
+			Build()
 
-			With mBuilder
+		Debug.Assert(parameterizedExpression.Expression = expectedExpression)
 
-			End With
+	End Sub
 
-		End Sub
+	<TestMethod>
+	Sub Test02_MonthAndDayOfWeekParameters()
+		Dim expectedExpression As String = "0 0-23 * APR-OCT MON"  ' integer, text and enum value are supported
+		Dim parameterizedExpression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(23)).
+			WithAny(ParameterType.Day).
+			WithRange(ParameterType.Month, ParameterValue.FromString("APR"), ParameterValue.FromString("OCT")).
+			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			Build() ' validation is performed by default
 
-		<TestMethod>
-		Sub Test1_ValueParameters()
-			Dim expectedExpression As String = "23 0-20 1/2 1 *"
-			Dim parameterizedExpression As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 23).
-				With(ParameterType.Hour, ParameterValueType.Range Or ParameterValueType.Value, 0, 20).
-				With(ParameterType.Day, ParameterValueType.Step Or ParameterValueType.Value, 1, 2).
-				With(ParameterType.Month, ParameterValueType.Value, 1).
-				With(ParameterType.WeekDay, ParameterValueType.Any).
-				Build()
+		Debug.Assert(parameterizedExpression.Expression = expectedExpression)
 
-			Debug.Assert(parameterizedExpression.Expression = expectedExpression)
+	End Sub
 
-		End Sub
+	<TestMethod()>
+	Sub Test03_DateMatchingSingleValue()
+		Dim dtmTest As New Date(2020, 9, 29) ' is a tuesday
 
-		<TestMethod>
-		Sub Test2_MonthAndDayOfWeekParameters()
-			Dim expectedExpression As String = "0 0-23 * APR-OCT MON"
-			Dim parameterizedExpression As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 0).
-				With(ParameterType.Hour, ParameterValueType.Range Or ParameterValueType.Value, 0, 23).
-				With(ParameterType.Day, ParameterValueType.Any).
-				With(ParameterType.Month, ParameterValueType.Range Or ParameterValueType.Month, "APR", "OCT").
-				With(ParameterType.WeekDay, ParameterValueType.DayOfweek, DayOfWeek.MON). ' both text and enum value are supported
-				Build() ' validation is performed by default
+		Dim expression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+			WithAny(ParameterType.Day).
+			WithAny(ParameterType.Month).
+			WithAny(ParameterType.WeekDay).
+			Build() ' every day at noon
+		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
+		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
+		Dim matchedAfter As Date = expression.Next(dateToMatchLater)
+		Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
 
-			Debug.Assert(parameterizedExpression.Expression = expectedExpression)
+		Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day + 1, 12, 0, 0))
+		Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day - 1, 12, 0, 0))
 
-		End Sub
+		matchedAfter = expression.Next(dateToMatchEarlier)
+		matchedBefore = expression.Previous(dateToMatchLater)
 
-		<TestMethod()>
-		Sub Test3_DateMatchingSingleValue()
-			Dim dtmTest As New Date(2020, 9, 29) ' is a tuesday
+		Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0))
+		Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0))
 
-			Dim expression As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 0).
-				With(ParameterType.Hour, ParameterValueType.Value, 12).
-				With(ParameterType.Day, ParameterValueType.Any).
-				With(ParameterType.Month, ParameterValueType.Any).
-				With(ParameterType.WeekDay, ParameterValueType.Any).
-				Build() ' every day at noon
-			Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
-			Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
-			Dim matchedAfter As Date = expression.Next(dateToMatchLater)
-			Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
+		Dim expression2 As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+			WithAny(ParameterType.Day).
+			WithAny(ParameterType.Month).
+			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			Build() ' every monday at noon
 
-			Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day + 1, 12, 0, 0))
-			Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day - 1, 12, 0, 0))
+		matchedAfter = expression2.Next(dateToMatchLater)
+		matchedBefore = expression2.Previous(dateToMatchEarlier)
 
-			matchedAfter = expression.Next(dateToMatchEarlier)
-			matchedBefore = expression.Previous(dateToMatchLater)
+		Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0).AddDays(6)) '  first monday after test date
+		Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0).AddDays(-1)) ' last monday before testdate
 
-			Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0))
-			Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0))
+	End Sub
 
-			Dim expression2 As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 0).
-				With(ParameterType.Hour, ParameterValueType.Value, 12).
-				With(ParameterType.Day, ParameterValueType.Any).
-				With(ParameterType.Month, ParameterValueType.Any).
-				With(ParameterType.WeekDay, ParameterValueType.DayOfweek, DayOfWeek.MON).
-				Build() ' every monday at noon
+	<TestMethod()>
+	Sub Test04_DateMatchingWeekOfDayValue()
+		Dim dtmTest As New Date(2020, 9, 29)
+		Dim expression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+			WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
+			WithAny(ParameterType.Month).
+			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			Build() ' every first monday of any month at noon
+		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
+		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
+		Dim matchedAfter As Date = expression.Next(dateToMatchLater)
+		Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
 
-			matchedAfter = expression2.Next(dateToMatchLater)
-			matchedBefore = expression2.Previous(dateToMatchEarlier)
+		Debug.Assert(matchedAfter = New Date(2020, 10, 5, 12, 0, 0)) ' first monday of month after testdate
+		Debug.Assert(matchedBefore = New Date(2020, 9, 7, 12, 0, 0)) ' first monday of month before testdate
 
-			Debug.Assert(matchedAfter = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0).AddDays(6)) '  first monday after test date
-			Debug.Assert(matchedBefore = New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 12, 0, 0).AddDays(-1)) ' last monday before testdate
+	End Sub
 
-		End Sub
+	<TestMethod()>
+	Sub Test05_DateMatchingRangeCombinations()
+		Dim dtmTest As New Date(2020, 9, 29)
+		Dim expression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+			WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
+			WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)). ' every second month starting with february
+			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			Build() ' every first monday of even months at noon
+		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
+		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
+		Dim matchedAfter As Date = expression.Next(dateToMatchLater)
+		Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
 
-		<TestMethod()>
-		Sub Test4_DateMatchingWeekOfDayValue()
-			Dim dtmTest As New Date(2020, 9, 29)
-			Dim expression As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 0).
-				With(ParameterType.Hour, ParameterValueType.Value, 12).
-				With(ParameterType.Day, ParameterValueType.Range, 1, 7). ' ParameterValueType.Value is assumed if ParameterValueType is not specified explicitly
-				With(ParameterType.Month, ParameterValueType.Any).
-				With(ParameterType.WeekDay, ParameterValueType.DayOfweek, DayOfWeek.MON).
-				Build() ' every first monday of any month at noon
-			Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
-			Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
-			Dim matchedAfter As Date = expression.Next(dateToMatchLater)
-			Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
+		Debug.Assert(matchedAfter = New Date(2020, 10, 5, 12, 0, 0)) ' first monday of first matching month after testdate
+		Debug.Assert(matchedBefore = New Date(2020, 8, 3, 12, 0, 0)) ' first monday of last matching month before testdate
 
-			Debug.Assert(matchedAfter = New Date(2020, 10, 5, 12, 0, 0)) ' first monday of month after testdate
-			Debug.Assert(matchedBefore = New Date(2020, 9, 7, 12, 0, 0)) ' first monday of month before testdate
+	End Sub
 
-		End Sub
+	<TestMethod()>
+	Sub Test06_ExpressionParsing()
+		Dim expectedExpression As String = "23 0-20 1/2 1 *"
+		Dim cronExpression As Expression = mBuilder.Build(expectedExpression)
 
-		<TestMethod()>
-		Sub Test5_DateMatchingRangeCombinations()
-			Dim dtmTest As New Date(2020, 9, 29)
-			Dim expression As CronExpression = mBuilder.
-				With(ParameterType.Minute, ParameterValueType.Value, 0).
-				With(ParameterType.Hour, ParameterValueType.Value, 12).
-				With(ParameterType.Day, ParameterValueType.Range Or ParameterValueType.Value, 1, 7).
-				With(ParameterType.Month, ParameterValueType.Step Or ParameterValueType.Value, 2, 2).
-				With(ParameterType.WeekDay, ParameterValueType.DayOfweek, DayOfWeek.MON).
-				Build() ' every first monday of even months at noon
-			Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
-			Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
-			Dim matchedAfter As Date = expression.Next(dateToMatchLater)
-			Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
+		Debug.Assert(cronExpression.ToString = expectedExpression)
 
-			Debug.Assert(matchedAfter = New Date(2020, 10, 5, 12, 0, 0)) ' first monday of first matching month after testdate
-			Debug.Assert(matchedBefore = New Date(2020, 8, 3, 12, 0, 0)) ' first monday of last matching month before testdate
+	End Sub
 
-		End Sub
+	<TestMethod()>
+	Sub Test07_DateMatchingList()
+		Dim dtmTest As New Date(2020, 9, 29, 12, 0, 0)
+		Dim expression As Expression = mBuilder.
+			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+			WithList(ParameterType.Hour, ParameterValue.Number(1), ParameterValue.Number(2), ParameterValue.Number(3), ParameterValue.Step(ParameterValue.Number(4), ParameterValue.Number(2))).
+			WithAny(ParameterType.Day).
+			WithAny(ParameterType.Month).
+			WithAny(ParameterType.WeekDay).
+			Build() ' every 1st, 2nd, 3rd hour and then every second hour starting at hour 4 (i.e. 1, 2, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22)
+		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
+		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am
+		Dim matchedAfter As Date = expression.Next(dateToMatchLater)
+		Dim matchedBefore As Date = expression.Previous(dateToMatchEarlier)
 
-	End Class
+		Debug.Assert(matchedAfter = New Date(2020, 9, 29, 14, 0, 0)) ' first match is 14:00
+		Debug.Assert(matchedBefore = New Date(2020, 9, 29, 10, 0, 0)) ' last match is 10:00
 
-End Namespace
+	End Sub
+
+	<TestMethod()>
+	Sub Test08_Polling()
+		Dim expression As Expression = mBuilder.Build(_ANY)
+
+		Debug.Assert(expression.Poll = True)
+
+	End Sub
+
+	<TestMethod()>
+	Sub Test09_ValidateOnCreation()
+		Dim exception As ParserException = Nothing
+		Dim misHapsAsText As IEnumerable(Of String) = {"Q"}
+
+		For Each value As String In misHapsAsText
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.Minute, value).Build
+			Catch ex As ParserException
+				exception = ex
+			End Try
+
+			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameter, value))
+			exception = Nothing
+		Next
+
+	End Sub
+
+	<TestMethod()>
+	Sub Test10_ValidateOnBuild()
+		Dim exception As AggregateException = Nothing
+		Dim misHapsDayOfWeekAndMonthOfYear As IEnumerable(Of String) = {"MON", "JAN"}
+
+		For Each value As String In misHapsDayOfWeekAndMonthOfYear
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.Hour, value).Build
+			Catch ex As AggregateException
+				exception = ex
+			End Try
+
+			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameter, value))
+			exception = Nothing
+		Next
+
+	End Sub
+
+End Class

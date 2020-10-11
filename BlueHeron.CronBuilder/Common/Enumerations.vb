@@ -27,72 +27,44 @@ End Enum
 
 ''' <summary>
 ''' Enumeration of possible parameter value types.
-''' Valid values:
-''' <list type="bullet">
-''' <item>0:	Any</item>
-''' <item>8:	A single integer value</item>
-''' <item>9:	List of integers</item>
-''' <item>10:	Range of integers</item>
-''' <item>12:	Step of integers</item>
-''' <item>16:	A single <see cref="MonthOfYear"/> value</item>
-''' <item>17:	List of <see cref="MonthOfYear"/> values</item>
-''' <item>18:	Range of <see cref="MonthOfYear"/> values</item>
-''' <item>20:	Step of <see cref="MonthOfYear"/> values</item>
-''' <item>32:	A single <see cref="DayOfWeek"/> value</item>
-''' <item>33:	List of <see cref="DayOfWeek"/> values</item>
-''' <item>34:	Range of <see cref="DayOfWeek"/> values</item> 
-''' <item>36:	Step of <see cref="DayOfWeek"/> values</item>
-''' </list>
-''' <hr />
-''' Valid combinations:
-''' <list type="bullet">
-''' <item>Minute:	0,8,9,10,12</item>
-''' <item>Hour:		0,8,9,10,12</item>
-''' <item>Day:		0,8,9,10,12</item>
-''' <item>Month:	0,8,9,10,12,16,17,18,20</item>
-''' <item>WeekDay:	0,8,9,10,12,32,33,34,36</item>
-''' </list>
 ''' </summary>
-<Flags>
-Public Enum ParameterValueType
+Public Enum ValueType
 	''' <summary>
-	''' No value specified, meaning all values are a match.
+	''' No value is specified, meaning any value will match.
 	''' </summary>
 	Any = 0
 	''' <summary>
 	''' The parameter is a list of distinct values.
-	''' May be combined with the <see cref="ParameterValueType.Month"/> or <see cref="ParameterValueType.DayOfweek"/> parameter types.
 	''' </summary>
 	List = 1
 	''' <summary>
 	''' The parameter is a range of values.
-	''' May be combined with the <see cref="ParameterValueType.Month"/> or <see cref="ParameterValueType.DayOfweek"/> parameter types.
 	''' </summary>
 	Range = 2
 	''' <summary>
-	''' The parameter consists of a start value and a step value.
-	''' May be combined with the <see cref="ParameterValueType.Month"/> or <see cref="ParameterValueType.DayOfweek"/> parameter types.
+	''' The parameter consists of a start value and an increment value.
 	''' </summary>
-	[Step] = 4
+	[Step] = 3
 	''' <summary>
-	''' The parameter consists of a single value.
-	''' May be combined with the <see cref="ParameterValueType.Month"/> or <see cref="ParameterValueType.DayOfweek"/> parameter types.
+	''' The parameter consists of a single whole number equal to or greater than zero.
 	''' </summary>
-	Value = 8
+	Number = 4
 	''' <summary>
-	''' The parameter is a <see cref="MonthOfYear"/> value.
-	''' May be combined with the <see cref="ParameterValueType.List"/>,<see cref="ParameterValueType.Range"/>,<see cref="ParameterValueType.Step"/>, or <see cref="ParameterValueType.Value"/> parameter types.
+	''' The parameter is a <see cref="Cron.MonthOfYear"/> value.
 	''' </summary>
-	Month = 16
+	MonthOfYear = 5
 	''' <summary>
-	''' The parameter is a <see cref="DayOfWeek"/> value.
-	''' May be combined with the <see cref="ParameterValueType.List"/>,<see cref="ParameterValueType.Range"/>,<see cref="ParameterValueType.Step"/>, or <see cref="ParameterValueType.Value"/> parameter types.
+	''' The parameter is a <see cref="Cron.DayOfWeek"/> value.
 	''' </summary>
-	DayOfweek = 32
+	DayOfWeek = 6
+	''' <summary>
+	''' The parameter is a combination of a range of values and an increment value.
+	''' </summary>
+	SteppedRange = 7
 	''' <summary>
 	''' The value could not be determined.
 	''' </summary>
-	Unknown = 1024
+	Unknown = 8
 End Enum
 
 ''' <summary>

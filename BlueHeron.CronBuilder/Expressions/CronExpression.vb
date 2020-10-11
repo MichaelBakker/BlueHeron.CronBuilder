@@ -3,10 +3,11 @@
 ''' Object, that represents a Cron expression.
 ''' </summary>
 <DebuggerDisplay("{Expression}")>
-Public NotInheritable Class CronExpression
+Public NotInheritable Class Expression
 
 #Region " Objects and variables "
 
+	Private mDisplay As String
 	Private mExpression As String
 
 #End Region
@@ -14,10 +15,25 @@ Public NotInheritable Class CronExpression
 #Region " Properties "
 
 	''' <summary>
-	''' The collection of <see cref="ICronParameter"/> objects that are part of the expression.
+	''' The collection of <see cref="Parameter"/> objects that are part of the expression.
 	''' </summary>
-	''' <returns>A <see cref="Dictionary(Of ParameterType, ICronParameter)"/></returns>
-	Public ReadOnly Property Parameters As Dictionary(Of ParameterType, ICronParameter)
+	''' <returns>A <see cref="Dictionary(Of ParameterType, Parameter)"/></returns>
+	Friend ReadOnly Property Parameters As Dictionary(Of ParameterType, Parameter)
+
+	''' <summary>
+	''' Human-readable, localized representation of this expression.
+	''' </summary>
+	Public ReadOnly Property Display As String
+		Get
+			If String.IsNullOrEmpty(mDisplay) Then
+				For Each p As Parameter In Parameters.Values
+					mDisplay &= p.Value.Display(p.ParameterType, False) & Space
+				Next
+				mDisplay = mDisplay.CapitalizeSentence.TrimEnd
+			End If
+			Return mDisplay
+		End Get
+	End Property
 
 	''' <summary>
 	''' Returns the textual representation of this expression.
@@ -25,7 +41,7 @@ Public NotInheritable Class CronExpression
 	Public Property Expression As String
 		Get
 			If String.IsNullOrEmpty(mExpression) Then
-				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).ToString, Parameters(ParameterType.Hour).ToString, Parameters(ParameterType.Day).ToString, Parameters(ParameterType.Month).ToString, Parameters(ParameterType.WeekDay).ToString)
+				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).Value.ToString, Parameters(ParameterType.Hour).Value.ToString, Parameters(ParameterType.Day).Value.ToString, Parameters(ParameterType.Month).Value.ToString, Parameters(ParameterType.WeekDay).Value.ToString)
 			End If
 			Return mExpression
 		End Get
@@ -46,6 +62,18 @@ Public NotInheritable Class CronExpression
 	Public Function [Next](datum As Date) As Date
 
 		Return FindClosestDate(datum, False)
+
+	End Function
+
+	''' <summary>
+	''' Returns a boolean, determining whether the current date and time are a match for this schedule.
+	''' </summary>
+	''' <returns>Boolean, True when the current date and time match the date and time pattern defined by this expression</returns>
+	Public Function Poll() As Boolean
+		Dim dtmNow As Date = Date.Now
+		Dim dtmNext As Date = [Next](dtmNow)
+
+		Return (dtmNow.Year = dtmNext.Year) AndAlso (dtmNow.Month = dtmNext.Month) AndAlso (dtmNow.Day = dtmNext.Day) AndAlso (dtmNow.Hour = dtmNext.Hour) AndAlso (dtmNow.Minute = dtmNext.Minute)
 
 	End Function
 
@@ -85,10 +113,10 @@ Public NotInheritable Class CronExpression
 		Dim matchedMinute, matchedHour, matchedDay, matchedMonth, matchedYear As Integer
 		Dim isMatch As Boolean
 
-		matchedMinute = FindClosestValue(Parameters(ParameterType.Minute).ToList, datum.Minute, goBack, carry) ' start with smallest component and work up
+		matchedMinute = FindClosestValue(Parameters(ParameterType.Minute).Matches, datum.Minute, goBack, carry) ' start with smallest component and work up
 		datum = New Date(datum.Year, datum.Month, datum.Day, datum.Hour, matchedMinute, 0).AddHours(carry)
 		carry = 0
-		matchedHour = FindClosestValue(Parameters(ParameterType.Hour).ToList, datum.Hour, goBack, carry)
+		matchedHour = FindClosestValue(Parameters(ParameterType.Hour).Matches, datum.Hour, goBack, carry)
 		datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, matchedMinute, 0).AddDays(carry)
 		carry = 0
 
@@ -96,9 +124,9 @@ Public NotInheritable Class CronExpression
 			matchedDay = FindClosestDay(datum, goBack, carry)
 			datum = New Date(datum.Year, datum.Month, matchedDay, matchedHour, matchedMinute, 0).AddMonths(carry)
 			carry = 0
-			matchedMonth = FindClosestValue(Parameters(ParameterType.Month).ToList, datum.Month, goBack, carry)
+			matchedMonth = FindClosestValue(Parameters(ParameterType.Month).Matches, datum.Month, goBack, carry)
 			matchedYear = datum.Year + carry
-			isMatch = (Parameters(ParameterType.WeekDay).ValueType = ParameterValueType.Any) OrElse ((matchedMonth = datum.Month) AndAlso (matchedYear = datum.Year) AndAlso (carry = 0)) ' Day, DayOfWeek, Month ánd Year have been matched
+			isMatch = (Parameters(ParameterType.WeekDay).Value.ValueType = ValueType.Any) OrElse ((matchedMonth = datum.Month) AndAlso (matchedYear = datum.Year) AndAlso (carry = 0)) ' Day, DayOfWeek, Month ánd Year have been matched
 			datum = New Date(matchedYear, matchedMonth, matchedDay, matchedHour, matchedMinute, 0)
 			carry = 0
 		Loop
@@ -111,18 +139,18 @@ Public NotInheritable Class CronExpression
 	''' Finds the closest matching number to the given value for the given pattern of numbers, searching either forward or backward.
 	''' If the search moves beyond the beginning (looking backward) or end (looking forward), -1 or +1 respectively is carried to the next level (assuming: minute -> hour -> day -> month -> year).
 	''' </summary>
-	''' <param name="pattern">A <see cref="List(Of Integer)"/></param>
+	''' <param name="pattern">An <see cref="IEnumerable(Of Integer)"/></param>
 	''' <param name="value">The value to match</param>
 	''' <param name="goBack">If true, search backwards for the closest match</param>
 	''' <param name="carry">-1, 0 or +1 to be added to the next level</param>
 	''' <returns>The closest matching number</returns>
-	Private Function FindClosestValue(pattern As List(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
+	Private Function FindClosestValue(pattern As IEnumerable(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
 
 		If pattern.Contains(value) Then
 			Return value ' exact match
 		Else
 			If goBack Then
-				Dim backwardPattern As List(Of Integer) = pattern.Where(Function(v) v < value).ToList
+				Dim backwardPattern As IEnumerable(Of Integer) = pattern.Where(Function(v) v < value)
 
 				If backwardPattern.Count = 0 Then
 					carry = -1
@@ -131,7 +159,7 @@ Public NotInheritable Class CronExpression
 					Return backwardPattern.Last ' closest smaller value
 				End If
 			Else
-				Dim forwardPattern As List(Of Integer) = pattern.Where(Function(v) v > value).ToList
+				Dim forwardPattern As IEnumerable(Of Integer) = pattern.Where(Function(v) v > value)
 
 				If forwardPattern.Count = 0 Then
 					carry = 1
@@ -145,7 +173,7 @@ Public NotInheritable Class CronExpression
 	End Function
 
 	''' <summary>
-	''' Finds the closest matching day to the given date for this <see cref="CronExpression"/>, searching either forward or backward.
+	''' Finds the closest matching day to the given date for this <see cref="Cron.Expression"/>, searching either forward or backward.
 	''' For each cycle that the search moves beyond the beginning (looking backward) or end (looking forward), -1 or +1 respectively, is added to the number to be carried to the next level (assuming: minute -> hour -> day -> month -> year).
 	''' </summary>
 	''' <param name="datum">The date to match</param>
@@ -154,10 +182,10 @@ Public NotInheritable Class CronExpression
 	''' <returns></returns>
 	Private Function FindClosestDay(datum As Date, goBack As Boolean, ByRef carry As Integer) As Integer
 		Dim daysInMonth As Integer = Date.DaysInMonth(datum.Year, datum.Month)
-		Dim dayPattern As List(Of Integer) = Parameters(ParameterType.Day).ToList.Take(daysInMonth).ToList ' current month may be 28, 29, 30 or 31 days in length
+		Dim dayPattern As List(Of Integer) = Parameters(ParameterType.Day).Matches.Take(daysInMonth).ToList ' current month may be 28, 29, 30 or 31 days in length
 
-		If Not Parameters(ParameterType.WeekDay).ValueType = ParameterValueType.Any Then ' take the DayOfWeek pattern into account
-			Dim dayOfWeekPattern As List(Of Integer) = Parameters(ParameterType.WeekDay).ToList
+		If Parameters(ParameterType.WeekDay).Value.ValueType <> ValueType.Any Then ' take the DayOfWeek pattern into account
+			Dim dayOfWeekPattern As IEnumerable(Of Integer) = Parameters(ParameterType.WeekDay).Matches
 			Dim filteredDayPattern As New List(Of Integer)
 
 			dayPattern.ForEach(Sub(d)
@@ -199,17 +227,13 @@ Public NotInheritable Class CronExpression
 #Region " Construction "
 
 	''' <summary>
-	''' Creates a new CronExpression, defaulting to a '* * * * *' expression.
+	''' Creates a new CronExpression, using the given parameters.
 	''' </summary>
-	Friend Sub New()
+	''' <param name="params">Existing <see cref="Dictionary(Of ParameterValue, Parameter)"/></param>
+	<DebuggerStepThrough()>
+	Friend Sub New(params As Dictionary(Of ParameterType, Parameter))
 
-		Parameters = New Dictionary(Of ParameterType, ICronParameter) From {
-		{ParameterType.Minute, New CronAnyParameter(ParameterType.Minute)},
-		{ParameterType.Hour, New CronAnyParameter(ParameterType.Hour)},
-		{ParameterType.Day, New CronAnyParameter(ParameterType.Day)},
-		{ParameterType.Month, New CronAnyParameter(ParameterType.Month)},
-		{ParameterType.WeekDay, New CronAnyParameter(ParameterType.WeekDay)}
-	}
+		Parameters = params
 
 	End Sub
 
