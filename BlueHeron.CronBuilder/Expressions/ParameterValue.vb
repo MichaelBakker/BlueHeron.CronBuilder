@@ -59,6 +59,10 @@ Public NotInheritable Class ParameterValue
 
 #Region " Public methods and functions "
 
+	''' <summary>
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Any"/>.
+	''' </summary>
+	''' <returns>A <see cref="ParameterValue"/></returns>
 	Public Shared Function Any() As ParameterValue
 
 		Return New ParameterValue
@@ -66,7 +70,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.DayOfWeek"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.DayOfWeek"/>.
 	''' </summary>
 	''' <param name="value">The value</param>
 	''' <returns>A <see cref="ParameterValue"/></returns>
@@ -78,7 +82,7 @@ Public NotInheritable Class ParameterValue
 
 	''' <summary>
 	''' Returns a <see cref="ParameterValue"/> of  a type that will be determined when parsing the value.
-	''' If the value cannot be parsed, <see cref="ValueType.Unknown"/> is assigned and subsequent validation will fail.
+	''' If the value cannot be parsed, <see cref="Cron.ValueType.Unknown"/> is assigned and subsequent validation will fail.
 	''' </summary>
 	''' <param name="value">The value</param>
 	''' <returns>A <see cref="ParameterValue"/></returns>
@@ -89,7 +93,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.MonthOfYear"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.MonthOfYear"/>.
 	''' </summary>
 	''' <param name="value">The value</param>
 	''' <returns>A <see cref="ParameterValue"/></returns>
@@ -100,7 +104,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.List"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.List"/>.
 	''' </summary>
 	''' <param name="values">The values</param>
 	''' <returns>A <see cref="ParameterValue"/></returns>
@@ -111,7 +115,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.Number"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Number"/>.
 	''' The validity of the number will be assessed when assigning this value to an expression parameter.
 	''' </summary>
 	''' <param name="value">The value</param>
@@ -123,7 +127,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.Range"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Range"/>.
 	''' </summary>
 	''' <param name="valueFrom">The start value</param>
 	''' <param name="valueTo">The end value</param>
@@ -135,7 +139,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.Step"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Step"/>.
 	''' </summary>
 	''' <param name="value">The start value</param>
 	''' <param name="increment">The increment value</param>
@@ -147,7 +151,7 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns a <see cref="ParameterValue"/> of type <see cref="ValueType.SteppedRange"/>.
+	''' Returns a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.SteppedRange"/>.
 	''' </summary>
 	''' <param name="valueFrom">The start value</param>
 	''' <param name="valueTo">The end value</param>
@@ -159,9 +163,41 @@ Public NotInheritable Class ParameterValue
 
 	End Function
 
+	''' <summary>
+	''' Returns the symbolic representation of this parameter value.
+	''' </summary>
+	Public Overrides Function ToString() As String
+
+		If String.IsNullOrEmpty(mExpression) Then
+			Select Case mValueType
+				Case ValueType.Any
+					mExpression = Asterix
+				Case ValueType.Number
+					mExpression = CStr(Value)
+				Case ValueType.DayOfWeek
+					mExpression = CType(Value, DayOfWeek).ToString
+				Case ValueType.List
+					mExpression = String.Join(Comma, mValues)
+				Case ValueType.MonthOfYear
+					mExpression = CType(Value, MonthOfYear).ToString
+				Case ValueType.Step
+					mExpression = String.Format(fmtStep, Values(0), Values(1))
+				Case ValueType.Range
+					mExpression = String.Format(fmtRange, Values(0), Values(1))
+				Case ValueType.SteppedRange
+					mExpression = String.Format(fmtSteppedRange, Values(0), Values(1), Values(2))
+				Case Else ' ParameterValueType.Unknown
+					mExpression = Unknown
+			End Select
+		End If
+
+		Return mExpression
+
+	End Function
+
 #End Region
 
-#Region " Public methods and functions "
+#Region " Private methods and functions "
 
 	''' <summary>
 	''' Returns all integer values that match this parameter value for the given <see cref="ParameterType"/>.
@@ -219,42 +255,6 @@ Public NotInheritable Class ParameterValue
 	End Function
 
 	''' <summary>
-	''' Returns the parameter expression.
-	''' </summary>
-	Public Overrides Function ToString() As String
-
-		If String.IsNullOrEmpty(mExpression) Then
-			Select Case mValueType
-				Case ValueType.Any
-					mExpression = Asterix
-				Case ValueType.Number
-					mExpression = CStr(Value)
-				Case ValueType.DayOfWeek
-					mExpression = CType(Value, DayOfWeek).ToString
-				Case ValueType.List
-					mExpression = String.Join(Comma, mValues)
-				Case ValueType.MonthOfYear
-					mExpression = CType(Value, MonthOfYear).ToString
-				Case ValueType.Step
-					mExpression = String.Format(fmtStep, Values(0), Values(1))
-				Case ValueType.Range
-					mExpression = String.Format(fmtRange, Values(0), Values(1))
-				Case ValueType.SteppedRange
-					mExpression = String.Format(fmtSteppedRange, Values(0), Values(1), Values(2))
-				Case Else ' ParameterValueType.Unknown
-					mExpression = Unknown
-			End Select
-		End If
-
-		Return mExpression
-
-	End Function
-
-#End Region
-
-#Region " Private methods and functions "
-
-	''' <summary>
 	''' Human-readable, localized representation of this parameter value for the given <see cref="ParameterType"/>.
 	''' </summary>
 	''' <param name="paramType">The <see cref="ParameterType"/> to which this value belongs</param>
@@ -305,15 +305,18 @@ Public NotInheritable Class ParameterValue
 
 #Region " Construction "
 
-	Private Sub New()
+	''' <summary>
+	''' Creates a new <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Any"/>
+	''' </summary>
+	<DebuggerStepThrough()> Private Sub New()
 
 		SetValue(-1, ValueType.Any)
 
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of type <see cref="ValueType.Number"/>.
-	''' The validity of the number will be assessed when assigning this value to an expression parameter.
+	''' Creates a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Number"/>.
+	''' The validity of the number will be assessed when assigning this value to a parameter.
 	''' </summary>
 	''' <param name="value">The value</param>
 	<DebuggerStepThrough()> Private Sub New(value As Integer)
@@ -323,7 +326,7 @@ Public NotInheritable Class ParameterValue
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of type <see cref="ValueType.DayOfWeek"/>.
+	''' Creates a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.DayOfWeek"/>.
 	''' </summary>
 	''' <param name="value">The value</param>
 	<DebuggerStepThrough()> Private Sub New(value As DayOfWeek)
@@ -333,7 +336,7 @@ Public NotInheritable Class ParameterValue
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of type <see cref="ValueType.MonthOfYear"/>.
+	''' Creates a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.MonthOfYear"/>.
 	''' </summary>
 	''' <param name="value">The value</param>
 	<DebuggerStepThrough()> Private Sub New(value As MonthOfYear)
@@ -343,7 +346,7 @@ Public NotInheritable Class ParameterValue
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of type <see cref="ValueType.Range"/>, <see cref="ValueType.Step"/>, <see cref="ValueType.SteppedRange"/> or <see cref="ValueType.List"/>.
+	''' Creates a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Range"/>, <see cref="Cron.ValueType.Step"/>, <see cref="Cron.ValueType.SteppedRange"/> or <see cref="Cron.ValueType.List"/>.
 	''' </summary>
 	''' <param name="values">The parameter values</param>
 	''' <param name="valueType">The <see cref="Cron.ValueType"/></param>
@@ -356,8 +359,8 @@ Public NotInheritable Class ParameterValue
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of  a type that will be determined when parsing the value.
-	''' If the value cannot be parsed, <see cref="ValueType.Unknown"/> is assigned and subsequent validation will fail.
+	''' Creates a <see cref="ParameterValue"/> of a type that will be determined when parsing the value.
+	''' If the value cannot be parsed, <see cref="Cron.ValueType.Unknown"/> is assigned and subsequent validation will fail.
 	''' </summary>
 	''' <param name="value">The value</param>
 	Friend Sub New(value As String)

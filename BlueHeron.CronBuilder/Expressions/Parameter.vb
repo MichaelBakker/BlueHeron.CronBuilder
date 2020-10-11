@@ -13,7 +13,7 @@ Public NotInheritable Class Parameter
 #Region " Properties "
 
 	''' <summary>
-	''' 
+	''' Returns all integer values that match the <see cref="Value"/> for this <see cref="ParameterType"/>.
 	''' </summary>
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
 	Public ReadOnly Property Matches As IEnumerable(Of Integer)

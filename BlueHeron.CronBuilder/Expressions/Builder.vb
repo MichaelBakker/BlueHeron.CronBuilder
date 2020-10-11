@@ -17,14 +17,13 @@ Public NotInheritable Class Builder
 	''' Returns the assembled <see cref="Expression"/>.
 	''' </summary>
 	''' <param name="validateExpression">If True, parameter values will be validated before returning the <see cref="Expression"/></param>
-	''' <returns>A <see cref="Expression"/></returns>
+	''' <returns>An <see cref="Expression"/></returns>
+	''' <exception cref="ParserAggregateException">One or more errors occurred while validating this expression</exception>
 	Public Function Build(Optional validateExpression As Boolean = True) As Expression
 		Dim exceptions As List(Of ParserException) = Nothing
 
 		If (Not validateExpression) OrElse Validate(exceptions) Then
 			Dim expression As New Expression(mParameters)
-
-			SetDefaultParameters()
 
 			Return expression
 		End If
@@ -66,27 +65,15 @@ Public NotInheritable Class Builder
 		exceptions = New List(Of ParserException)
 
 		For Each p As Parameter In mParameters.Values
-			Dim isMonth As Boolean = (p.ParameterType = ParameterType.Month)
-			Dim isWeek As Boolean = (p.ParameterType = ParameterType.WeekDay)
-
-			For Each pv As ParameterValue In p.Value.Values
-				If pv.ValueType = ValueType.Unknown Then ' look for ParameterValueType.Unknown
-					blOK = False
-					exceptions.Add(New ParserException(p.ParameterType, ValueType.Unknown, pv.OriginalValue.ToString, String.Format(Resources.errParameter, pv.OriginalValue)))
-				End If
-				If Not isMonth Then
-					If pv.ValueType = ValueType.MonthOfYear Then ' look for MonthOfYear in the wrong places
-						blOK = False
-						exceptions.Add(New ParserException(p.ParameterType, ValueType.MonthOfYear, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.MonthOfYear)))
-					End If
-				End If
-				If Not isWeek Then
-					If pv.ValueType = ValueType.DayOfWeek Then ' look for DayOfWeek in the wrong places
-						blOK = False
-						exceptions.Add(New ParserException(p.ParameterType, ValueType.DayOfWeek, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.DayOfWeek)))
-					End If
-				End If
-			Next
+			If p.Value.ValueType = ValueType.Any Then
+				Continue For
+			ElseIf p.Value.ValueType.IsSingleValueType Then
+				blOK = ValidateValue(p.ParameterType, p.Value, exceptions)
+			Else
+				For Each pv As ParameterValue In p.Value.Values
+					blOK = ValidateValue(p.ParameterType, pv, exceptions)
+				Next
+			End If
 		Next
 
 		Return blOK
@@ -279,6 +266,37 @@ Public NotInheritable Class Builder
 	}
 
 	End Sub
+
+	''' <summary>
+	''' Validates the given <see cref="ParameterValue"/> for the given <see cref="ParameterType"/>.
+	''' </summary>
+	''' <param name="paramType">The <see cref="ParameterType"/> of the <see cref="Parameter"/> that holds this value</param>
+	''' <param name="pv">The <see cref="ParameterValue"/> to validate</param>
+	''' <param name="exceptions">Any <see cref="ParserException"/> that occurs will be added</param>
+	''' <returns>True, if the value is valid for this <see cref="ParameterType"/></returns>
+	Private Function ValidateValue(paramType As ParameterType, pv As ParameterValue, ByRef exceptions As List(Of ParserException)) As Boolean
+		Dim blOK As Boolean = True
+
+		If pv.ValueType = ValueType.Unknown Then ' look for ParameterValueType.Unknown
+			blOK = False
+			exceptions.Add(New ParserException(paramType, ValueType.Unknown, pv.OriginalValue.ToString, String.Format(Resources.errParameter, pv.OriginalValue)))
+		End If
+		If Not paramType = ParameterType.Month Then
+			If pv.ValueType = ValueType.MonthOfYear Then ' look for MonthOfYear in the wrong places
+				blOK = False
+				exceptions.Add(New ParserException(paramType, ValueType.MonthOfYear, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.MonthOfYear)))
+			End If
+		End If
+		If Not paramType = ParameterType.WeekDay Then
+			If pv.ValueType = ValueType.DayOfWeek Then ' look for DayOfWeek in the wrong places
+				blOK = False
+				exceptions.Add(New ParserException(paramType, ValueType.DayOfWeek, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.DayOfWeek)))
+			End If
+		End If
+
+		Return blOK
+
+	End Function
 
 #End Region
 

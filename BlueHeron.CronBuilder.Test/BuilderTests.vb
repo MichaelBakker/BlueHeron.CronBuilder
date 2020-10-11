@@ -194,18 +194,19 @@ Public Class BuilderTests
 
 	<TestMethod()>
 	Sub Test10_ValidateOnBuild()
-		Dim exception As AggregateException = Nothing
 		Dim misHapsDayOfWeekAndMonthOfYear As IEnumerable(Of String) = {"MON", "JAN"}
+		Dim count As Integer = 0
+		Dim errorCount As Integer = 0
 
 		For Each value As String In misHapsDayOfWeekAndMonthOfYear
+			count += 1
 			Try
 				Dim expr As Expression = mBuilder.With(ParameterType.Hour, value).Build
-			Catch ex As AggregateException
-				exception = ex
+			Catch ex As ParserAggregateException
+				errorCount += 1
 			End Try
 
-			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameter, value))
-			exception = Nothing
+			Debug.Assert(errorCount = count)
 		Next
 
 	End Sub
