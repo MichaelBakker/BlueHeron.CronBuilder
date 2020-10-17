@@ -6,3 +6,6 @@ Multi-targeting:			https://docs.microsoft.com/en-us/dotnet/core/tutorials/librar
 							https://docs.microsoft.com/en-us/dotnet/standard/frameworks
 
 Localization:				https://github.com/Humanizr/Humanizer
+
+Markdown editing:			https://docs.github.com/en/free-pro-team@latest/github/writing-on-github
+							https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet

@@ -42,10 +42,6 @@
           <source>and then</source>
           <target state="final">en daarna</target>
         </trans-unit>
-        <trans-unit id="atHour" translate="yes" xml:space="preserve">
-          <source>at</source>
-          <target state="final">op</target>
-        </trans-unit>
         <trans-unit id="day" translate="yes" xml:space="preserve">
           <source>day</source>
           <target state="final">dag</target>
@@ -57,10 +53,6 @@
         <trans-unit id="every" translate="yes" xml:space="preserve">
           <source>every</source>
           <target state="final">elke</target>
-        </trans-unit>
-        <trans-unit id="friday" translate="yes" xml:space="preserve">
-          <source>friday</source>
-          <target state="final">vrijdag</target>
         </trans-unit>
         <trans-unit id="hour" translate="yes" xml:space="preserve">
           <source>hour</source>
@@ -82,10 +74,6 @@
           <source>minutes</source>
           <target state="final">minuten</target>
         </trans-unit>
-        <trans-unit id="monday" translate="yes" xml:space="preserve">
-          <source>monday</source>
-          <target state="final">maandag</target>
-        </trans-unit>
         <trans-unit id="month" translate="yes" xml:space="preserve">
           <source>month</source>
           <target state="final">maand</target>
@@ -98,10 +86,6 @@
           <source>on</source>
           <target state="final">op</target>
         </trans-unit>
-        <trans-unit id="saturday" translate="yes" xml:space="preserve">
-          <source>saturday</source>
-          <target state="final">zaterdag</target>
-        </trans-unit>
         <trans-unit id="starting" translate="yes" xml:space="preserve">
           <source>starting</source>
           <target state="final">beginnend</target>
@@ -110,25 +94,17 @@
           <source>starting with</source>
           <target state="final">beginnend met</target>
         </trans-unit>
-        <trans-unit id="sunday" translate="yes" xml:space="preserve">
-          <source>sunday</source>
-          <target state="final">zondag</target>
-        </trans-unit>
         <trans-unit id="through" translate="yes" xml:space="preserve">
           <source>through</source>
           <target state="final">t/m</target>
         </trans-unit>
-        <trans-unit id="thursday" translate="yes" xml:space="preserve">
-          <source>thursday</source>
-          <target state="final">donderdag</target>
+        <trans-unit id="atMinute" translate="yes" xml:space="preserve">
+          <source>at</source>
+          <target state="final">op</target>
         </trans-unit>
-        <trans-unit id="tuesday" translate="yes" xml:space="preserve">
-          <source>tuesday</source>
-          <target state="final">dinsdag</target>
-        </trans-unit>
-        <trans-unit id="wednesday" translate="yes" xml:space="preserve">
-          <source>wednesday</source>
-          <target state="final">woensdag</target>
+        <trans-unit id="of" translate="yes" xml:space="preserve">
+          <source>of</source>
+          <target state="final">van</target>
         </trans-unit>
       </group>
     </body>

@@ -12,10 +12,12 @@ Friend Module Constants
 	Friend Const Unknown As String = "?"c
 
 	Friend Const fmtExpression As String = "{0} {1} {2} {3} {4}"
-	Friend Const fmtMonth As String = "{0:MMMM}"
 	Friend Const fmtRange As String = "{0}-{1}"
+	Friend Const fmtSpaceBoth As String = " {0} "
+	Friend Const fmtSpaceRight As String = "{0} "
 	Friend Const fmtStep As String = "{0}/{1}"
 	Friend Const fmtSteppedRange As String = "{0}-{1}/{2}"
+	Friend Const fmtTime As String = "{0:mm:HH} "
 	Friend Const fmtTriple As String = "{0} {1} {2}"
 	Friend Const fmtTuple As String = "{0} {1}"
 

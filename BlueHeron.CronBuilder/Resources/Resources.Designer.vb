@@ -74,6 +74,15 @@ Namespace Localization
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to of.
+        '''</summary>
+        Public Shared ReadOnly Property _of() As String
+            Get
+                Return ResourceManager.GetString("of", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to and then.
         '''</summary>
         Public Shared ReadOnly Property andThen() As String
@@ -85,9 +94,9 @@ Namespace Localization
         '''<summary>
         '''  Looks up a localized string similar to at.
         '''</summary>
-        Public Shared ReadOnly Property atHour() As String
+        Public Shared ReadOnly Property atMinute() As String
             Get
-                Return ResourceManager.GetString("atHour", resourceCulture)
+                Return ResourceManager.GetString("atMinute", resourceCulture)
             End Get
         End Property
         
@@ -182,15 +191,6 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to friday.
-        '''</summary>
-        Public Shared ReadOnly Property friday() As String
-            Get
-                Return ResourceManager.GetString("friday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to hour.
         '''</summary>
         Public Shared ReadOnly Property hour() As String
@@ -236,15 +236,6 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to monday.
-        '''</summary>
-        Public Shared ReadOnly Property monday() As String
-            Get
-                Return ResourceManager.GetString("monday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to month.
         '''</summary>
         Public Shared ReadOnly Property month() As String
@@ -272,15 +263,6 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to saturday.
-        '''</summary>
-        Public Shared ReadOnly Property saturday() As String
-            Get
-                Return ResourceManager.GetString("saturday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to starting.
         '''</summary>
         Public Shared ReadOnly Property starting() As String
@@ -299,47 +281,11 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to sunday.
-        '''</summary>
-        Public Shared ReadOnly Property sunday() As String
-            Get
-                Return ResourceManager.GetString("sunday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to through.
         '''</summary>
         Public Shared ReadOnly Property through() As String
             Get
                 Return ResourceManager.GetString("through", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to thursday.
-        '''</summary>
-        Public Shared ReadOnly Property thursday() As String
-            Get
-                Return ResourceManager.GetString("thursday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to tuesday.
-        '''</summary>
-        Public Shared ReadOnly Property tuesday() As String
-            Get
-                Return ResourceManager.GetString("tuesday", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to wednesday.
-        '''</summary>
-        Public Shared ReadOnly Property wednesday() As String
-            Get
-                Return ResourceManager.GetString("wednesday", resourceCulture)
             End Get
         End Property
     End Class

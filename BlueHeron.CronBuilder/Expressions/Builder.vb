@@ -7,7 +7,25 @@ Public NotInheritable Class Builder
 
 #Region " Objects and variables "
 
-	Private mParameters As Dictionary(Of ParameterType, Parameter)
+	Private mHumanizer As IHumanizer
+	Private mParameters As Parameter()
+
+#End Region
+
+#Region " Properties "
+
+	''' <summary>
+	''' The <see cref="IHumanizer"/> to use to create human-readable, localized representations of <see cref="Expression"/> objects.
+	''' </summary>
+	''' <returns>An <see cref="IHumanizer"/> implementation</returns>
+	Private ReadOnly Property Humanizer As IHumanizer
+		Get
+			If mHumanizer Is Nothing Then
+				mHumanizer = New DefaultHumanizer
+			End If
+			Return mHumanizer
+		End Get
+	End Property
 
 #End Region
 
@@ -23,7 +41,9 @@ Public NotInheritable Class Builder
 		Dim exceptions As List(Of ParserException) = Nothing
 
 		If (Not validateExpression) OrElse Validate(exceptions) Then
-			Dim expression As New Expression(mParameters)
+			Dim expression As New Expression(mParameters, Humanizer)
+
+			SetDefaultParameters() ' reset internal parameters to Any
 
 			Return expression
 		End If
@@ -55,6 +75,18 @@ Public NotInheritable Class Builder
 	End Function
 
 	''' <summary>
+	''' Configures this <see cref="Builder"/> to use the given <see cref="IHumanizer"/> to create human-readable, localized representations of <see cref="Expression"/> objects.
+	''' </summary>
+	''' <param name="humanizer">The <see cref="IHumanizer"/> to use</param>
+	''' <returns>This <see cref="Builder"/></returns>
+	Public Function Use(humanizer As IHumanizer) As Builder
+
+		mHumanizer = humanizer
+		Return Me
+
+	End Function
+
+	''' <summary>
 	''' Looks for faults that were not caught upon construction of the parameters and returns false if one or more were found.
 	''' </summary>
 	''' <param name="exceptions">A <see cref="List(Of Parserexception)"/> with the errors that occurred</param>
@@ -64,7 +96,9 @@ Public NotInheritable Class Builder
 
 		exceptions = New List(Of ParserException)
 
-		For Each p As Parameter In mParameters.Values
+		For i As Integer = 0 To 4
+			Dim p As Parameter = mParameters(i)
+
 			If p.Value.ValueType = ValueType.Any Then
 				Continue For
 			ElseIf p.Value.ValueType.IsSingleValueType Then
@@ -96,16 +130,12 @@ Public NotInheritable Class Builder
 	''' Configures the parameter of the given <see cref="ParameterType"/> to be a list of <see cref="ParameterValue"/>s.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="values">One or more <see cref="ParameterValue"/> objects</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">The values parameter is Null / Nothing or contains no <see cref="ParameterValue"/>s</exception>
 	Public Function WithList(parameterType As ParameterType, ParamArray values As ParameterValue()) As Builder
 
-		If values Is Nothing OrElse values.Count = 0 Then
-			Throw New ParserException(parameterType, ValueType.List, Unknown, New NullReferenceException(NameOf(values)).Message)
-		End If
-
-		mParameters(parameterType) = New Parameter(parameterType, ParameterValue.List(values))
-		Return Me
+		Return WithListInternal(parameterType, values)
 
 	End Function
 
@@ -235,7 +265,7 @@ Public NotInheritable Class Builder
 		If paramValue.ValueType = ValueType.Unknown Then
 			Throw New ParserException(parameterType, paramValue.ValueType, paramValue.OriginalValue.ToString, String.Format(Resources.errParameter, value))
 		ElseIf paramValue.ValueType = ValueType.List Then
-			Return WithList(parameterType, paramValue.Values.ToArray)
+			Return WithListInternal(parameterType, paramValue.Values)
 		ElseIf paramValue.ValueType = ValueType.Range Then
 			Return WithRange(parameterType, paramValue.Values(0), paramValue.Values(1))
 		ElseIf paramValue.ValueType = ValueType.Step Then
@@ -257,13 +287,7 @@ Public NotInheritable Class Builder
 	''' </summary>
 	Private Sub SetDefaultParameters()
 
-		mParameters = New Dictionary(Of ParameterType, Parameter) From {
-		{ParameterType.Minute, New Parameter(ParameterType.Minute, ParameterValue.Any)},
-		{ParameterType.Hour, New Parameter(ParameterType.Hour, ParameterValue.Any)},
-		{ParameterType.Day, New Parameter(ParameterType.Day, ParameterValue.Any)},
-		{ParameterType.Month, New Parameter(ParameterType.Month, ParameterValue.Any)},
-		{ParameterType.WeekDay, New Parameter(ParameterType.WeekDay, ParameterValue.Any)}
-	}
+		mParameters = {New Parameter(ParameterType.Minute, ParameterValue.Any), New Parameter(ParameterType.Hour, ParameterValue.Any), New Parameter(ParameterType.Day, ParameterValue.Any), New Parameter(ParameterType.Month, ParameterValue.Any), New Parameter(ParameterType.WeekDay, ParameterValue.Any)}
 
 	End Sub
 
@@ -295,6 +319,24 @@ Public NotInheritable Class Builder
 		End If
 
 		Return blOK
+
+	End Function
+
+	''' <summary>
+	''' Configures the parameter of the given <see cref="ParameterType"/> to be a list of <see cref="ParameterValue"/>s.
+	''' </summary>
+	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="values">An <see cref="IEnumerable(Of ParameterValue)"/> objects</param>
+	''' <returns>This <see cref="Builder"/></returns>
+	''' <exception cref="ParserException">The values parameter is Null / Nothing or contains no <see cref="ParameterValue"/>s</exception>
+	Private Function WithListInternal(parameterType As ParameterType, values As IEnumerable(Of ParameterValue)) As Builder
+
+		If values Is Nothing OrElse values.Count = 0 Then
+			Throw New ParserException(parameterType, ValueType.List, Unknown, New NullReferenceException(NameOf(values)).Message)
+		End If
+
+		mParameters(parameterType) = New Parameter(parameterType, ParameterValue.List(values))
+		Return Me
 
 	End Function
 

@@ -2,7 +2,7 @@
 ''' <summary>
 ''' Container for a parameter.
 ''' </summary>
-Public NotInheritable Class Parameter
+<DebuggerDisplay("{ParameterType}: {Value}")> Public NotInheritable Class Parameter
 
 #Region " Objects and variables "
 

@@ -1,5 +1,4 @@
-﻿Imports BlueHeron.Cron.Localization
-
+﻿
 ''' <summary>
 ''' Object that represents an expression parameter value.
 ''' </summary>
@@ -10,7 +9,6 @@ Public NotInheritable Class ParameterValue
 	Private mExpression As String
 	Private mOriginalValue As Object
 	Private mValue As Integer
-	Private ReadOnly mValues As List(Of ParameterValue)
 	Private mValueType As ValueType
 
 #End Region
@@ -38,12 +36,8 @@ Public NotInheritable Class ParameterValue
 	''' <summary>
 	''' Array of values that together make up this value.
 	''' </summary>
-	''' <returns>An <see cref="IEnumerable(Of ParameterValue)"/></returns>
+	''' <returns>An array of <see cref="ParameterValue"/> objects</returns>
 	Public ReadOnly Property Values As IEnumerable(Of ParameterValue)
-		Get
-			Return mValues
-		End Get
-	End Property
 
 	''' <summary>
 	''' The <see cref="Cron.ValueType"/> of this value.
@@ -177,7 +171,7 @@ Public NotInheritable Class ParameterValue
 				Case ValueType.DayOfWeek
 					mExpression = CType(Value, DayOfWeek).ToString
 				Case ValueType.List
-					mExpression = String.Join(Comma, mValues)
+					mExpression = String.Join(Comma, Values)
 				Case ValueType.MonthOfYear
 					mExpression = CType(Value, MonthOfYear).ToString
 				Case ValueType.Step
@@ -204,86 +198,43 @@ Public NotInheritable Class ParameterValue
 	''' </summary>
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
 	Friend Function AsEnumerable(paramType As ParameterType) As IEnumerable(Of Integer)
-		Dim mMatches As New List(Of Integer)
+		Dim mMatches As IEnumerable(Of Integer)
 		Dim maxVal As Integer = MaximumValues(paramType)
 		Dim minVal As Integer = MinimumValues(paramType)
 
 		Select Case mValueType
 			Case ValueType.Any
-				For i As Integer = minVal To maxVal
-					mMatches.Add(i)
-				Next
+				mMatches = Enumerable.Range(minVal, maxVal - minVal + 1)
 			Case ValueType.Number, ValueType.MonthOfYear, ValueType.DayOfWeek
-				mMatches = New List(Of Integer) From {Math.Min(maxVal, Math.Max(Value, minVal))}
+				mMatches = {Math.Min(maxVal, Math.Max(Value, minVal))}
 			Case ValueType.Step
 				Dim incr As Integer = Values(1).Value
 				Dim val As Integer = Math.Min(maxVal, Math.Max(Values(0).Value, minVal))
 
 				If val <= (maxVal - incr) Then
-					For i As Integer = val To maxVal Step incr
-						mMatches.Add(i)
-					Next
+					mMatches = val.To(maxVal, incr)
+				Else
+					mMatches = Array.Empty(Of Integer)
 				End If
 			Case ValueType.Range
-				Dim fromVal As Integer = Values(0).Value
-				Dim toVal As Integer = Values(1).Value
+				Dim fromVal As Integer = Math.Max(minVal, Values(0).Value)
+				Dim toVal As Integer = Math.Min(maxVal, Values(1).Value)
 
-				For i As Integer = Math.Max(minVal, fromVal) To Math.Min(maxVal, toVal)
-					mMatches.Add(i)
-				Next
+				mMatches = Enumerable.Range(fromVal, toVal - minVal + 1)
 			Case ValueType.SteppedRange
 				Dim fromVal As Integer = Values(0).Value
 				Dim toVal As Integer = Values(1).Value
 				Dim incr As Integer = Values(2).Value
 
-				For i As Integer = Math.Max(minVal, fromVal) To Math.Min(maxVal, toVal)
-					mMatches.Add(i)
-				Next
-				If toVal <= (maxVal - incr) Then
-					For i As Integer = toVal To maxVal Step incr
-						mMatches.Add(i)
-					Next
-				End If
+				mMatches = Math.Max(minVal, fromVal).To(Math.Min(maxVal, toVal), 1)
+				mMatches.Concat(toVal.To(maxVal, incr))
 			Case ValueType.List
-				For Each v As ParameterValue In Values
-					mMatches.AddRange(v.AsEnumerable(paramType))
-				Next
+				mMatches = Values.SelectMany(Function(v) v.AsEnumerable(paramType)).Distinct
+			Case Else
+				mMatches = Array.Empty(Of Integer)
 		End Select
 
-		Return mMatches.Distinct
-
-	End Function
-
-	''' <summary>
-	''' Human-readable, localized representation of this parameter value for the given <see cref="ParameterType"/>.
-	''' </summary>
-	''' <param name="paramType">The <see cref="ParameterType"/> to which this value belongs</param>
-	''' <param name="valueOnly">If True, only the value is returned</param>
-	Friend Function Display(paramType As ParameterType, valueOnly As Boolean) As String
-		Dim rst As String = String.Empty
-
-		Select Case mValueType
-			Case ValueType.Any
-				rst = If(valueOnly, String.Empty, paramType.ToDisplay(False))
-			Case ValueType.DayOfWeek
-				rst = CType(Value, DayOfWeek).ToDisplay
-			Case ValueType.List
-
-			Case ValueType.MonthOfYear
-				rst = CType(Value, MonthOfYear).ToDisplay
-			Case ValueType.Number
-				Return If(valueOnly, CStr(Value), String.Format(fmtTuple, paramType.ToDisplay(False), Value))
-			Case ValueType.Range
-				rst = String.Format(fmtTriple, Values(0).Display(paramType, False), Resources.through, Values(1).Display(paramType, False))
-			Case ValueType.Step
-				rst = String.Format(fmtTriple, Values(1).Display(paramType, False), Resources.startingWith, Values(0))
-			Case ValueType.SteppedRange
-
-			Case Else ' ParameterValueType.Unknown
-				rst = Unknown
-		End Select
-
-		Return rst
+		Return mMatches
 
 	End Function
 
@@ -353,7 +304,7 @@ Public NotInheritable Class ParameterValue
 	<DebuggerStepThrough()> Private Sub New(values As IEnumerable(Of ParameterValue), valueType As ValueType)
 
 		mOriginalValue = values
-		mValues = New List(Of ParameterValue)(values)
+		Me.Values = values
 		mValueType = valueType
 
 	End Sub
@@ -385,14 +336,11 @@ Public NotInheritable Class ParameterValue
 
 		If mValueType = ValueType.Unknown Then ' list, range, step or steppedrange
 			mOriginalValue = value
-			mValues = New List(Of ParameterValue)
 
 			If value.IndexOf(Comma) <> -1 Then
 				mValueType = ValueType.List
 
-				For Each val As String In value.Split(Comma)
-					mValues.Add(New ParameterValue(val))
-				Next
+				Values = value.Split(Comma).Select(Function(v) New ParameterValue(v))
 			ElseIf value.IndexOf(Minus) <> -1 Then
 				Dim vals As String() = value.Split(Minus)
 
@@ -400,15 +348,11 @@ Public NotInheritable Class ParameterValue
 					If vals(1).IndexOf(Slash) <> -1 Then
 						Dim steps As String() = vals(1).Split(Slash)
 
-						mValues.Add(New ParameterValue(vals(0)))
-						mValues.Add(New ParameterValue(steps(0)))
-						mValues.Add(New ParameterValue(steps(1)))
+						Values = {New ParameterValue(vals(0)), New ParameterValue(steps(0)), New ParameterValue(steps(1))}
 						mValueType = ValueType.SteppedRange
 					Else
 						mValueType = ValueType.Range
-						For Each val As String In vals
-							mValues.Add(New ParameterValue(val))
-						Next
+						Values = vals.Select(Function(v) New ParameterValue(v))
 					End If
 				End If
 			ElseIf value.IndexOf(Slash) <> -1 Then
@@ -416,9 +360,7 @@ Public NotInheritable Class ParameterValue
 
 				If vals.Count = 2 Then
 					mValueType = ValueType.Step
-					For Each val As String In vals
-						mValues.Add(New ParameterValue(val))
-					Next
+					Values = vals.Select(Function(v) New ParameterValue(v))
 				End If
 			End If
 		End If

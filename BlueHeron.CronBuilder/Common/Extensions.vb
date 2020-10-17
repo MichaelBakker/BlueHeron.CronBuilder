@@ -1,20 +1,11 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.Globalization
+Imports System.Runtime.CompilerServices
 Imports BlueHeron.Cron.Localization
 
 ''' <summary>
 ''' Extension methods.
 ''' </summary>
 Public Module Extensions
-
-	''' <summary>
-	''' Capitalizes the first character of the given sentence.
-	''' </summary>
-	''' <param name="strIn">The string to capitalize</param>
-	<Extension(), DebuggerStepThrough()> Friend Function CapitalizeSentence(strIn As String) As String
-
-		Return strIn.Substring(0, 1).ToUpper & strIn.Substring(1)
-
-	End Function
 
 	''' <summary>
 	''' Returns True if this <see cref="ValueType"/> value represents a single value.
@@ -25,6 +16,43 @@ Public Module Extensions
 		Dim intValueType As Integer = CInt(valueType)
 
 		Return (intValueType = 4 OrElse intValueType = 5 OrElse intValueType = 6)
+
+	End Function
+
+	''' <summary>
+	''' Returns the appropriate, localized preposition for the given <see cref="ParameterType"/>.
+	''' </summary>
+	''' <param name="paramType">The <see cref="ParameterType"/></param>
+	''' <returns>Localized versions of at, on or in.</returns>
+	<Extension(), DebuggerStepThrough()> Public Function Preposition(paramType As ParameterType) As String
+
+		Select Case paramType
+			Case ParameterType.Minute
+				Return Resources.atMinute
+			Case ParameterType.Hour
+				Return Resources._of
+			Case ParameterType.Day
+				Return Resources.onDay
+			Case ParameterType.Month
+				Return Resources.inMonth
+			Case Else ' ParameterType.WeekDay
+				Return Resources.onDay
+		End Select
+
+	End Function
+
+	''' <summary>
+	''' Returns an array of values from the given start value to the given end value.
+	''' </summary>
+	''' <param name="from">Start value</param>
+	''' <param name="toVal">End value</param>
+	''' <param name="stepVal">Increment step</param>
+	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
+	<Extension()> Friend Iterator Function [To](from As Integer, toVal As Integer, stepVal As Integer) As IEnumerable(Of Integer)
+
+		For i As Integer = from To toVal Step stepVal
+			Yield i
+		Next
 
 	End Function
 
@@ -54,22 +82,7 @@ Public Module Extensions
 	''' <param name="dow">This <see cref="DayOfweek"/></param>
 	<Extension(), DebuggerStepThrough()> Public Function ToDisplay(dow As DayOfWeek) As String
 
-		Select Case dow
-			Case DayOfWeek.FRI
-				Return Resources.friday
-			Case DayOfWeek.MON
-				Return Resources.monday
-			Case DayOfWeek.SAT
-				Return Resources.saturday
-			Case DayOfWeek.SUN
-				Return Resources.sunday
-			Case DayOfWeek.THU
-				Return Resources.thursday
-			Case DayOfWeek.TUE
-				Return Resources.tuesday
-			Case Else ' DayOfWeek.WED
-				Return Resources.wednesday
-		End Select
+		Return CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(CType(dow, System.DayOfWeek))
 
 	End Function
 
@@ -79,7 +92,7 @@ Public Module Extensions
 	''' <param name="moy">This <see cref="MonthOfYear"/></param>
 	<Extension(), DebuggerStepThrough()> Public Function ToDisplay(moy As MonthOfYear) As String
 
-		Return String.Format(fmtMonth, CInt(moy))
+		Return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(moy)
 
 	End Function
 

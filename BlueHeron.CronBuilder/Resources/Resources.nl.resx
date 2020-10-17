@@ -39,9 +39,6 @@
   <data name="andThen" xml:space="preserve">
     <value>en daarna</value>
   </data>
-  <data name="atHour" xml:space="preserve">
-    <value>op</value>
-  </data>
   <data name="day" xml:space="preserve">
     <value>dag</value>
   </data>
@@ -50,9 +47,6 @@
   </data>
   <data name="every" xml:space="preserve">
     <value>elke</value>
-  </data>
-  <data name="friday" xml:space="preserve">
-    <value>vrijdag</value>
   </data>
   <data name="hour" xml:space="preserve">
     <value>uur</value>
@@ -69,9 +63,6 @@
   <data name="minutes" xml:space="preserve">
     <value>minuten</value>
   </data>
-  <data name="monday" xml:space="preserve">
-    <value>maandag</value>
-  </data>
   <data name="month" xml:space="preserve">
     <value>maand</value>
   </data>
@@ -81,28 +72,19 @@
   <data name="onDay" xml:space="preserve">
     <value>op</value>
   </data>
-  <data name="saturday" xml:space="preserve">
-    <value>zaterdag</value>
-  </data>
   <data name="starting" xml:space="preserve">
     <value>beginnend</value>
   </data>
   <data name="startingWith" xml:space="preserve">
     <value>beginnend met</value>
   </data>
-  <data name="sunday" xml:space="preserve">
-    <value>zondag</value>
-  </data>
   <data name="through" xml:space="preserve">
     <value>t/m</value>
   </data>
-  <data name="thursday" xml:space="preserve">
-    <value>donderdag</value>
+  <data name="atMinute" xml:space="preserve">
+    <value>op</value>
   </data>
-  <data name="tuesday" xml:space="preserve">
-    <value>dinsdag</value>
-  </data>
-  <data name="wednesday" xml:space="preserve">
-    <value>woensdag</value>
+  <data name="of" xml:space="preserve">
+    <value>van</value>
   </data>
 </root>

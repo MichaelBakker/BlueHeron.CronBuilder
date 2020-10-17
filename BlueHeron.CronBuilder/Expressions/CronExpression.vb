@@ -1,4 +1,5 @@
-﻿
+﻿Imports BlueHeron.Cron.Localization
+
 ''' <summary>
 ''' Object, that represents a Cron expression.
 ''' </summary>
@@ -9,6 +10,7 @@ Public NotInheritable Class Expression
 
 	Private mDisplay As String
 	Private mExpression As String
+	Private ReadOnly mHumanizer As IHumanizer
 
 #End Region
 
@@ -17,8 +19,8 @@ Public NotInheritable Class Expression
 	''' <summary>
 	''' The collection of <see cref="Parameter"/> objects that are part of the expression.
 	''' </summary>
-	''' <returns>A <see cref="Dictionary(Of ParameterType, Parameter)"/></returns>
-	Friend ReadOnly Property Parameters As Dictionary(Of ParameterType, Parameter)
+	''' <returns>An array of <see cref="Parameter"/> objects</returns>
+	Public ReadOnly Property Parameters As IEnumerable(Of Parameter)
 
 	''' <summary>
 	''' Human-readable, localized representation of this expression.
@@ -26,10 +28,7 @@ Public NotInheritable Class Expression
 	Public ReadOnly Property Display As String
 		Get
 			If String.IsNullOrEmpty(mDisplay) Then
-				For Each p As Parameter In Parameters.Values
-					mDisplay &= p.Value.Display(p.ParameterType, False) & Space
-				Next
-				mDisplay = mDisplay.CapitalizeSentence.TrimEnd
+				mDisplay = mHumanizer.Humanize(Me)
 			End If
 			Return mDisplay
 		End Get
@@ -229,11 +228,12 @@ Public NotInheritable Class Expression
 	''' <summary>
 	''' Creates a new CronExpression, using the given parameters.
 	''' </summary>
-	''' <param name="params">Existing <see cref="Dictionary(Of ParameterValue, Parameter)"/></param>
+	''' <param name="params">Existing array of <see cref="Parameter"/> objects</param>
 	<DebuggerStepThrough()>
-	Friend Sub New(params As Dictionary(Of ParameterType, Parameter))
+	Friend Sub New(params As Parameter(), ByRef humanizer As IHumanizer)
 
 		Parameters = params
+		mHumanizer = humanizer
 
 	End Sub
 

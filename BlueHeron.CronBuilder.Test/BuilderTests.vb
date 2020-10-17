@@ -124,7 +124,7 @@ Public Class BuilderTests
 			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
 			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
 			WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
-			WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)). ' every second month starting with february
+			WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)).
 			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
 			Build() ' every first monday of even months at noon
 		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
@@ -207,6 +207,37 @@ Public Class BuilderTests
 			End Try
 
 			Debug.Assert(errorCount = count)
+		Next
+
+	End Sub
+
+	<TestMethod> Sub Test11_Humanizing()
+		Dim humanized As String
+		Dim expected As String() = {
+			String.Format("{0} {1} {2}", Resources.atMinute, Resources.every, Resources.minute),
+			""
+		}
+		Dim expressions As IEnumerable(Of Expression) = {
+			mBuilder.
+				WithAny(ParameterType.Minute).
+				WithAny(ParameterType.Hour).
+				WithAny(ParameterType.Day).
+				WithAny(ParameterType.Month).
+				WithAny(ParameterType.WeekDay).
+				Build(), ' every minute
+			mBuilder.
+				WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+				WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+				WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
+				WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)).
+				WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+				Build() ' every first monday of even months at noon
+		}
+
+		For i As Integer = 0 To expected.Count - 1
+			humanized = expressions(i).Display
+
+			Debug.Assert(humanized = expected(i))
 		Next
 
 	End Sub
