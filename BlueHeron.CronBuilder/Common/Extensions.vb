@@ -43,6 +43,7 @@ Public Module Extensions
 
 	''' <summary>
 	''' Returns an array of values from the given start value to the given end value.
+	''' If <paramref name="from"/> is larger than <paramref name="toVal"/>, an empty array is returned.
 	''' </summary>
 	''' <param name="from">Start value</param>
 	''' <param name="toVal">End value</param>
@@ -50,9 +51,13 @@ Public Module Extensions
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
 	<Extension()> Friend Iterator Function [To](from As Integer, toVal As Integer, stepVal As Integer) As IEnumerable(Of Integer)
 
-		For i As Integer = from To toVal Step stepVal
-			Yield i
-		Next
+		If from > toVal Then
+			Exit Function
+		Else
+			For i As Integer = from To toVal Step stepVal
+				Yield i
+			Next
+		End If
 
 	End Function
 

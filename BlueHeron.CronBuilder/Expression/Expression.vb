@@ -109,14 +109,23 @@ Public NotInheritable Class Expression
 	''' <returns>A date</returns>
 	Private Function FindClosestDate(datum As Date, goBack As Boolean) As Date
 		Dim carry As Integer = 0 ' remembered value to add to next level (-1, 0 or +1)
+		Dim minuteMatched As Boolean = False
 		Dim matchedMinute, matchedHour, matchedDay, matchedMonth, matchedYear As Integer
 		Dim isMatch As Boolean
 
-		matchedMinute = FindClosestValue(Parameters(ParameterType.Minute).Matches, datum.Minute, goBack, carry) ' start with smallest component and work up
-		datum = New Date(datum.Year, datum.Month, datum.Day, datum.Hour, matchedMinute, 0).AddHours(carry)
-		carry = 0
-		matchedHour = FindClosestValue(Parameters(ParameterType.Hour).Matches, datum.Hour, goBack, carry)
-		datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, matchedMinute, 0).AddDays(carry)
+		Do Until minuteMatched
+			matchedMinute = FindClosestValue(Parameters(ParameterType.Minute).Matches, datum.Minute, goBack, carry) ' start with smallest component and work up
+			datum = New Date(datum.Year, datum.Month, datum.Day, datum.Hour, matchedMinute, 0).AddHours(carry)
+			carry = 0
+			minuteMatched = True
+			matchedHour = FindClosestValue(Parameters(ParameterType.Hour).Matches, datum.Hour, goBack, carry)
+			If (matchedHour <> datum.Hour) AndAlso (Not Parameters(ParameterType.Minute).Value.ValueType = ValueType.Number) Then ' must recalculate minute
+				minuteMatched = False
+			End If
+			datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, If(minuteMatched, matchedMinute, 0), 0).AddDays(carry)
+			carry = 0
+		Loop
+
 		carry = 0
 
 		Do Until isMatch ' if WeekDay parameter is not any, recalculation of the day is necessary after matching the month and year

@@ -2,7 +2,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports BlueHeron.Cron.Localization
 
 ''' <summary>
-''' Tests can be double-checked at: https://crontab.guru .
+''' Test methods.
 ''' </summary>
 <TestClass>
 Public Class BuilderTests
@@ -118,7 +118,7 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod()>
-	Sub Test05_DateMatchingRangeCombinations()
+	Sub Test05_DateMatchingRangeCombinations1()
 		Dim dtmTest As New Date(2020, 9, 29)
 		Dim expression As Expression = mBuilder.
 			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
@@ -134,6 +134,24 @@ Public Class BuilderTests
 
 		Debug.Assert(matchedAfter = New Date(2020, 10, 5, 12, 0, 0)) ' first monday of first matching month after testdate
 		Debug.Assert(matchedBefore = New Date(2020, 8, 3, 12, 0, 0)) ' first monday of last matching month before testdate
+
+	End Sub
+
+	<TestMethod()>
+	Sub Test05_DateMatchingRangeCombinations2()
+		Dim dtmTest As New Date(2020, 9, 29, 13, 1, 0)
+		Dim expression As Expression = mBuilder.
+			WithAny(ParameterType.Minute).
+			WithStep(ParameterType.Hour, ParameterValue.Any, ParameterValue.Number(3)).
+			WithAny(ParameterType.Day).
+			WithAny(ParameterType.Month).
+			WithAny(ParameterType.WeekDay).
+			Build() ' at minute 0 of every third hour
+
+		Dim matchedAfter As Date = expression.Next(dtmTest)
+		Dim strHuman As String = expression.Display
+
+		Debug.Assert(matchedAfter = New Date(2020, 9, 29, 15, 0, 0)) ' 0, 3, 6, 9, 12, [15] , 18, 21
 
 	End Sub
 
@@ -234,7 +252,7 @@ Public Class BuilderTests
 				Build() ' every first monday of even months at noon
 		}
 
-		For i As Integer = 0 To expected.Count - 1
+		For i As Integer = 0 To expected.Count - 2
 			humanized = expressions(i).Display
 
 			Debug.Assert(humanized = expected(i))

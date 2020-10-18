@@ -181,7 +181,7 @@ Public NotInheritable Class Builder
 		If increment Is Nothing Then
 			Throw New ParserException(parameterType, ValueType.Step, Unknown, New NullReferenceException(NameOf(increment)).Message)
 		End If
-		If Not startValue.ValueType.IsSingleValueType Then
+		If Not (startValue.ValueType = ValueType.Any OrElse startValue.ValueType.IsSingleValueType) Then ' support */3 steps
 			Throw New ParserException(parameterType, startValue.ValueType, startValue.OriginalValue.ToString, String.Format(Resources.errParameterValueType, startValue.ValueType))
 		End If
 		If Not increment.ValueType.IsSingleValueType Then

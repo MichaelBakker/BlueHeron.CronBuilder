@@ -29,7 +29,7 @@ Public Class DefaultHumanizer
 				sb.AppendFormat(fmtTime, New Date(1, 1, 1, .Parameters(0).Value.Value, .Parameters(1).Value.Value, 0))
 				prepositions(2) = Resources._of
 			Else
-				If .Parameters(0).Value.ValueType = ValueType.Any OrElse .Parameters(0).Value.ValueType = ValueType.Range OrElse .Parameters(0).Value.ValueType = ValueType.SteppedRange Then
+				If Not .Parameters(0).Value.ValueType.IsSingleValueType Then
 					sb.AppendFormat(fmtSpaceRight, Resources.every)
 				End If
 
@@ -37,14 +37,14 @@ Public Class DefaultHumanizer
 				sb.AppendFormat(fmtSpaceRight, parameterDisplays(0))
 
 				If Not (.Parameters(1).Value.ValueType = ValueType.Any AndAlso isAny) Then
-					sb.AppendFormat(fmtSpaceRight, String.Format(fmtTuple, prepositions(1), parameterDisplays(1)))
+					sb.AppendFormat(fmtSpaceRight, String.Format(fmtTriple, prepositions(1), If(Not .Parameters(1).Value.ValueType.IsSingleValueType, Resources.every, String.Empty), parameterDisplays(1)))
 				End If
 				isAny = .Parameters(1).Value.ValueType = ValueType.Any
 			End If
 			For i As Integer = 2 To 4
 				If Not (isAny AndAlso .Parameters(i).Value.ValueType = ValueType.Any) Then
 					sb.AppendFormat(fmtSpaceRight, prepositions(i))
-					If .Parameters(i).Value.ValueType = ValueType.Any OrElse .Parameters(i).Value.ValueType = ValueType.Range OrElse .Parameters(i).Value.ValueType = ValueType.SteppedRange Then
+					If Not .Parameters(i).Value.ValueType.IsSingleValueType Then
 						sb.AppendFormat(fmtSpaceRight, Resources.every)
 					End If
 					sb.AppendFormat(fmtSpaceRight, parameterDisplays(i))
@@ -86,7 +86,9 @@ Public Class DefaultHumanizer
 				Case ValueType.Range
 					rst = String.Format(fmtTriple, DisplayValue(.Values(0), paramType, ValueDisplayType.Postfix), Resources.through, DisplayValue(.Values(1), paramType, ValueDisplayType.ValueOnly))
 				Case ValueType.Step
-					rst = String.Format(fmtTriple, DisplayValue(.Values(1), paramType, ValueDisplayType.Prefix), Resources.startingWith, DisplayValue(.Values(0), paramType, ValueDisplayType.ValueOnly))
+					Dim stepVal As String = DisplayValue(.Values(1), paramType, ValueDisplayType.Prefix)
+
+					rst = If(.Values(0).ValueType = ValueType.Any, stepVal, String.Format(fmtTriple, stepVal, Resources.startingWith, DisplayValue(.Values(0), paramType, ValueDisplayType.ValueOnly)))
 				Case ValueType.SteppedRange
 					rst = String.Format(fmtTriple, DisplayValue(.Values(0), paramType, ValueDisplayType.Postfix), Resources.through, DisplayValue(.Values(1), paramType, ValueDisplayType.ValueOnly)) &
 						String.Format(fmtSpaceBoth, Resources.andThen) & String.Format(fmtTriple, DisplayValue(.Values(2), paramType, ValueDisplayType.Prefix), Resources.startingWith, DisplayValue(.Values(1), paramType, ValueDisplayType.ValueOnly))

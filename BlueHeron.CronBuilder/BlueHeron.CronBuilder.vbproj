@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>BlueHeron.Cron</RootNamespace>
-    <TargetFrameworks>netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
     <OptionStrict>On</OptionStrict>
     <Authors>Michael Bakker</Authors>
     <Company>The Blue Heron</Company>
@@ -23,7 +23,7 @@
     <PackageProjectUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>AppLogo.png</PackageIcon>
+    <PackageIcon>CompanyLogo.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -47,6 +47,10 @@
     <Compile Remove="Parameters\**" />
     <EmbeddedResource Remove="Parameters\**" />
     <None Remove="Parameters\**" />
+    <None Include="Resources\CompanyLogo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Resources.Designer.vb">
@@ -64,11 +68,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\OneDrive - draaijer+partners bv\Afbeeldingen\The Blue Heron\AppLogo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 </Project>

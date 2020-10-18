@@ -208,26 +208,24 @@ Public NotInheritable Class ParameterValue
 			Case ValueType.Number, ValueType.MonthOfYear, ValueType.DayOfWeek
 				mMatches = {Math.Min(maxVal, Math.Max(Value, minVal))}
 			Case ValueType.Step
-				Dim incr As Integer = Values(1).Value
-				Dim val As Integer = Math.Min(maxVal, Math.Max(Values(0).Value, minVal))
+				Dim incr As Integer = Math.Max(1, Values(1).Value)
 
-				If val <= (maxVal - incr) Then
-					mMatches = val.To(maxVal, incr)
+				If Values(0).ValueType = ValueType.Any Then
+					mMatches = minVal.To(maxVal, incr)
 				Else
-					mMatches = Array.Empty(Of Integer)
+					mMatches = Math.Min(maxVal, Math.Max(Values(0).Value, minVal)).To(maxVal, incr)
 				End If
 			Case ValueType.Range
 				Dim fromVal As Integer = Math.Max(minVal, Values(0).Value)
 				Dim toVal As Integer = Math.Min(maxVal, Values(1).Value)
 
-				mMatches = Enumerable.Range(fromVal, toVal - minVal + 1)
+				If fromVal <= toVal Then
+					mMatches = Enumerable.Range(fromVal, toVal - minVal + 1)
+				Else
+					mMatches = Array.Empty(Of Integer)
+				End If
 			Case ValueType.SteppedRange
-				Dim fromVal As Integer = Values(0).Value
-				Dim toVal As Integer = Values(1).Value
-				Dim incr As Integer = Values(2).Value
-
-				mMatches = Math.Max(minVal, fromVal).To(Math.Min(maxVal, toVal), 1)
-				mMatches.Concat(toVal.To(maxVal, incr))
+				mMatches = Math.Max(minVal, Values(0).Value).To(Math.Min(maxVal, Values(1).Value), Values(2).Value)
 			Case ValueType.List
 				mMatches = Values.SelectMany(Function(v) v.AsEnumerable(paramType)).Distinct
 			Case Else

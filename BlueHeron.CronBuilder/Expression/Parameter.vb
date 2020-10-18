@@ -19,7 +19,7 @@
 	Public ReadOnly Property Matches As IEnumerable(Of Integer)
 		Get
 			If mMatches Is Nothing Then
-				mMatches = Value.AsEnumerable(ParameterType)
+				mMatches = Value.AsEnumerable(ParameterType).ToList ' enumerate once, now
 			End If
 			Return mMatches
 		End Get
