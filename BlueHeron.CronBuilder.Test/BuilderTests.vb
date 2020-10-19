@@ -16,7 +16,7 @@ Public Class BuilderTests
 #End Region
 
 	<TestMethod>
-	Sub Test00_Default()
+	Sub Test01_DefaultExpression()
 		Dim defaultExpression As String
 
 		mBuilder = New Builder
@@ -27,7 +27,7 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod>
-	Sub Test01_ValueParameters()
+	Sub Test02_ParseParameters()
 		Dim expectedExpression As String = "23 0-20 1/2 1 *"
 		Dim parameterizedExpression As Expression = mBuilder.
 			WithValue(ParameterType.Minute, ParameterValue.Number(23)).
@@ -39,12 +39,8 @@ Public Class BuilderTests
 
 		Debug.Assert(parameterizedExpression.Expression = expectedExpression)
 
-	End Sub
-
-	<TestMethod>
-	Sub Test02_MonthAndDayOfWeekParameters()
-		Dim expectedExpression As String = "0 0-23 * APR-OCT MON"  ' integer, text and enum value are supported
-		Dim parameterizedExpression As Expression = mBuilder.
+		expectedExpression = "0 0-23 * APR-OCT MON"  ' integer, text and enum value are supported
+		parameterizedExpression = mBuilder.
 			WithValue(ParameterType.Minute, ParameterValue.Number(0)).
 			WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(23)).
 			WithAny(ParameterType.Day).

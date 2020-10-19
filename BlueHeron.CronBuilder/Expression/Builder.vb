@@ -144,6 +144,8 @@ Public NotInheritable Class Builder
 	''' Only <see cref="ValueType.Number"/>, <see cref="ValueType.DayOfWeek"/> and <see cref="ValueType.MonthOfYear"/> parameters are allowed.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="fromVal">Start value of the range</param>
+	''' <param name="toVal">End value of the range</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
 	Public Function WithRange(parameterType As ParameterType, fromVal As ParameterValue, toVal As ParameterValue) As Builder
@@ -171,6 +173,8 @@ Public NotInheritable Class Builder
 	''' Only <see cref="ValueType.Number"/>, <see cref="ValueType.DayOfWeek"/> and <see cref="ValueType.MonthOfYear"/> parameters are allowed.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="startValue">Start value</param>
+	''' <param name="increment">Increment value</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
 	Public Function WithStep(parameterType As ParameterType, startValue As ParameterValue, increment As ParameterValue) As Builder
@@ -198,6 +202,9 @@ Public NotInheritable Class Builder
 	''' Only <see cref="ValueType.Number"/>, <see cref="ValueType.DayOfWeek"/> and <see cref="ValueType.MonthOfYear"/> parameters are allowed.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="fromVal">Start value of the range</param>
+	''' <param name="toVal">End value of the range</param>
+	''' <param name="incrementVal">Increment value</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
 	Public Function WithSteppedRange(parameterType As ParameterType, fromVal As ParameterValue, toVal As ParameterValue, incrementVal As ParameterValue) As Builder
@@ -231,6 +238,7 @@ Public NotInheritable Class Builder
 	''' Only <see cref="ValueType.Number"/>, <see cref="ValueType.DayOfWeek"/> and <see cref="ValueType.MonthOfYear"/> are allowed.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="value">The <see cref="ParameterValue"/> to set</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">The value is Null / Nothing or not a single value type</exception>
 	Public Function WithValue(parameterType As ParameterType, value As ParameterValue) As Builder
@@ -252,6 +260,7 @@ Public NotInheritable Class Builder
 	''' If the value cannot be parsed into a recognized <see cref="ParameterValue"/> an exception is thrown.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
+	''' <param name="value">String representation of a parameter value</param>
 	''' <returns>This <see cref="Builder"/></returns>
 	''' <exception cref="ParserException">The value is invalid</exception>
 	Public Function [With](parameterType As ParameterType, value As String) As Builder

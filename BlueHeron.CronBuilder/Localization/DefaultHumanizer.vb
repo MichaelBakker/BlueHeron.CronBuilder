@@ -133,4 +133,14 @@ Public Class DefaultHumanizer
 
 #End Region
 
+#Region " Construction "
+
+	''' <summary>
+	''' Creates a new instance of a <see cref="DefaultHumanizer"/>.
+	''' </summary>
+	Public Sub New()
+	End Sub
+
+#End Region
+
 End Class

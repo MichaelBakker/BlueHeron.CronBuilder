@@ -51,15 +51,7 @@
  If the value cannot be parsed into a recognized <see cref="T:BlueHeron.Cron.ParameterValue" /> an exception is thrown.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
-      <param name="value">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>value</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.With(BlueHeron.Cron.ParameterType,System.String)</parameter>
-          </include>
-        </markup>
-      </param>
+      <param name="value">String representation of a parameter value</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
       <exception cref="T:BlueHeron.Cron.ParserException">The value is invalid</exception>
     </member>
@@ -85,24 +77,8 @@
  Only <see cref="F:BlueHeron.Cron.ValueType.Number" />, <see cref="F:BlueHeron.Cron.ValueType.DayOfWeek" /> and <see cref="F:BlueHeron.Cron.ValueType.MonthOfYear" /> parameters are allowed.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
-      <param name="fromVal">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>fromVal</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
-      <param name="toVal">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>toVal</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
+      <param name="fromVal">Start value of the range</param>
+      <param name="toVal">End value of the range</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
       <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
     </member>
@@ -112,24 +88,8 @@
  Only <see cref="F:BlueHeron.Cron.ValueType.Number" />, <see cref="F:BlueHeron.Cron.ValueType.DayOfWeek" /> and <see cref="F:BlueHeron.Cron.ValueType.MonthOfYear" /> parameters are allowed.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
-      <param name="startValue">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>startValue</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithStep(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
-      <param name="increment">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>increment</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithStep(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
+      <param name="startValue">Start value</param>
+      <param name="increment">Increment value</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
       <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
     </member>
@@ -139,33 +99,9 @@
  Only <see cref="F:BlueHeron.Cron.ValueType.Number" />, <see cref="F:BlueHeron.Cron.ValueType.DayOfWeek" /> and <see cref="F:BlueHeron.Cron.ValueType.MonthOfYear" /> parameters are allowed.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
-      <param name="fromVal">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>fromVal</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithSteppedRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
-      <param name="toVal">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>toVal</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithSteppedRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
-      <param name="incrementVal">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>incrementVal</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithSteppedRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
+      <param name="fromVal">Start value of the range</param>
+      <param name="toVal">End value of the range</param>
+      <param name="incrementVal">Increment value</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
       <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
     </member>
@@ -175,15 +111,7 @@
  Only <see cref="F:BlueHeron.Cron.ValueType.Number" />, <see cref="F:BlueHeron.Cron.ValueType.DayOfWeek" /> and <see cref="F:BlueHeron.Cron.ValueType.MonthOfYear" /> are allowed.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
-      <param name="value">
-        <markup>
-          <include item="SMCMissingParamTag">
-            <parameter>param</parameter>
-            <parameter>value</parameter>
-            <parameter>M:BlueHeron.Cron.Builder.WithValue(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue)</parameter>
-          </include>
-        </markup>
-      </param>
+      <param name="value">The <see cref="T:BlueHeron.Cron.ParameterValue" /> to set</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
       <exception cref="T:BlueHeron.Cron.ParserException">The value is Null / Nothing or not a single value type</exception>
     </member>
@@ -234,13 +162,8 @@
     </member>
     <member name="M:BlueHeron.Cron.DefaultHumanizer.#ctor">
       <summary>
-        <markup>
-          <include item="SMCMissingTag">
-            <parameter>summary</parameter>
-            <parameter>M:BlueHeron.Cron.DefaultHumanizer.#ctor</parameter>
-          </include>
-        </markup>
-      </summary>
+ Creates a new instance of a <see cref="T:BlueHeron.Cron.DefaultHumanizer" />.
+ </summary>
     </member>
     <member name="M:BlueHeron.Cron.DefaultHumanizer.Display(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterType)">
       <summary>
@@ -286,6 +209,14 @@
       <param name="datum">The date and time to which the closest match in the future must be found</param>
       <returns>A date and time</returns>
     </member>
+    <member name="M:BlueHeron.Cron.Expression.Next(System.DateTime,System.Int32)">
+      <summary>
+ Returns the given number of date and time instances on or after the given date when the schedule that is represented by this expression is matched.
+ </summary>
+      <param name="datum">The date and time to which the closest match in the future must be found</param>
+      <param name="count">The number of matched dates to return</param>
+      <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /></returns>
+    </member>
     <member name="P:BlueHeron.Cron.Expression.Parameters">
       <summary>
  The collection of <see cref="T:BlueHeron.Cron.Parameter" /> objects that are part of the expression.
@@ -304,6 +235,14 @@
  </summary>
       <param name="datum">The date and time to which the closest match in the past must be found</param>
       <returns>A date and time</returns>
+    </member>
+    <member name="M:BlueHeron.Cron.Expression.Previous(System.DateTime,System.Int32)">
+      <summary>
+ Returns the given number of date and time instances on or before the given date when the schedule that is represented by this expression is matched.
+ </summary>
+      <param name="datum">The date and time to which the closest match in the past must be found</param>
+      <param name="count">The number of matched dates to return</param>
+      <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /></returns>
     </member>
     <member name="M:BlueHeron.Cron.Expression.ToString">
       <summary>
@@ -417,12 +356,6 @@
       <summary>
  Container for a parameter.
  </summary>
-    </member>
-    <member name="P:BlueHeron.Cron.Parameter.Matches">
-      <summary>
- Returns all integer values that match the <see cref="P:BlueHeron.Cron.Parameter.Value" /> for this <see cref="P:BlueHeron.Cron.Parameter.ParameterType" />.
- </summary>
-      <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /></returns>
     </member>
     <member name="P:BlueHeron.Cron.Parameter.ParameterType">
       <summary>

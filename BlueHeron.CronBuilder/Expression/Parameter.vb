@@ -16,10 +16,10 @@
 	''' Returns all integer values that match the <see cref="Value"/> for this <see cref="ParameterType"/>.
 	''' </summary>
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
-	Public ReadOnly Property Matches As IEnumerable(Of Integer)
+	Friend ReadOnly Property Matches As IEnumerable(Of Integer)
 		Get
 			If mMatches Is Nothing Then
-				mMatches = Value.AsEnumerable(ParameterType).ToList ' enumerate once, now
+				mMatches = Value.AsEnumerable(ParameterType)
 			End If
 			Return mMatches
 		End Get

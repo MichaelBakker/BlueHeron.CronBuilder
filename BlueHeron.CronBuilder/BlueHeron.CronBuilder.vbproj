@@ -13,10 +13,10 @@
     <Authors>Michael Bakker</Authors>
     <Company>The Blue Heron</Company>
     <Product>CronBuilder</Product>
-    <Description>Creates Cron expressions using a fluent pattern.</Description>
+    <Description>Creates and parses Cron expressions using a fluent pattern.</Description>
     <Copyright>Copyright © 2020 The Blue Heron</Copyright>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>Cron, Schedule, .NET Standard, .NET Core</PackageTags>
+    <PackageTags>Cron, Schedule, Scheduling, .NET, .NET Standard, .NET Core</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -44,8 +44,11 @@
     <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
   </Target>
   <ItemGroup>
+    <Compile Remove="bin\**" />
     <Compile Remove="Parameters\**" />
+    <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="Parameters\**" />
+    <None Remove="bin\**" />
     <None Remove="Parameters\**" />
     <None Include="Resources\CompanyLogo.png">
       <Pack>True</Pack>
@@ -65,8 +68,5 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
   </ItemGroup>
 </Project>
