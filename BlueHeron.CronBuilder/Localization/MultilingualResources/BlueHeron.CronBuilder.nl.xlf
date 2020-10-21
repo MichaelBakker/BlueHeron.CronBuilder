@@ -22,14 +22,6 @@
           <source>Invalid ParameterValueType value: '{0}'.</source>
           <target state="final">Ongeldige ParameterValueType waarde: '{0}'.</target>
         </trans-unit>
-        <trans-unit id="errParameterWithMessage" translate="yes" xml:space="preserve">
-          <source>'{0}' is invalid. {1}</source>
-          <target state="final">'{0}' is ongeldig. {1}</target>
-        </trans-unit>
-        <trans-unit id="errParameterValueTypes" translate="yes" xml:space="preserve">
-          <source>Value types of '{0}' do not match.</source>
-          <target state="final">ParameterValueType waarden van '{0}' komen niet overeen.</target>
-        </trans-unit>
         <trans-unit id="errAggregateMessage" translate="yes" xml:space="preserve">
           <source>One or more errors occurred when validating parameter values.</source>
           <target state="final">Eén of meer fouten zijn opgetreden tijdens het valideren van de parameter waarden.</target>

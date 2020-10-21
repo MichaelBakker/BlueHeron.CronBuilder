@@ -1,6 +1,7 @@
 Cron expression reference:	https://crontab.guru/
 
 Nuget Package creation:		https://docs.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package-using-visual-studio?tabs=netcore-cli
+							https://github.com/NuGet/docs.microsoft.com-nuget/blob/master/docs/quickstart/create-and-publish-a-package-using-visual-studio.md
 
 Multi-targeting:			https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-multitarget
 							https://docs.microsoft.com/en-us/dotnet/standard/frameworks

@@ -49,7 +49,7 @@ Public Module Extensions
 	''' <param name="toVal">End value</param>
 	''' <param name="stepVal">Increment step</param>
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
-	<Extension()> Friend Iterator Function [To](from As Integer, toVal As Integer, stepVal As Integer) As IEnumerable(Of Integer)
+	<Extension(), DebuggerStepThrough()> Friend Iterator Function [To](from As Integer, toVal As Integer, stepVal As Integer) As IEnumerable(Of Integer)
 
 		If from > toVal Then
 			Exit Function

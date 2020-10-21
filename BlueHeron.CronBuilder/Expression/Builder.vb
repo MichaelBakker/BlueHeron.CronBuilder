@@ -20,9 +20,6 @@ Public NotInheritable Class Builder
 	''' <returns>An <see cref="IHumanizer"/> implementation</returns>
 	Private ReadOnly Property Humanizer As IHumanizer
 		Get
-			If mHumanizer Is Nothing Then
-				mHumanizer = New DefaultHumanizer
-			End If
 			Return mHumanizer
 		End Get
 	End Property
@@ -81,7 +78,9 @@ Public NotInheritable Class Builder
 	''' <returns>This <see cref="Builder"/></returns>
 	Public Function Use(humanizer As IHumanizer) As Builder
 
-		mHumanizer = humanizer
+		If Not humanizer Is Nothing Then
+			mHumanizer = humanizer
+		End If
 		Return Me
 
 	End Function
@@ -100,7 +99,7 @@ Public NotInheritable Class Builder
 			Dim p As Parameter = mParameters(i)
 
 			If p.Value.ValueType = ValueType.Any Then
-				Continue For
+				Continue For ' nothing to validate
 			ElseIf p.Value.ValueType.IsSingleValueType Then
 				blOK = ValidateValue(p.ParameterType, p.Value, exceptions)
 			Else
@@ -358,6 +357,7 @@ Public NotInheritable Class Builder
 	''' </summary>
 	Public Sub New()
 
+		mHumanizer = New DefaultHumanizer
 		SetDefaultParameters()
 
 	End Sub

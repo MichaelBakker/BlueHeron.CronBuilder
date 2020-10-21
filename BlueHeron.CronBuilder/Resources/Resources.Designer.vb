@@ -164,24 +164,6 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Value types of &apos;{0}&apos; do not match..
-        '''</summary>
-        Public Shared ReadOnly Property errParameterValueTypes() As String
-            Get
-                Return ResourceManager.GetString("errParameterValueTypes", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to &apos;{0}&apos; is invalid. {1}.
-        '''</summary>
-        Public Shared ReadOnly Property errParameterWithMessage() As String
-            Get
-                Return ResourceManager.GetString("errParameterWithMessage", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to every.
         '''</summary>
         Public Shared ReadOnly Property every() As String

@@ -18,7 +18,7 @@ Public NotInheritable Class ParserException
 	''' The <see cref="ParameterType"/> of the <see cref="Parameter" /> for which the value was meant.
 	''' </summary>
 	''' <returns>A <see cref="ParameterType"/></returns>
-	Public ReadOnly Property ParameterType As ParameterType
+	Public ReadOnly Property ParameterType As ParameterType?
 
 	''' <summary>
 	''' The (interpreted) <see cref="Cron.ValueType"/> of the value.
@@ -37,7 +37,7 @@ Public NotInheritable Class ParserException
 	''' <param name="valType"> The (interpreted) <see cref="Cron.ValueType"/> of the value</param>
 	''' <param name="value">The value that caused the exception</param>
 	''' <param name="msg">The exception message</param>
-	Friend Sub New(paramType As ParameterType, valType As ValueType, value As String, msg As String)
+	Friend Sub New(paramType As ParameterType?, valType As ValueType, value As String, msg As String)
 
 		MyBase.New(msg)
 		ParameterType = paramType

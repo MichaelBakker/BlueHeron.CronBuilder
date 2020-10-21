@@ -313,54 +313,57 @@ Public NotInheritable Class ParameterValue
 	''' </summary>
 	''' <param name="value">The value</param>
 	Friend Sub New(value As String)
-		Dim rst As Integer
+
 
 		mValueType = ValueType.Unknown
-		If Integer.TryParse(CStr(value), rst) Then
-			SetValue(CInt(value), ValueType.Number)
-		Else
-			Dim rstDow As DayOfWeek
+		mOriginalValue = value
 
-			If [Enum].TryParse(value.ToString, rstDow) Then
-				SetValue(rstDow, ValueType.DayOfWeek)
-			Else
-				Dim rstMoy As MonthOfYear
+		If value.IndexOf(Comma) <> -1 Then
+			mValueType = ValueType.List
 
-				If [Enum].TryParse(value.ToString, rstMoy) Then
-					SetValue(rstMoy, ValueType.MonthOfYear)
-				End If
-			End If
-		End If
+			Values = value.Split(Comma).Select(Function(v) New ParameterValue(v))
+		ElseIf value.IndexOf(Minus) <> -1 Then
+			Dim vals As String() = value.Split(Minus)
 
-		If mValueType = ValueType.Unknown Then ' list, range, step or steppedrange
-			mOriginalValue = value
+			If vals.Count = 2 Then
+				If vals(1).IndexOf(Slash) <> -1 Then
+					Dim steps As String() = vals(1).Split(Slash)
 
-			If value.IndexOf(Comma) <> -1 Then
-				mValueType = ValueType.List
-
-				Values = value.Split(Comma).Select(Function(v) New ParameterValue(v))
-			ElseIf value.IndexOf(Minus) <> -1 Then
-				Dim vals As String() = value.Split(Minus)
-
-				If vals.Count = 2 Then
-					If vals(1).IndexOf(Slash) <> -1 Then
-						Dim steps As String() = vals(1).Split(Slash)
-
-						Values = {New ParameterValue(vals(0)), New ParameterValue(steps(0)), New ParameterValue(steps(1))}
-						mValueType = ValueType.SteppedRange
-					Else
-						mValueType = ValueType.Range
-						Values = vals.Select(Function(v) New ParameterValue(v))
-					End If
-				End If
-			ElseIf value.IndexOf(Slash) <> -1 Then
-				Dim vals As String() = value.Split(Slash)
-
-				If vals.Count = 2 Then
-					mValueType = ValueType.Step
+					Values = {New ParameterValue(vals(0)), New ParameterValue(steps(0)), New ParameterValue(steps(1))}
+					mValueType = ValueType.SteppedRange
+				Else
+					mValueType = ValueType.Range
 					Values = vals.Select(Function(v) New ParameterValue(v))
 				End If
 			End If
+		ElseIf value.IndexOf(Slash) <> -1 Then
+			Dim vals As String() = value.Split(Slash)
+
+			If vals.Count = 2 Then
+				mValueType = ValueType.Step
+				Values = vals.Select(Function(v) New ParameterValue(v))
+			End If
+		Else
+			Dim rst As Integer
+
+			If Integer.TryParse(CStr(value), rst) Then
+				SetValue(CInt(value), ValueType.Number)
+			Else
+				Dim rstDow As DayOfWeek
+
+				If [Enum].TryParse(value.ToString, rstDow) Then
+					SetValue(rstDow, ValueType.DayOfWeek)
+				Else
+					Dim rstMoy As MonthOfYear
+
+					If [Enum].TryParse(value.ToString, rstMoy) Then
+						SetValue(rstMoy, ValueType.MonthOfYear)
+					End If
+				End If
+			End If
+		End If
+		If mValueType = ValueType.Unknown Then
+			Throw New ParserException(Nothing, ValueType.Unknown, value, String.Format(Localization.Resources.errParameter, value))
 		End If
 
 	End Sub

@@ -50,6 +50,7 @@
     <EmbeddedResource Remove="Parameters\**" />
     <None Remove="bin\**" />
     <None Remove="Parameters\**" />
+    <None Remove="BlueHeron.CronBuilder.1.0.0.nupkg" />
     <None Include="Resources\CompanyLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

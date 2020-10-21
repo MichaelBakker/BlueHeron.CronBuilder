@@ -145,18 +145,17 @@ Public Class BuilderTests
 			Build() ' at minute 0 of every third hour
 
 		Dim matchedAfter As Date = expression.Next(dtmTest)
-		Dim strHuman As String = expression.Display
 
 		Debug.Assert(matchedAfter = New Date(2020, 9, 29, 15, 0, 0)) ' 0, 3, 6, 9, 12, [15] , 18, 21
 
 	End Sub
 
 	<TestMethod()>
-	Sub Test06_ExpressionParsing()
-		Dim expectedExpression As String = "23 0-20 1/2 1 *"
-		Dim cronExpression As Expression = mBuilder.Build(expectedExpression)
+	Sub Test06_DateMatchingMonthAndYearBoundary()
+		Dim dtmTest As New Date(2020, 11, 29, 23, 15, 0)
+		Dim expression As Expression = mBuilder.Build("* 12 1-7 1/3 MON") ' at any minute of hour 12 on every first monday of every 3rd month starting with January
 
-		Debug.Assert(cronExpression.ToString = expectedExpression)
+		Debug.Assert(expression.Next(dtmTest) = New Date(2021, 1, 4, 12, 0, 0))
 
 	End Sub
 
@@ -181,7 +180,16 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod()>
-	Sub Test08_Polling()
+	Sub Test08_ExpressionParsing()
+		Dim expectedExpression As String = "23 0-20 1/2 1 *"
+		Dim expression As Expression = mBuilder.Build(expectedExpression)
+
+		Debug.Assert(expression.ToString = expectedExpression)
+
+	End Sub
+
+	<TestMethod()>
+	Sub Test09_Polling()
 		Dim expression As Expression = mBuilder.Build(_ANY)
 
 		Debug.Assert(expression.Poll = True)
@@ -189,25 +197,37 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod()>
-	Sub Test09_ValidateOnCreation()
-		Dim exception As ParserException = Nothing
-		Dim misHapsAsText As IEnumerable(Of String) = {"Q"}
+	Sub Test10_ValidationErrorOnCreation()
+		Dim exception As ParserException
+		Dim misHapsAsText As String(,) = {{"", ""}, {"Q", "Q"}, {"5.7", "5.7"}, {"MUN", "MUN"}, {"MUN-FRI", "MUN"}} ' syntax errors
+		Dim misHapsAsValue As String(,) = {{"1/2-3", "Step"}} ' type errors with name of erroneus value
 
-		For Each value As String In misHapsAsText
+		For i As Integer = 0 To CInt((misHapsAsText.Length / 2) - 1)
 			Try
-				Dim expr As Expression = mBuilder.With(ParameterType.Minute, value).Build
+				mBuilder = mBuilder.With(ParameterType.Minute, misHapsAsText(i, 0))
+				exception = Nothing
 			Catch ex As ParserException
 				exception = ex
 			End Try
 
-			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameter, value))
-			exception = Nothing
+			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameter, misHapsAsText(i, 1)))
+		Next
+
+		For i As Integer = 0 To CInt((misHapsAsValue.Length / 2) - 1)
+			Try
+				mBuilder = mBuilder.With(ParameterType.Minute, misHapsAsValue(i, 0))
+				exception = Nothing
+			Catch ex As ParserException
+				exception = ex
+			End Try
+
+			Debug.Assert(Not exception Is Nothing AndAlso exception.Message = String.Format(Resources.errParameterValueType, misHapsAsValue(i, 1)))
 		Next
 
 	End Sub
 
 	<TestMethod()>
-	Sub Test10_ValidateOnBuild()
+	Sub Test11_ValidationErrorOnBuild()
 		Dim misHapsDayOfWeekAndMonthOfYear As IEnumerable(Of String) = {"MON", "JAN"}
 		Dim count As Integer = 0
 		Dim errorCount As Integer = 0
@@ -225,11 +245,11 @@ Public Class BuilderTests
 
 	End Sub
 
-	<TestMethod> Sub Test11_Humanizing()
+	<TestMethod> Sub Test12_Humanizing()
 		Dim humanized As String
 		Dim expected As String() = {
 			String.Format("{0} {1} {2}", Resources.atMinute, Resources.every, Resources.minute),
-			""
+			String.Format("", 1, 2, 3, 4, 5, 6, 7, 8) ' op 12:00 van elke dag 1 t/m 7 in elke 2 maanden beginnend met februari op maandag
 		}
 		Dim expressions As IEnumerable(Of Expression) = {
 			mBuilder.
@@ -248,7 +268,7 @@ Public Class BuilderTests
 				Build() ' every first monday of even months at noon
 		}
 
-		For i As Integer = 0 To expected.Count - 2
+		For i As Integer = 0 To expected.Count - 1
 			humanized = expressions(i).Display
 
 			Debug.Assert(humanized = expected(i))

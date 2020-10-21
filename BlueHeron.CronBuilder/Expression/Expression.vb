@@ -37,16 +37,13 @@ Public NotInheritable Class Expression
 	''' <summary>
 	''' Returns the textual representation of this expression.
 	''' </summary>
-	Public Property Expression As String
+	Public ReadOnly Property Expression As String
 		Get
 			If String.IsNullOrEmpty(mExpression) Then
 				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).Value.ToString, Parameters(ParameterType.Hour).Value.ToString, Parameters(ParameterType.Day).Value.ToString, Parameters(ParameterType.Month).Value.ToString, Parameters(ParameterType.WeekDay).Value.ToString)
 			End If
 			Return mExpression
 		End Get
-		Friend Set(value As String)
-			mExpression = value
-		End Set
 	End Property
 
 #End Region
@@ -176,7 +173,7 @@ Public NotInheritable Class Expression
 			End If
 			If Not monthMatched Then
 				matchedMonth = FindClosestValue(Parameters(ParameterType.Month).Matches, datum.Month, goBack, carry)
-				matchedYear = datum.Year + carry
+				matchedYear = datum.Year + If(carry > 0, 1, If(carry < 0, -1, 0))
 				If (matchedMonth <> datum.Month) OrElse (matchedYear <> datum.Year) Then  ' must recalculate minute, hour and day
 					minuteMatched = False
 					hourMatched = False
@@ -202,7 +199,7 @@ Public NotInheritable Class Expression
 	''' <param name="goBack">If true, search backwards for the closest match</param>
 	''' <param name="carry">-1, 0 or +1 to be added to the next level</param>
 	''' <returns>The closest matching number</returns>
-	Private Function FindClosestValue(pattern As IEnumerable(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
+	<DebuggerStepThrough()> Private Function FindClosestValue(pattern As IEnumerable(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
 
 		If pattern.Contains(value) Then
 			Return value ' exact match
@@ -239,11 +236,11 @@ Public NotInheritable Class Expression
 	''' <param name="goBack">If true, search backwards for the closest match</param>
 	''' <param name="carry"></param>
 	''' <returns></returns>
-	Private Function FindClosestDay(datum As Date, goBack As Boolean, ByRef carry As Integer) As Integer
+	<DebuggerStepThrough()> Private Function FindClosestDay(datum As Date, goBack As Boolean, ByRef carry As Integer) As Integer
 		Dim daysInMonth As Integer = Date.DaysInMonth(datum.Year, datum.Month)
 		Dim dayPattern As List(Of Integer) = Parameters(ParameterType.Day).Matches.Take(daysInMonth).ToList ' current month may be 28, 29, 30 or 31 days in length
 
-		If Parameters(ParameterType.WeekDay).Value.ValueType <> ValueType.Any Then ' take the DayOfWeek pattern into account
+		If Parameters(ParameterType.WeekDay).Value.ValueType <> ValueType.Any Then ' take intersection with DayOfWeek pattern
 			Dim dayOfWeekPattern As IEnumerable(Of Integer) = Parameters(ParameterType.WeekDay).Matches
 			Dim filteredDayPattern As New List(Of Integer)
 

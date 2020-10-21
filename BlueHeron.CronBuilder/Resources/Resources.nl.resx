@@ -24,12 +24,6 @@
   <data name="errParameterValueType" xml:space="preserve">
     <value>Ongeldige ParameterValueType waarde: '{0}'.</value>
   </data>
-  <data name="errParameterWithMessage" xml:space="preserve">
-    <value>'{0}' is ongeldig. {1}</value>
-  </data>
-  <data name="errParameterValueTypes" xml:space="preserve">
-    <value>ParameterValueType waarden van '{0}' komen niet overeen.</value>
-  </data>
   <data name="errAggregateMessage" xml:space="preserve">
     <value>Eén of meer fouten zijn opgetreden tijdens het valideren van de parameter waarden.</value>
   </data>

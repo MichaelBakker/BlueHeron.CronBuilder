@@ -147,12 +147,6 @@
   <data name="errParameterValueType" xml:space="preserve">
     <value>Invalid ParameterValueType value: '{0}'.</value>
   </data>
-  <data name="errParameterValueTypes" xml:space="preserve">
-    <value>Value types of '{0}' do not match.</value>
-  </data>
-  <data name="errParameterWithMessage" xml:space="preserve">
-    <value>'{0}' is invalid. {1}</value>
-  </data>
   <data name="every" xml:space="preserve">
     <value>every</value>
   </data>
