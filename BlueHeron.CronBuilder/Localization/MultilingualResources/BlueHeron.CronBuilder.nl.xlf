@@ -19,8 +19,8 @@
           <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal parameters.</target>
         </trans-unit>
         <trans-unit id="errParameterValueType" translate="yes" xml:space="preserve">
-          <source>Invalid ParameterValueType value: '{0}'.</source>
-          <target state="final">Ongeldige ParameterValueType waarde: '{0}'.</target>
+          <source>Invalid ValueType: '{0}'.</source>
+          <target state="final">Ongeldige ValueType waarde: '{0}'.</target>
         </trans-unit>
         <trans-unit id="errAggregateMessage" translate="yes" xml:space="preserve">
           <source>One or more errors occurred when validating parameter values.</source>
@@ -97,6 +97,10 @@
         <trans-unit id="of" translate="yes" xml:space="preserve">
           <source>of</source>
           <target state="final">van</target>
+        </trans-unit>
+        <trans-unit id="errValueOutOfRange" translate="yes" xml:space="preserve">
+          <source>'{0}' is out of range.</source>
+          <target state="final">'{0}' ligt buiten het bereik.</target>
         </trans-unit>
       </group>
     </body>

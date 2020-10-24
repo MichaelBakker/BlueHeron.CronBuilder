@@ -14,22 +14,20 @@
  Creates a new CronBuilder, defaulting to a '* * * * *' expression.
  </summary>
     </member>
-    <member name="M:BlueHeron.Cron.Builder.Build(System.Boolean)">
+    <member name="M:BlueHeron.Cron.Builder.Build">
       <summary>
  Returns the assembled <see cref="T:BlueHeron.Cron.Expression" />.
  </summary>
-      <param name="validateExpression">If True, parameter values will be validated before returning the <see cref="T:BlueHeron.Cron.Expression" /></param>
       <returns>An <see cref="T:BlueHeron.Cron.Expression" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserAggregateException">One or more errors occurred while validating this expression</exception>
+      <exception cref="T:System.AggregateException">One or more errors occurred while validating this expression</exception>
     </member>
-    <member name="M:BlueHeron.Cron.Builder.Build(System.String,System.Boolean)">
+    <member name="M:BlueHeron.Cron.Builder.Build(System.String)">
       <summary>
- Creates a <see cref="T:BlueHeron.Cron.Expression" /> from the given string and returns it after validation.
+ Creates an <see cref="T:BlueHeron.Cron.Expression" /> from the given string.
  </summary>
-      <param name="cronExpression">The string representation of a Cron expression</param>
-      <param name="validateExpression">If True, parameter values will be validated before returning the <see cref="T:BlueHeron.Cron.Expression" /></param>
-      <returns>A <see cref="T:BlueHeron.Cron.Expression" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">The expression contains one or more invalid parameters</exception>
+      <param name="expression">The string representation of a Cron expression</param>
+      <returns>An <see cref="T:BlueHeron.Cron.Expression" /></returns>
+      <exception cref="T:System.AggregateException">The expression contains one or more invalid parameters</exception>
     </member>
     <member name="M:BlueHeron.Cron.Builder.Use(BlueHeron.Cron.Localization.IHumanizer)">
       <summary>
@@ -57,7 +55,7 @@
     </member>
     <member name="M:BlueHeron.Cron.Builder.WithAny(BlueHeron.Cron.ParameterType)">
       <summary>
- Configures the parameter of the given <see cref="T:BlueHeron.Cron.ParameterType" /> to be a <see cref="F:BlueHeron.Cron.ValueType.Any" /> parameter
+ Configures the parameter of the given <see cref="T:BlueHeron.Cron.ParameterType" /> to be a <see cref="F:BlueHeron.Cron.ValueType.Any" /> parameter.
  </summary>
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
@@ -69,7 +67,7 @@
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
       <param name="values">One or more <see cref="T:BlueHeron.Cron.ParameterValue" /> objects</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">The values parameter is Null / Nothing or contains no <see cref="T:BlueHeron.Cron.ParameterValue" />s</exception>
+      <exception cref="T:BlueHeron.Cron.ParserException">The values parameter is null or empty</exception>
     </member>
     <member name="M:BlueHeron.Cron.Builder.WithRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)">
       <summary>
@@ -80,7 +78,7 @@
       <param name="fromVal">Start value of the range</param>
       <param name="toVal">End value of the range</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
+      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is not a single value type</exception>
     </member>
     <member name="M:BlueHeron.Cron.Builder.WithStep(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)">
       <summary>
@@ -91,7 +89,7 @@
       <param name="startValue">Start value</param>
       <param name="increment">Increment value</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
+      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is not a single value type</exception>
     </member>
     <member name="M:BlueHeron.Cron.Builder.WithSteppedRange(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)">
       <summary>
@@ -103,7 +101,7 @@
       <param name="toVal">End value of the range</param>
       <param name="incrementVal">Increment value</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is Null / Nothing or not a single value type</exception>
+      <exception cref="T:BlueHeron.Cron.ParserException">One of the values is not a single value type</exception>
     </member>
     <member name="M:BlueHeron.Cron.Builder.WithValue(BlueHeron.Cron.ParameterType,BlueHeron.Cron.ParameterValue)">
       <summary>
@@ -113,7 +111,7 @@
       <param name="parameterType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to configure</param>
       <param name="value">The <see cref="T:BlueHeron.Cron.ParameterValue" /> to set</param>
       <returns>This <see cref="T:BlueHeron.Cron.Builder" /></returns>
-      <exception cref="T:BlueHeron.Cron.ParserException">The value is Null / Nothing or not a single value type</exception>
+      <exception cref="T:BlueHeron.Cron.ParserException">The value is not a single value type</exception>
     </member>
     <member name="T:BlueHeron.Cron.DayOfWeek">
       <summary>
@@ -155,38 +153,6 @@
  Sunday.
  </summary>
     </member>
-    <member name="T:BlueHeron.Cron.DefaultHumanizer">
-      <summary>
- Object that converts an <see cref="T:BlueHeron.Cron.Expression" /> into a human-readable, localized representation, using a pattern that probably only works for a few european languages.
- </summary>
-    </member>
-    <member name="M:BlueHeron.Cron.DefaultHumanizer.#ctor">
-      <summary>
- Creates a new instance of a <see cref="T:BlueHeron.Cron.DefaultHumanizer" />.
- </summary>
-    </member>
-    <member name="M:BlueHeron.Cron.DefaultHumanizer.Display(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterType)">
-      <summary>
- Returns a human-readable, localized representation of the given parameter value for the given <see cref="T:BlueHeron.Cron.ParameterType" />.
- </summary>
-      <param name="paramValue">The <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
-      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to which this value belongs</param>
-    </member>
-    <member name="M:BlueHeron.Cron.DefaultHumanizer.DisplayValue(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterType,BlueHeron.Cron.ValueDisplayType)">
-      <summary>
- Returns a human-readable, localized representation of the given parameter value's <see cref="P:BlueHeron.Cron.ParameterValue.Value" /> for the given <see cref="T:BlueHeron.Cron.ParameterType" /> and <see cref="T:BlueHeron.Cron.ValueDisplayType" />.
- </summary>
-      <param name="paramValue">The <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
-      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to which this value belongs</param>
-      <param name="valueDisplayType">The <see cref="T:BlueHeron.Cron.ValueDisplayType" /> to use</param>
-    </member>
-    <member name="M:BlueHeron.Cron.DefaultHumanizer.Humanize(BlueHeron.Cron.Expression)">
-      <summary>
- Converts the given <see cref="T:BlueHeron.Cron.Expression" /> into a human-readable, localized representation.
- </summary>
-      <param name="expression">The <see cref="T:BlueHeron.Cron.Expression" /> to convert</param>
-      <returns>Human-readable, localized representation of the <see cref="T:BlueHeron.Cron.Expression" /></returns>
-    </member>
     <member name="T:BlueHeron.Cron.Expression">
       <summary>
  Object, that represents a Cron expression.
@@ -202,16 +168,22 @@
  Returns the textual representation of this expression.
  </summary>
     </member>
+    <member name="M:BlueHeron.Cron.Expression.Next">
+      <summary>
+ Returns the next date and time at which the schedule that is represented by this expression is matched.
+ </summary>
+      <returns>A date and time</returns>
+    </member>
     <member name="M:BlueHeron.Cron.Expression.Next(System.DateTime)">
       <summary>
- Returns the first date and time on or after the given date when the schedule that is represented by this expression is matched.
+ Returns the first date and time on or after the given date at which the schedule that is represented by this expression is matched.
  </summary>
       <param name="datum">The date and time to which the closest match in the future must be found</param>
       <returns>A date and time</returns>
     </member>
     <member name="M:BlueHeron.Cron.Expression.Next(System.DateTime,System.Int32)">
       <summary>
- Returns the given number of date and time instances on or after the given date when the schedule that is represented by this expression is matched.
+ Returns the given number of date and time instances on or after the given date at which the schedule that is represented by this expression is matched.
  </summary>
       <param name="datum">The date and time to which the closest match in the future must be found</param>
       <param name="count">The number of matched dates to return</param>
@@ -229,16 +201,22 @@
  </summary>
       <returns>Boolean, True when the current date and time match the date and time pattern defined by this expression</returns>
     </member>
+    <member name="M:BlueHeron.Cron.Expression.Previous">
+      <summary>
+ Returns the previous date and time at which the schedule that is represented by this expression was matched.
+ </summary>
+      <returns>A date and time</returns>
+    </member>
     <member name="M:BlueHeron.Cron.Expression.Previous(System.DateTime)">
       <summary>
- Returns the first date and time on or before the given date when the schedule that is represented by this expression is matched.
+ Returns the first date and time on or before the given date at which the schedule that is represented by this expression is matched.
  </summary>
       <param name="datum">The date and time to which the closest match in the past must be found</param>
       <returns>A date and time</returns>
     </member>
     <member name="M:BlueHeron.Cron.Expression.Previous(System.DateTime,System.Int32)">
       <summary>
- Returns the given number of date and time instances on or before the given date when the schedule that is represented by this expression is matched.
+ Returns the given number of date and time instances on or before the given date at which the schedule that is represented by this expression is matched.
  </summary>
       <param name="datum">The date and time to which the closest match in the past must be found</param>
       <param name="count">The number of matched dates to return</param>
@@ -248,44 +226,6 @@
       <summary>
  Returns the string representation of this expression.
  </summary>
-    </member>
-    <member name="T:BlueHeron.Cron.Extensions">
-      <summary>
- Extension methods.
- </summary>
-    </member>
-    <member name="M:BlueHeron.Cron.Extensions.IsSingleValueType(BlueHeron.Cron.ValueType)">
-      <summary>
- Returns True if this <see cref="T:BlueHeron.Cron.ValueType" /> value represents a single value.
- </summary>
-      <param name="valueType">A <see cref="T:BlueHeron.Cron.ValueType" /></param>
-      <returns>True, if the given value is one of the following: <see cref="F:BlueHeron.Cron.ValueType.Number" />, <see cref="F:BlueHeron.Cron.ValueType.MonthOfYear" /> or <see cref="F:BlueHeron.Cron.ValueType.DayOfWeek" /></returns>
-    </member>
-    <member name="M:BlueHeron.Cron.Extensions.Preposition(BlueHeron.Cron.ParameterType)">
-      <summary>
- Returns the appropriate, localized preposition for the given <see cref="T:BlueHeron.Cron.ParameterType" />.
- </summary>
-      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /></param>
-      <returns>Localized versions of at, on or in.</returns>
-    </member>
-    <member name="M:BlueHeron.Cron.Extensions.ToDisplay(BlueHeron.Cron.DayOfWeek)">
-      <summary>
- Returns the human-readable, localized representation of this <see cref="T:BlueHeron.Cron.DayOfWeek" />.
- </summary>
-      <param name="dow">This <see cref="T:BlueHeron.Cron.DayOfWeek" /></param>
-    </member>
-    <member name="M:BlueHeron.Cron.Extensions.ToDisplay(BlueHeron.Cron.MonthOfYear)">
-      <summary>
- Returns the human-readable, localized representation of this <see cref="T:BlueHeron.Cron.MonthOfYear" />.
- </summary>
-      <param name="moy">This <see cref="T:BlueHeron.Cron.MonthOfYear" /></param>
-    </member>
-    <member name="M:BlueHeron.Cron.Extensions.ToDisplay(BlueHeron.Cron.ParameterType,System.Boolean)">
-      <summary>
- Returns the human-readable, localized representation of this <see cref="T:BlueHeron.Cron.ParameterType" />.
- </summary>
-      <param name="paramType">This <see cref="T:BlueHeron.Cron.ParameterType" /></param>
-      <param name="isPlural">If true, the plural form is returned</param>
     </member>
     <member name="T:BlueHeron.Cron.MonthOfYear">
       <summary>
@@ -354,13 +294,14 @@
     </member>
     <member name="T:BlueHeron.Cron.Parameter">
       <summary>
- Container for a parameter.
+ Structure that represents an expression parameter.
  </summary>
     </member>
     <member name="P:BlueHeron.Cron.Parameter.ParameterType">
       <summary>
- The <see cref="P:BlueHeron.Cron.Parameter.ParameterType" /> of this parameter.
+ The <see cref="T:BlueHeron.Cron.ParameterType" /> of this parameter.
  </summary>
+      <returns>A <see cref="T:BlueHeron.Cron.ParameterType" /> value</returns>
     </member>
     <member name="P:BlueHeron.Cron.Parameter.Value">
       <summary>
@@ -385,7 +326,7 @@
     </member>
     <member name="F:BlueHeron.Cron.ParameterType.Day">
       <summary>
- The parameter describes the day (of the month) part of the expression.
+ The parameter describes the day part of the expression.
  </summary>
     </member>
     <member name="F:BlueHeron.Cron.ParameterType.Month">
@@ -393,14 +334,14 @@
  The parameter describes the month part of the expression.
  </summary>
     </member>
-    <member name="F:BlueHeron.Cron.ParameterType.WeekDay">
+    <member name="F:BlueHeron.Cron.ParameterType.DayOfWeek">
       <summary>
- The parameter describes the day (of the week) part of the expression.
+ The parameter describes the day-of-week part of the expression.
  </summary>
     </member>
     <member name="T:BlueHeron.Cron.ParameterValue">
       <summary>
- Object that represents an expression parameter value.
+ Structure that represents an expression parameter value.
  </summary>
     </member>
     <member name="M:BlueHeron.Cron.ParameterValue.Any">
@@ -416,6 +357,12 @@
       <param name="value">The value</param>
       <returns>A <see cref="T:BlueHeron.Cron.ParameterValue" /></returns>
     </member>
+    <member name="M:BlueHeron.Cron.ParameterValue.Equals(System.Object)">
+      <summary>
+ Determines whether this instance and the specified object have the same value.
+ </summary>
+      <param name="obj">The object to compare to this instance</param>
+    </member>
     <member name="M:BlueHeron.Cron.ParameterValue.FromString(System.String)">
       <summary>
  Returns a <see cref="T:BlueHeron.Cron.ParameterValue" /> of  a type that will be determined when parsing the value.
@@ -423,6 +370,11 @@
  </summary>
       <param name="value">The value</param>
       <returns>A <see cref="T:BlueHeron.Cron.ParameterValue" /></returns>
+    </member>
+    <member name="M:BlueHeron.Cron.ParameterValue.GetHashCode">
+      <summary>
+ Returns a hash code for this object.
+ </summary>
     </member>
     <member name="M:BlueHeron.Cron.ParameterValue.MonthOfYear(BlueHeron.Cron.MonthOfYear)">
       <summary>
@@ -438,6 +390,20 @@
  </summary>
       <param name="value">The value</param>
       <returns>A <see cref="T:BlueHeron.Cron.ParameterValue" /></returns>
+    </member>
+    <member name="M:BlueHeron.Cron.ParameterValue.op_Equality(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)">
+      <summary>
+ Equality operator.
+ </summary>
+      <param name="left">The left <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
+      <param name="right">The right <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
+    </member>
+    <member name="M:BlueHeron.Cron.ParameterValue.op_Inequality(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterValue)">
+      <summary>
+ Inequality operator.
+ </summary>
+      <param name="left">The left <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
+      <param name="right">The right <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
     </member>
     <member name="P:BlueHeron.Cron.ParameterValue.OriginalValue">
       <summary>
@@ -491,20 +457,9 @@
  </summary>
       <returns>A <see cref="T:BlueHeron.Cron.ValueType" /> value</returns>
     </member>
-    <member name="T:BlueHeron.Cron.ParserAggregateException">
-      <summary>
-  An <see cref="T:System.Exception" /> object that is thrown by the <see cref="T:BlueHeron.Cron.Builder" /> when validating the <see cref="T:BlueHeron.Cron.ParameterValue" />s fails.
- </summary>
-    </member>
-    <member name="P:BlueHeron.Cron.ParserAggregateException.Errors">
-      <summary>
- The <see cref="T:BlueHeron.Cron.ParserException" />s that occurred.
- </summary>
-      <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1" /></returns>
-    </member>
     <member name="T:BlueHeron.Cron.ParserException">
       <summary>
- An <see cref="T:System.Exception" /> object that is thrown by the <see cref="T:BlueHeron.Cron.Builder" /> when modifying a parameter fails.
+ An <see cref="T:System.Exception" /> object that is thrown by the <see cref="T:BlueHeron.Cron.Builder" /> when modifying a <see cref="T:BlueHeron.Cron.Parameter" /> or building an <see cref="T:BlueHeron.Cron.Expression" /> fails.
  </summary>
     </member>
     <member name="P:BlueHeron.Cron.ParserException.OriginalValue">
@@ -515,9 +470,9 @@
     </member>
     <member name="P:BlueHeron.Cron.ParserException.ParameterType">
       <summary>
- The <see cref="P:BlueHeron.Cron.ParserException.ParameterType" /> of the <see cref="T:BlueHeron.Cron.Parameter" /> for which the value was meant.
+ The <see cref="T:BlueHeron.Cron.ParameterType" /> of the <see cref="T:BlueHeron.Cron.Parameter" /> for which the value was meant.
  </summary>
-      <returns>A <see cref="P:BlueHeron.Cron.ParserException.ParameterType" /></returns>
+      <returns>A <see cref="T:BlueHeron.Cron.ParameterType" /></returns>
     </member>
     <member name="P:BlueHeron.Cron.ParserException.ValueType">
       <summary>
@@ -594,6 +549,45 @@
       <summary>
  The value could not be determined.
  </summary>
+    </member>
+    <member name="T:BlueHeron.Cron.Localization.DefaultHumanizer">
+      <summary>
+ Object that converts an <see cref="T:BlueHeron.Cron.Expression" /> into a human-readable, localized representation, using a pattern that probably only works for a few european languages.
+ </summary>
+    </member>
+    <member name="M:BlueHeron.Cron.Localization.DefaultHumanizer.#ctor">
+      <summary>
+ Creates a new instance of a <see cref="T:BlueHeron.Cron.Localization.DefaultHumanizer" />.
+ </summary>
+    </member>
+    <member name="M:BlueHeron.Cron.Localization.DefaultHumanizer.GetDisplay(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterType)">
+      <summary>
+ Returns a human-readable, localized representation of the given parameter value for the given <see cref="T:BlueHeron.Cron.ParameterType" />.
+ </summary>
+      <param name="paramValue">The <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
+      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to which this value belongs</param>
+    </member>
+    <member name="M:BlueHeron.Cron.Localization.DefaultHumanizer.GetDisplay(BlueHeron.Cron.ParameterValue,BlueHeron.Cron.ParameterType,BlueHeron.Cron.ValueDisplayType)">
+      <summary>
+ Returns a human-readable, localized representation of the given parameter value's <see cref="P:BlueHeron.Cron.ParameterValue.Value" /> for the given <see cref="T:BlueHeron.Cron.ParameterType" /> and <see cref="T:BlueHeron.Cron.ValueDisplayType" />.
+ </summary>
+      <param name="paramValue">The <see cref="T:BlueHeron.Cron.ParameterValue" /></param>
+      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /> to which this value belongs</param>
+      <param name="valueDisplayType">The <see cref="T:BlueHeron.Cron.ValueDisplayType" /> to use</param>
+    </member>
+    <member name="M:BlueHeron.Cron.Localization.DefaultHumanizer.GetPreposition(BlueHeron.Cron.ParameterType)">
+      <summary>
+ Returns the appropriate, localized preposition for the given <see cref="T:BlueHeron.Cron.ParameterType" />.
+ </summary>
+      <param name="paramType">The <see cref="T:BlueHeron.Cron.ParameterType" /></param>
+      <returns>Localized versions of at, on or in.</returns>
+    </member>
+    <member name="M:BlueHeron.Cron.Localization.DefaultHumanizer.Humanize(BlueHeron.Cron.Expression)">
+      <summary>
+ Converts the given <see cref="T:BlueHeron.Cron.Expression" /> into a human-readable, localized representation.
+ </summary>
+      <param name="expression">The <see cref="T:BlueHeron.Cron.Expression" /> to convert</param>
+      <returns>Human-readable, localized representation of the <see cref="T:BlueHeron.Cron.Expression" /></returns>
     </member>
     <member name="T:BlueHeron.Cron.Localization.IHumanizer">
       <summary>

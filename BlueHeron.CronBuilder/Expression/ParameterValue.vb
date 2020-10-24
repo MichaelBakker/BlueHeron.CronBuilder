@@ -1,8 +1,8 @@
 ﻿
 ''' <summary>
-''' Object that represents an expression parameter value.
+''' Structure that represents an expression parameter value.
 ''' </summary>
-Public NotInheritable Class ParameterValue
+Public Structure ParameterValue
 
 #Region " Objects and variables "
 
@@ -25,7 +25,7 @@ Public NotInheritable Class ParameterValue
 	End Property
 
 	''' <summary>
-	''' This value as an integer. Only used when the <see cref="ValueType"/> is <see cref="ValueType.DayOfWeek"/>, <see cref="ValueType.MonthOfYear"/> or <see cref="ValueType.Number"/>.
+	''' This value as an integer. Only used when the <see cref="ValueType"/> is <see cref="Cron.ValueType.DayOfWeek"/>, <see cref="Cron.ValueType.MonthOfYear"/> or <see cref="Cron.ValueType.Number"/>.
 	''' </summary>
 	Public ReadOnly Property Value As Integer
 		Get
@@ -157,6 +157,59 @@ Public NotInheritable Class ParameterValue
 
 	End Function
 
+#End Region
+
+#Region " Overrides "
+
+	''' <summary>
+	''' Determines whether this instance and the specified object have the same value.
+	''' </summary>
+	''' <param name="obj">The object to compare to this instance</param>
+	Public Overrides Function Equals(obj As Object) As Boolean
+
+		Return If(TypeOf (obj) Is String, ToString().Equals(obj), GetHashCode.Equals(obj.GetHashCode))
+
+	End Function
+
+	''' <summary>
+	''' Returns a hash code for this object.
+	''' </summary>
+	Public Overrides Function GetHashCode() As Integer
+
+		If mOriginalValue Is Nothing Then
+			Return Asterix.GetHashCode
+		End If
+
+#If NETFRAMEWORK Or NETSTANDARD2_0 Then ' HashCode.Combine not available
+		Return (17 * 31 + mValueType.GetHashCode()) * 31 + mOriginalValue.GetHashCode()
+#Else
+		Return HashCode.Combine(mValueType, mOriginalValue)
+#End If
+
+	End Function
+
+	''' <summary>
+	''' Equality operator.
+	''' </summary>
+	''' <param name="left">The left <see cref="ParameterValue"/></param>
+	''' <param name="right">The right <see cref="ParameterValue"/></param>
+	Public Shared Operator =(left As ParameterValue, right As ParameterValue) As Boolean
+
+		Return left.Equals(right)
+
+	End Operator
+
+	''' <summary>
+	''' Inequality operator.
+	''' </summary>
+	''' <param name="left">The left <see cref="ParameterValue"/></param>
+	''' <param name="right">The right <see cref="ParameterValue"/></param>
+	Public Shared Operator <>(left As ParameterValue, right As ParameterValue) As Boolean
+
+		Return Not left = right
+
+	End Operator
+
 	''' <summary>
 	''' Returns the symbolic representation of this parameter value.
 	''' </summary>
@@ -199,33 +252,26 @@ Public NotInheritable Class ParameterValue
 	''' <returns>An <see cref="IEnumerable(Of Integer)"/></returns>
 	Friend Function AsEnumerable(paramType As ParameterType) As IEnumerable(Of Integer)
 		Dim mMatches As IEnumerable(Of Integer)
-		Dim maxVal As Integer = MaximumValues(paramType)
-		Dim minVal As Integer = MinimumValues(paramType)
 
 		Select Case mValueType
 			Case ValueType.Any
-				mMatches = Enumerable.Range(minVal, maxVal - minVal + 1)
+				mMatches = Enumerable.Range(MinimumValue(paramType), MaximumValue(paramType) - MinimumValue(paramType) + 1)
 			Case ValueType.Number, ValueType.MonthOfYear, ValueType.DayOfWeek
-				mMatches = {Math.Min(maxVal, Math.Max(Value, minVal))}
+				mMatches = {Value}
 			Case ValueType.Step
-				Dim incr As Integer = Math.Max(1, Values(1).Value)
-
 				If Values(0).ValueType = ValueType.Any Then
-					mMatches = minVal.To(maxVal, incr)
+					mMatches = MinimumValue(paramType).To(MaximumValue(paramType), Values(1).Value)
 				Else
-					mMatches = Math.Min(maxVal, Math.Max(Values(0).Value, minVal)).To(maxVal, incr)
+					mMatches = Values(0).Value.To(MaximumValue(paramType), Values(1).Value)
 				End If
 			Case ValueType.Range
-				Dim fromVal As Integer = Math.Max(minVal, Values(0).Value)
-				Dim toVal As Integer = Math.Min(maxVal, Values(1).Value)
-
-				If fromVal <= toVal Then
-					mMatches = Enumerable.Range(fromVal, toVal - minVal + 1)
+				If Values(0).Value <= Values(1).Value Then
+					mMatches = Enumerable.Range(Values(0).Value, Values(1).Value - MinimumValue(paramType) + 1)
 				Else
 					mMatches = Array.Empty(Of Integer)
 				End If
 			Case ValueType.SteppedRange
-				mMatches = Math.Max(minVal, Values(0).Value).To(Math.Min(maxVal, Values(1).Value), Values(2).Value)
+				mMatches = Values(0).Value.To(Values(1).Value, Values(2).Value)
 			Case ValueType.List
 				mMatches = Values.SelectMany(Function(v) v.AsEnumerable(paramType)).Distinct
 			Case Else
@@ -253,15 +299,6 @@ Public NotInheritable Class ParameterValue
 #End Region
 
 #Region " Construction "
-
-	''' <summary>
-	''' Creates a new <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Any"/>
-	''' </summary>
-	<DebuggerStepThrough()> Private Sub New()
-
-		SetValue(-1, ValueType.Any)
-
-	End Sub
 
 	''' <summary>
 	''' Creates a <see cref="ParameterValue"/> of type <see cref="Cron.ValueType.Number"/>.
@@ -308,12 +345,12 @@ Public NotInheritable Class ParameterValue
 	End Sub
 
 	''' <summary>
-	''' Creates a <see cref="ParameterValue"/> of a type that will be determined when parsing the value.
-	''' If the value cannot be parsed, <see cref="Cron.ValueType.Unknown"/> is assigned and subsequent validation will fail.
+	''' Creates a <see cref="ParameterValue"/> of a <see cref="Cron.ValueType"/> that is determined when parsing the value.
+	''' If the value cannot be parsed, <see cref="Cron.ValueType.Unknown"/> is assigned and a <see cref="ParserException"/> is thrown.
 	''' </summary>
 	''' <param name="value">The value</param>
+	''' <exception cref="ParserException">[value] is invalid.</exception>
 	Friend Sub New(value As String)
-
 
 		mValueType = ValueType.Unknown
 		mOriginalValue = value
@@ -370,4 +407,4 @@ Public NotInheritable Class ParameterValue
 
 #End Region
 
-End Class
+End Structure

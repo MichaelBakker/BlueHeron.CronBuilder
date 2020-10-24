@@ -8,7 +8,8 @@ Public NotInheritable Class Builder
 #Region " Objects and variables "
 
 	Private mHumanizer As IHumanizer
-	Private mParameters As Parameter()
+	Private Shared ReadOnly mDefaultParameters As Parameter() = {New Parameter(ParameterType.Minute, ParameterValue.Any), New Parameter(ParameterType.Hour, ParameterValue.Any), New Parameter(ParameterType.Day, ParameterValue.Any), New Parameter(ParameterType.Month, ParameterValue.Any), New Parameter(ParameterType.DayOfWeek, ParameterValue.Any)}
+	Private ReadOnly mParameters(4) As Parameter
 
 #End Region
 
@@ -31,43 +32,41 @@ Public NotInheritable Class Builder
 	''' <summary>
 	''' Returns the assembled <see cref="Expression"/>.
 	''' </summary>
-	''' <param name="validateExpression">If True, parameter values will be validated before returning the <see cref="Expression"/></param>
 	''' <returns>An <see cref="Expression"/></returns>
-	''' <exception cref="ParserAggregateException">One or more errors occurred while validating this expression</exception>
-	Public Function Build(Optional validateExpression As Boolean = True) As Expression
+	''' <exception cref="AggregateException">One or more errors occurred while validating this expression</exception>
+	Public Function Build() As Expression
 		Dim exceptions As List(Of ParserException) = Nothing
 
-		If (Not validateExpression) OrElse Validate(exceptions) Then
-			Dim expression As New Expression(mParameters, Humanizer)
+		If Validate(exceptions) Then
+			Dim expression As New Expression(DirectCast(mParameters.Clone, Parameter()), Humanizer)
 
-			SetDefaultParameters() ' reset internal parameters to Any
+			mDefaultParameters.CopyTo(mParameters, 0) ' reset internal parameters to Any
 
 			Return expression
 		End If
 
-		Throw New ParserAggregateException(Resources.errAggregateMessage, exceptions)
+		Throw New AggregateException(Resources.errAggregateMessage, exceptions)
 
 	End Function
 
 	''' <summary>
-	''' Creates a <see cref="Expression" /> from the given string and returns it after validation.
+	''' Creates an <see cref="Expression" /> from the given string.
 	''' </summary>
-	''' <param name="cronExpression">The string representation of a Cron expression</param>
-	''' <param name="validateExpression">If True, parameter values will be validated before returning the <see cref="Expression"/></param>
-	''' <exception cref="ParserException">The expression contains one or more invalid parameters</exception>
-	''' <returns>A <see cref="Expression"/></returns>
-	Public Function Build(cronExpression As String, Optional validateExpression As Boolean = True) As Expression
-		Dim parts As String() = cronExpression.Split({Space}, StringSplitOptions.RemoveEmptyEntries)
+	''' <param name="expression">The string representation of a Cron expression</param>
+	''' <exception cref="AggregateException">The expression contains one or more invalid parameters</exception>
+	''' <returns>An <see cref="Expression"/></returns>
+	Public Function Build(expression As String) As Expression
+		Dim parts As String() = expression.Split({Space}, StringSplitOptions.RemoveEmptyEntries)
 
 		If parts.Count <> 5 Then
-			Throw New ParserException(ParameterType.Minute, ValueType.Unknown, cronExpression, Resources.errParameterCount)
+			Throw New ParserException(Nothing, ValueType.Unknown, expression, Resources.errParameterCount)
 		End If
 
 		For i As Integer = 0 To 4
 			[With](CType(i, ParameterType), parts(i))
 		Next
 
-		Return Build(validateExpression)
+		Return Build()
 
 	End Function
 
@@ -101,10 +100,10 @@ Public NotInheritable Class Builder
 			If p.Value.ValueType = ValueType.Any Then
 				Continue For ' nothing to validate
 			ElseIf p.Value.ValueType.IsSingleValueType Then
-				blOK = ValidateValue(p.ParameterType, p.Value, exceptions)
+				blOK = (blOK And ValidateValue(p.ParameterType, p.Value, exceptions))
 			Else
 				For Each pv As ParameterValue In p.Value.Values
-					blOK = ValidateValue(p.ParameterType, pv, exceptions)
+					blOK = (blOK And ValidateValue(p.ParameterType, pv, exceptions))
 				Next
 			End If
 		Next
@@ -114,7 +113,7 @@ Public NotInheritable Class Builder
 	End Function
 
 	''' <summary>
-	''' Configures the parameter of the given <see cref="ParameterType"/> to be a <see cref="ValueType.Any"/> parameter
+	''' Configures the parameter of the given <see cref="ParameterType"/> to be a <see cref="ValueType.Any"/> parameter.
 	''' </summary>
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
 	''' <returns>This <see cref="Builder"/></returns>
@@ -131,7 +130,7 @@ Public NotInheritable Class Builder
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
 	''' <param name="values">One or more <see cref="ParameterValue"/> objects</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">The values parameter is Null / Nothing or contains no <see cref="ParameterValue"/>s</exception>
+	''' <exception cref="ParserException">The values parameter is null or empty</exception>
 	Public Function WithList(parameterType As ParameterType, ParamArray values As ParameterValue()) As Builder
 
 		Return WithListInternal(parameterType, values)
@@ -146,15 +145,9 @@ Public NotInheritable Class Builder
 	''' <param name="fromVal">Start value of the range</param>
 	''' <param name="toVal">End value of the range</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
+	''' <exception cref="ParserException">One of the values is not a single value type</exception>
 	Public Function WithRange(parameterType As ParameterType, fromVal As ParameterValue, toVal As ParameterValue) As Builder
 
-		If fromVal Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.Range, Unknown, New NullReferenceException(NameOf(fromVal)).Message)
-		End If
-		If toVal Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.Range, Unknown, New NullReferenceException(NameOf(toVal)).Message)
-		End If
 		If Not fromVal.ValueType.IsSingleValueType Then
 			Throw New ParserException(parameterType, fromVal.ValueType, fromVal.OriginalValue.ToString, String.Format(Resources.errParameterValueType, fromVal.ValueType))
 		End If
@@ -175,15 +168,9 @@ Public NotInheritable Class Builder
 	''' <param name="startValue">Start value</param>
 	''' <param name="increment">Increment value</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
+	''' <exception cref="ParserException">One of the values is not a single value type</exception>
 	Public Function WithStep(parameterType As ParameterType, startValue As ParameterValue, increment As ParameterValue) As Builder
 
-		If startValue Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.Step, Unknown, New NullReferenceException(NameOf(startValue)).Message)
-		End If
-		If increment Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.Step, Unknown, New NullReferenceException(NameOf(increment)).Message)
-		End If
 		If Not (startValue.ValueType = ValueType.Any OrElse startValue.ValueType.IsSingleValueType) Then ' support */3 steps
 			Throw New ParserException(parameterType, startValue.ValueType, startValue.OriginalValue.ToString, String.Format(Resources.errParameterValueType, startValue.ValueType))
 		End If
@@ -205,18 +192,9 @@ Public NotInheritable Class Builder
 	''' <param name="toVal">End value of the range</param>
 	''' <param name="incrementVal">Increment value</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">One of the values is Null / Nothing or not a single value type</exception>
+	''' <exception cref="ParserException">One of the values is not a single value type</exception>
 	Public Function WithSteppedRange(parameterType As ParameterType, fromVal As ParameterValue, toVal As ParameterValue, incrementVal As ParameterValue) As Builder
 
-		If fromVal Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.SteppedRange, Unknown, New NullReferenceException(NameOf(fromVal)).Message)
-		End If
-		If toVal Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.SteppedRange, Unknown, New NullReferenceException(NameOf(toVal)).Message)
-		End If
-		If incrementVal Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.SteppedRange, Unknown, New NullReferenceException(NameOf(incrementVal)).Message)
-		End If
 		If Not fromVal.ValueType.IsSingleValueType Then
 			Throw New ParserException(parameterType, fromVal.ValueType, fromVal.OriginalValue.ToString, String.Format(Resources.errParameterValueType, fromVal.ValueType))
 		End If
@@ -239,12 +217,9 @@ Public NotInheritable Class Builder
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
 	''' <param name="value">The <see cref="ParameterValue"/> to set</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">The value is Null / Nothing or not a single value type</exception>
+	''' <exception cref="ParserException">The value is not a single value type</exception>
 	Public Function WithValue(parameterType As ParameterType, value As ParameterValue) As Builder
 
-		If value Is Nothing Then
-			Throw New ParserException(parameterType, ValueType.Step, Unknown, New NullReferenceException(NameOf(value)).Message)
-		End If
 		If Not value.ValueType.IsSingleValueType Then
 			Throw New ParserException(parameterType, value.ValueType, value.OriginalValue.ToString, String.Format(Resources.errParameterValueType, value.ValueType))
 		End If
@@ -291,42 +266,28 @@ Public NotInheritable Class Builder
 #Region " Private methods and functions "
 
 	''' <summary>
-	''' Sets all parameters to Any.
-	''' </summary>
-	Private Sub SetDefaultParameters()
-
-		mParameters = {New Parameter(ParameterType.Minute, ParameterValue.Any), New Parameter(ParameterType.Hour, ParameterValue.Any), New Parameter(ParameterType.Day, ParameterValue.Any), New Parameter(ParameterType.Month, ParameterValue.Any), New Parameter(ParameterType.WeekDay, ParameterValue.Any)}
-
-	End Sub
-
-	''' <summary>
 	''' Validates the given <see cref="ParameterValue"/> for the given <see cref="ParameterType"/>.
+	''' All values that reach this point are of a single value type (<see cref="ValueType.Number"/>, <see cref="ValueType.DayOfWeek"/> or <see cref="ValueType.MonthOfYear"/>).
 	''' </summary>
 	''' <param name="paramType">The <see cref="ParameterType"/> of the <see cref="Parameter"/> that holds this value</param>
 	''' <param name="pv">The <see cref="ParameterValue"/> to validate</param>
 	''' <param name="exceptions">Any <see cref="ParserException"/> that occurs will be added</param>
 	''' <returns>True, if the value is valid for this <see cref="ParameterType"/></returns>
 	Private Function ValidateValue(paramType As ParameterType, pv As ParameterValue, ByRef exceptions As List(Of ParserException)) As Boolean
-		Dim blOK As Boolean = True
+		Dim isOK As Boolean = True
 
-		If pv.ValueType = ValueType.Unknown Then ' look for ParameterValueType.Unknown
-			blOK = False
-			exceptions.Add(New ParserException(paramType, ValueType.Unknown, pv.OriginalValue.ToString, String.Format(Resources.errParameter, pv.OriginalValue)))
-		End If
-		If Not paramType = ParameterType.Month Then
-			If pv.ValueType = ValueType.MonthOfYear Then ' look for MonthOfYear in the wrong places
-				blOK = False
-				exceptions.Add(New ParserException(paramType, ValueType.MonthOfYear, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.MonthOfYear)))
-			End If
-		End If
-		If Not paramType = ParameterType.WeekDay Then
-			If pv.ValueType = ValueType.DayOfWeek Then ' look for DayOfWeek in the wrong places
-				blOK = False
-				exceptions.Add(New ParserException(paramType, ValueType.DayOfWeek, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.DayOfWeek)))
-			End If
+		If (pv.ValueType = ValueType.MonthOfYear) AndAlso (Not paramType = ParameterType.Month) Then ' look for MonthOfYear in the wrong places
+			isOK = False
+			exceptions.Add(New ParserException(paramType, ValueType.MonthOfYear, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.MonthOfYear)))
+		ElseIf (pv.ValueType = ValueType.DayOfWeek) AndAlso (Not paramType = ParameterType.DayOfWeek) Then ' look for DayOfWeek in the wrong places
+			isOK = False
+			exceptions.Add(New ParserException(paramType, ValueType.DayOfWeek, pv.OriginalValue.ToString, String.Format(Resources.errParameterValueType, ValueType.DayOfWeek)))
+		ElseIf pv.Value < MinimumValue(paramType) OrElse pv.Value > MaximumValue(paramType) Then
+			isOK = False
+			exceptions.Add(New ParserException(paramType, pv.ValueType, pv.OriginalValue.ToString, String.Format(Resources.errValueOutOfRange, pv.Value)))
 		End If
 
-		Return blOK
+		Return isOK
 
 	End Function
 
@@ -336,7 +297,7 @@ Public NotInheritable Class Builder
 	''' <param name="parameterType">The <see cref="ParameterType"/> to configure</param>
 	''' <param name="values">An <see cref="IEnumerable(Of ParameterValue)"/> objects</param>
 	''' <returns>This <see cref="Builder"/></returns>
-	''' <exception cref="ParserException">The values parameter is Null / Nothing or contains no <see cref="ParameterValue"/>s</exception>
+	''' <exception cref="ParserException">The values parameter is null or empty</exception>
 	Private Function WithListInternal(parameterType As ParameterType, values As IEnumerable(Of ParameterValue)) As Builder
 
 		If values Is Nothing OrElse values.Count = 0 Then
@@ -358,7 +319,7 @@ Public NotInheritable Class Builder
 	Public Sub New()
 
 		mHumanizer = New DefaultHumanizer
-		SetDefaultParameters()
+		mDefaultParameters.CopyTo(mParameters, 0)
 
 	End Sub
 

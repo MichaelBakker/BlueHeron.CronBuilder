@@ -1,8 +1,9 @@
 ﻿
 ''' <summary>
-''' Container for a parameter.
+''' Structure that represents an expression parameter.
 ''' </summary>
-<DebuggerDisplay("{ParameterType}: {Value}")> Public NotInheritable Class Parameter
+<DebuggerDisplay("{ParameterType}: {Value}")> <CodeAnalysis.SuppressMessage("Performance", "CA1815:Override equals and operator equals on value types", Justification:="Unused")>
+Public Structure Parameter
 
 #Region " Objects and variables "
 
@@ -26,8 +27,9 @@
 	End Property
 
 	''' <summary>
-	''' The <see cref="ParameterType"/> of this parameter.
+	''' The <see cref="Cron.ParameterType"/> of this parameter.
 	''' </summary>
+	''' <returns>A <see cref="Cron.ParameterType"/> value</returns>
 	Public ReadOnly Property ParameterType As ParameterType
 
 	''' <summary>
@@ -43,7 +45,7 @@
 	''' <summary>
 	''' Creates a new parameter.
 	''' </summary>
-	''' <param name="paramType">The <see cref="ParameterType"/></param>
+	''' <param name="paramType">The <see cref="Cron.ParameterType"/></param>
 	''' <param name="val">The <see cref="ParameterValue"/></param>
 	Friend Sub New(paramType As ParameterType, val As ParameterValue)
 
@@ -54,4 +56,4 @@
 
 #End Region
 
-End Class
+End Structure

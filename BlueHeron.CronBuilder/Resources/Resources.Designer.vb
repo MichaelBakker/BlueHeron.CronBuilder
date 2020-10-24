@@ -155,11 +155,20 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Invalid ParameterValueType value: &apos;{0}&apos;..
+        '''  Looks up a localized string similar to Invalid ValueType: &apos;{0}&apos;..
         '''</summary>
         Public Shared ReadOnly Property errParameterValueType() As String
             Get
                 Return ResourceManager.GetString("errParameterValueType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;{0}&apos; is out of range..
+        '''</summary>
+        Public Shared ReadOnly Property errValueOutOfRange() As String
+            Get
+                Return ResourceManager.GetString("errValueOutOfRange", resourceCulture)
             End Get
         End Property
         

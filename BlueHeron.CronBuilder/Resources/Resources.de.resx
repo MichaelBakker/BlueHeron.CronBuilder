@@ -12,76 +12,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="errArgumentCount" xml:space="preserve">
-    <value>Ongeldig aantal argumenten.</value>
-  </data>
-  <data name="errParameter" xml:space="preserve">
-    <value>'{0}' is ongeldig.</value>
-  </data>
-  <data name="errParameterCount" xml:space="preserve">
-    <value>Ongeldig aantal parameters.</value>
-  </data>
-  <data name="errParameterValueType" xml:space="preserve">
-    <value>Ongeldige ValueType waarde: '{0}'.</value>
-  </data>
-  <data name="errAggregateMessage" xml:space="preserve">
-    <value>Eén of meer fouten zijn opgetreden tijdens het valideren van de parameter waarden.</value>
-  </data>
   <data name="and" xml:space="preserve">
-    <value>en</value>
+    <value>und</value>
   </data>
   <data name="andThen" xml:space="preserve">
-    <value>en daarna</value>
+    <value>und dann</value>
+  </data>
+  <data name="atMinute" xml:space="preserve">
+    <value>um</value>
   </data>
   <data name="day" xml:space="preserve">
-    <value>dag</value>
+    <value>tag</value>
   </data>
   <data name="days" xml:space="preserve">
-    <value>dagen</value>
+    <value>tagen</value>
+  </data>
+  <data name="errAggregateMessage" xml:space="preserve">
+    <value>Beim überprüfen der parameterwerte sind ein oder mehrere fehler aufgetreten.</value>
+  </data>
+  <data name="errArgumentCount" xml:space="preserve">
+    <value>Ungültige anzahl von argumenten.</value>
+  </data>
+  <data name="errParameter" xml:space="preserve">
+    <value>'{0}' ist ungültig.</value>
+  </data>
+  <data name="errParameterCount" xml:space="preserve">
+    <value>Ungültige anzahl von parametern.</value>
+  </data>
+  <data name="errParameterValueType" xml:space="preserve">
+    <value>Ungültige ValueType wert: '{0}'.</value>
   </data>
   <data name="every" xml:space="preserve">
-    <value>elke</value>
+    <value>jeden</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>uur</value>
+    <value>stunde</value>
   </data>
   <data name="hours" xml:space="preserve">
-    <value>uren</value>
+    <value>stunden</value>
   </data>
   <data name="inMonth" xml:space="preserve">
     <value>in</value>
   </data>
   <data name="minute" xml:space="preserve">
-    <value>minuut</value>
+    <value>minute</value>
   </data>
   <data name="minutes" xml:space="preserve">
     <value>minuten</value>
   </data>
   <data name="month" xml:space="preserve">
-    <value>maand</value>
+    <value>monat</value>
   </data>
   <data name="months" xml:space="preserve">
-    <value>maanden</value>
+    <value>monate</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>von</value>
   </data>
   <data name="onDay" xml:space="preserve">
-    <value>op</value>
+    <value>am</value>
   </data>
   <data name="starting" xml:space="preserve">
     <value>beginnend</value>
   </data>
   <data name="startingWith" xml:space="preserve">
-    <value>beginnend met</value>
+    <value>beginnend mit</value>
   </data>
   <data name="through" xml:space="preserve">
-    <value>t/m</value>
-  </data>
-  <data name="atMinute" xml:space="preserve">
-    <value>op</value>
-  </data>
-  <data name="of" xml:space="preserve">
-    <value>van</value>
+    <value>bis</value>
   </data>
   <data name="errValueOutOfRange" xml:space="preserve">
-    <value>'{0}' ligt buiten het bereik.</value>
+    <value>'{0}' liegt außerhalb der reichweite.</value>
   </data>
 </root>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="de" original="BLUEHERON.CRONBUILDER/RESOURCES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6916.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="BLUEHERON.CRONBUILDER/RESOURCES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="and" translate="yes" xml:space="preserve">
+          <source>and</source>
+          <target state="translated">und</target>
+        </trans-unit>
+        <trans-unit id="andThen" translate="yes" xml:space="preserve">
+          <source>and then</source>
+          <target state="translated">und dann</target>
+        </trans-unit>
+        <trans-unit id="atMinute" translate="yes" xml:space="preserve">
+          <source>at</source>
+          <target state="translated">um</target>
+        </trans-unit>
+        <trans-unit id="day" translate="yes" xml:space="preserve">
+          <source>day</source>
+          <target state="translated">tag</target>
+        </trans-unit>
+        <trans-unit id="days" translate="yes" xml:space="preserve">
+          <source>days</source>
+          <target state="translated">tagen</target>
+        </trans-unit>
+        <trans-unit id="errAggregateMessage" translate="yes" xml:space="preserve">
+          <source>One or more errors occurred when validating parameter values.</source>
+          <target state="translated">Beim überprüfen der parameterwerte sind ein oder mehrere fehler aufgetreten.</target>
+        </trans-unit>
+        <trans-unit id="errArgumentCount" translate="yes" xml:space="preserve">
+          <source>Invalid number of arguments.</source>
+          <target state="translated">Ungültige anzahl von argumenten.</target>
+        </trans-unit>
+        <trans-unit id="errParameter" translate="yes" xml:space="preserve">
+          <source>'{0}' is invalid.</source>
+          <target state="translated">'{0}' ist ungültig.</target>
+        </trans-unit>
+        <trans-unit id="errParameterCount" translate="yes" xml:space="preserve">
+          <source>Invalid number of parameters.</source>
+          <target state="translated">Ungültige anzahl von parametern.</target>
+        </trans-unit>
+        <trans-unit id="errParameterValueType" translate="yes" xml:space="preserve">
+          <source>Invalid ValueType: '{0}'.</source>
+          <target state="translated">Ungültige ValueType wert: '{0}'.</target>
+        </trans-unit>
+        <trans-unit id="every" translate="yes" xml:space="preserve">
+          <source>every</source>
+          <target state="translated">jeden</target>
+        </trans-unit>
+        <trans-unit id="hour" translate="yes" xml:space="preserve">
+          <source>hour</source>
+          <target state="translated">stunde</target>
+        </trans-unit>
+        <trans-unit id="hours" translate="yes" xml:space="preserve">
+          <source>hours</source>
+          <target state="translated">stunden</target>
+        </trans-unit>
+        <trans-unit id="inMonth" translate="yes" xml:space="preserve">
+          <source>in</source>
+          <target state="translated">in</target>
+        </trans-unit>
+        <trans-unit id="minute" translate="yes" xml:space="preserve">
+          <source>minute</source>
+          <target state="translated">minute</target>
+        </trans-unit>
+        <trans-unit id="minutes" translate="yes" xml:space="preserve">
+          <source>minutes</source>
+          <target state="translated">minuten</target>
+        </trans-unit>
+        <trans-unit id="month" translate="yes" xml:space="preserve">
+          <source>month</source>
+          <target state="translated">monat</target>
+        </trans-unit>
+        <trans-unit id="months" translate="yes" xml:space="preserve">
+          <source>months</source>
+          <target state="translated">monate</target>
+        </trans-unit>
+        <trans-unit id="of" translate="yes" xml:space="preserve">
+          <source>of</source>
+          <target state="translated">von</target>
+        </trans-unit>
+        <trans-unit id="onDay" translate="yes" xml:space="preserve">
+          <source>on</source>
+          <target state="translated">am</target>
+        </trans-unit>
+        <trans-unit id="starting" translate="yes" xml:space="preserve">
+          <source>starting</source>
+          <target state="translated">beginnend</target>
+        </trans-unit>
+        <trans-unit id="startingWith" translate="yes" xml:space="preserve">
+          <source>starting with</source>
+          <target state="translated">beginnend mit</target>
+        </trans-unit>
+        <trans-unit id="through" translate="yes" xml:space="preserve">
+          <source>through</source>
+          <target state="translated">bis</target>
+        </trans-unit>
+        <trans-unit id="errValueOutOfRange" translate="yes" xml:space="preserve">
+          <source>'{0}' is out of range.</source>
+          <target state="translated">'{0}' liegt außerhalb der reichweite.</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

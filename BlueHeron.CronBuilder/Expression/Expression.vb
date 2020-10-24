@@ -40,7 +40,7 @@ Public NotInheritable Class Expression
 	Public ReadOnly Property Expression As String
 		Get
 			If String.IsNullOrEmpty(mExpression) Then
-				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).Value.ToString, Parameters(ParameterType.Hour).Value.ToString, Parameters(ParameterType.Day).Value.ToString, Parameters(ParameterType.Month).Value.ToString, Parameters(ParameterType.WeekDay).Value.ToString)
+				mExpression = String.Format(fmtExpression, Parameters(ParameterType.Minute).Value.ToString, Parameters(ParameterType.Hour).Value.ToString, Parameters(ParameterType.Day).Value.ToString, Parameters(ParameterType.Month).Value.ToString, Parameters(ParameterType.DayOfWeek).Value.ToString)
 			End If
 			Return mExpression
 		End Get
@@ -51,7 +51,17 @@ Public NotInheritable Class Expression
 #Region " Public methods and functions "
 
 	''' <summary>
-	''' Returns the first date and time on or after the given date when the schedule that is represented by this expression is matched.
+	''' Returns the next date and time at which the schedule that is represented by this expression is matched.
+	''' </summary>
+	''' <returns>A date and time</returns>
+	Public Function [Next]() As Date
+
+		Return FindClosestDate(Date.Now, False)
+
+	End Function
+
+	''' <summary>
+	''' Returns the first date and time on or after the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the future must be found</param>
 	''' <returns>A date and time</returns>
@@ -62,7 +72,7 @@ Public NotInheritable Class Expression
 	End Function
 
 	''' <summary>
-	''' Returns the given number of date and time instances on or after the given date when the schedule that is represented by this expression is matched.
+	''' Returns the given number of date and time instances on or after the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the future must be found</param>
 	''' <param name="count">The number of matched dates to return</param>
@@ -71,8 +81,9 @@ Public NotInheritable Class Expression
 		Dim lstResults As New List(Of Date)
 
 		For i As Integer = 1 To Math.Max(1, count)
-			lstResults.Add(FindClosestDate(datum, False))
-			datum = datum.AddMinutes(1)
+			datum = FindClosestDate(datum, False)
+			lstResults.Add(datum)
+			datum = datum.AddMinutes(1) ' move to 1 minute after current match
 		Next
 
 		Return lstResults
@@ -92,7 +103,17 @@ Public NotInheritable Class Expression
 	End Function
 
 	''' <summary>
-	''' Returns the first date and time on or before the given date when the schedule that is represented by this expression is matched.
+	''' Returns the previous date and time at which the schedule that is represented by this expression was matched.
+	''' </summary>
+	''' <returns>A date and time</returns>
+	Public Function Previous() As Date
+
+		Return FindClosestDate(Date.Now, True)
+
+	End Function
+
+	''' <summary>
+	''' Returns the first date and time on or before the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the past must be found</param>
 	''' <returns>A date and time</returns>
@@ -103,7 +124,7 @@ Public NotInheritable Class Expression
 	End Function
 
 	''' <summary>
-	''' Returns the given number of date and time instances on or before the given date when the schedule that is represented by this expression is matched.
+	''' Returns the given number of date and time instances on or before the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the past must be found</param>
 	''' <param name="count">The number of matched dates to return</param>
@@ -112,8 +133,9 @@ Public NotInheritable Class Expression
 		Dim lstResults As New List(Of Date)
 
 		For i As Integer = 1 To Math.Max(1, count)
-			lstResults.Add(FindClosestDate(datum, True))
-			datum = datum.AddMinutes(-1)
+			datum = FindClosestDate(datum, True)
+			lstResults.Add(datum)
+			datum = datum.AddMinutes(-1) ' move to 1 minute before current match
 		Next
 
 		Return lstResults
@@ -135,7 +157,7 @@ Public NotInheritable Class Expression
 #Region " Private methods and functions "
 
 	''' <summary>
-	''' Returns the first date and time before or after the given date when the schedule that is represented by this expression is matched.
+	''' Returns the first date and time before or after the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <param name="datum">The date and time to which the closest match in the past or future must be found</param>
 	''' <param name="goBack">If True, the closest match in the past is returned, else the closest match in the future is returned</param>
@@ -157,7 +179,7 @@ Public NotInheritable Class Expression
 				If (matchedHour <> datum.Hour) AndAlso (Not Parameters(ParameterType.Minute).Value.ValueType = ValueType.Number) Then ' must recalculate minute
 					minuteMatched = False
 				End If
-				datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, If(minuteMatched, matchedMinute, If(goBack, MaximumValues(ParameterType.Minute), MinimumValues(ParameterType.Minute))), 0).AddDays(carry) ' update date to match
+				datum = New Date(datum.Year, datum.Month, datum.Day, matchedHour, If(minuteMatched, matchedMinute, If(goBack, MaximumValue(ParameterType.Minute), MinimumValue(ParameterType.Minute))), 0).AddDays(carry) ' update date to match
 				carry = 0
 				hourMatched = True
 			End If
@@ -167,7 +189,7 @@ Public NotInheritable Class Expression
 					minuteMatched = False
 					hourMatched = False
 				End If
-				datum = New Date(datum.Year, datum.Month, matchedDay, If(hourMatched, matchedHour, If(goBack, MaximumValues(ParameterType.Hour), MinimumValues(ParameterType.Hour))), If(minuteMatched, matchedMinute, If(goBack, MaximumValues(ParameterType.Minute), MinimumValues(ParameterType.Minute))), 0).AddMonths(carry)  ' update date to match
+				datum = New Date(datum.Year, datum.Month, matchedDay, If(hourMatched, matchedHour, If(goBack, MaximumValue(ParameterType.Hour), MinimumValue(ParameterType.Hour))), If(minuteMatched, matchedMinute, If(goBack, MaximumValue(ParameterType.Minute), MinimumValue(ParameterType.Minute))), 0).AddMonths(carry)  ' update date to match
 				carry = 0
 				dayMatched = True
 			End If
@@ -179,7 +201,7 @@ Public NotInheritable Class Expression
 					hourMatched = False
 					dayMatched = False
 				End If
-				datum = New Date(matchedYear, matchedMonth, If(dayMatched, matchedDay, If(goBack, MaximumValues(ParameterType.Day), MinimumValues(ParameterType.Day))), If(hourMatched, matchedHour, If(goBack, MaximumValues(ParameterType.Hour), MinimumValues(ParameterType.Hour))), If(minuteMatched, matchedMinute, If(goBack, MaximumValues(ParameterType.Minute), MinimumValues(ParameterType.Minute))), 0)  ' update date to match
+				datum = New Date(matchedYear, matchedMonth, If(dayMatched, matchedDay, If(goBack, MaximumValue(ParameterType.Day), MinimumValue(ParameterType.Day))), If(hourMatched, matchedHour, If(goBack, MaximumValue(ParameterType.Hour), MinimumValue(ParameterType.Hour))), If(minuteMatched, matchedMinute, If(goBack, MaximumValue(ParameterType.Minute), MinimumValue(ParameterType.Minute))), 0)  ' update date to match
 				carry = 0
 				monthMatched = True
 			End If
@@ -240,8 +262,8 @@ Public NotInheritable Class Expression
 		Dim daysInMonth As Integer = Date.DaysInMonth(datum.Year, datum.Month)
 		Dim dayPattern As List(Of Integer) = Parameters(ParameterType.Day).Matches.Take(daysInMonth).ToList ' current month may be 28, 29, 30 or 31 days in length
 
-		If Parameters(ParameterType.WeekDay).Value.ValueType <> ValueType.Any Then ' take intersection with DayOfWeek pattern
-			Dim dayOfWeekPattern As IEnumerable(Of Integer) = Parameters(ParameterType.WeekDay).Matches
+		If Parameters(ParameterType.DayOfWeek).Value.ValueType <> ValueType.Any Then ' take intersection with DayOfWeek pattern
+			Dim dayOfWeekPattern As IEnumerable(Of Integer) = Parameters(ParameterType.DayOfWeek).Matches
 			Dim filteredDayPattern As New List(Of Integer)
 
 			dayPattern.ForEach(Sub(d)
@@ -284,9 +306,10 @@ Public NotInheritable Class Expression
 #Region " Construction "
 
 	''' <summary>
-	''' Creates a new CronExpression, using the given parameters.
+	''' Creates a new <see cref="Expression"/>, using the given parameters.
 	''' </summary>
 	''' <param name="params">Existing array of <see cref="Parameter"/> objects</param>
+	''' <param name="humanizer">The <see cref="IHumanizer"/> to use</param>
 	<DebuggerStepThrough()>
 	Friend Sub New(params As Parameter(), ByRef humanizer As IHumanizer)
 

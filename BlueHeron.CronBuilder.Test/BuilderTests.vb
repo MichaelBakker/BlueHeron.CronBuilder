@@ -34,7 +34,7 @@ Public Class BuilderTests
 			WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(20)).
 			WithStep(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(2)).
 			WithValue(ParameterType.Month, ParameterValue.Number(1)).
-			WithAny(ParameterType.WeekDay). ' not always necessary; when using a new CronBuilder instance all parameters default to 'Any' (see Test00_Default)
+			WithAny(ParameterType.DayOfWeek). ' not always necessary; when using a new CronBuilder instance all parameters default to 'Any' (see Test00_Default)
 			Build()
 
 		Debug.Assert(parameterizedExpression.Expression = expectedExpression)
@@ -45,8 +45,8 @@ Public Class BuilderTests
 			WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(23)).
 			WithAny(ParameterType.Day).
 			WithRange(ParameterType.Month, ParameterValue.FromString("APR"), ParameterValue.FromString("OCT")).
-			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
-			Build() ' validation is performed by default
+			WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			Build() ' validation is performed automatically
 
 		Debug.Assert(parameterizedExpression.Expression = expectedExpression)
 
@@ -61,7 +61,7 @@ Public Class BuilderTests
 			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
 			WithAny(ParameterType.Day).
 			WithAny(ParameterType.Month).
-			WithAny(ParameterType.WeekDay).
+			WithAny(ParameterType.DayOfWeek).
 			Build() ' every day at noon
 		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
 		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
@@ -82,7 +82,7 @@ Public Class BuilderTests
 			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
 			WithAny(ParameterType.Day).
 			WithAny(ParameterType.Month).
-			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
 			Build() ' every monday at noon
 
 		matchedAfter = expression2.Next(dateToMatchLater)
@@ -101,7 +101,7 @@ Public Class BuilderTests
 			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
 			WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
 			WithAny(ParameterType.Month).
-			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
 			Build() ' every first monday of any month at noon
 		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
 		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
@@ -121,7 +121,7 @@ Public Class BuilderTests
 			WithValue(ParameterType.Hour, ParameterValue.Number(12)).
 			WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
 			WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)).
-			WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+			WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
 			Build() ' every first monday of even months at noon
 		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
 		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am 
@@ -141,7 +141,7 @@ Public Class BuilderTests
 			WithStep(ParameterType.Hour, ParameterValue.Any, ParameterValue.Number(3)).
 			WithAny(ParameterType.Day).
 			WithAny(ParameterType.Month).
-			WithAny(ParameterType.WeekDay).
+			WithAny(ParameterType.DayOfWeek).
 			Build() ' at minute 0 of every third hour
 
 		Dim matchedAfter As Date = expression.Next(dtmTest)
@@ -167,7 +167,7 @@ Public Class BuilderTests
 			WithList(ParameterType.Hour, ParameterValue.Number(1), ParameterValue.Number(2), ParameterValue.Number(3), ParameterValue.Step(ParameterValue.Number(4), ParameterValue.Number(2))).
 			WithAny(ParameterType.Day).
 			WithAny(ParameterType.Month).
-			WithAny(ParameterType.WeekDay).
+			WithAny(ParameterType.DayOfWeek).
 			Build() ' every 1st, 2nd, 3rd hour and then every second hour starting at hour 4 (i.e. 1, 2, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22)
 		Dim dateToMatchLater As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 13, 0, 0) ' 1pm
 		Dim dateToMatchEarlier As New Date(dtmTest.Year, dtmTest.Month, dtmTest.Day, 11, 0, 0) ' 11am
@@ -197,9 +197,35 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod()>
-	Sub Test10_ValidationErrorOnCreation()
+	Sub Test10_PollRange()
+		Dim expression As Expression = mBuilder.WithValue(ParameterType.Minute, ParameterValue.Number(0)).WithValue(ParameterType.Hour, ParameterValue.Number(12)).WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).WithAny(ParameterType.Month).Build() 'every first monday of the month at noon
+		Dim matches As IEnumerable(Of Date) = expression.Next(New Date(2020, 10, 29, 13, 0, 0), 12) ' next 12 matches, starting at the given date and time
+		Dim expected As Date() = {
+			New Date(2020, 11, 2, 12, 0, 0),
+			New Date(2020, 12, 7, 12, 0, 0),
+			New Date(2021, 1, 4, 12, 0, 0),
+			New Date(2021, 2, 1, 12, 0, 0),
+			New Date(2021, 3, 1, 12, 0, 0),
+			New Date(2021, 4, 5, 12, 0, 0),
+			New Date(2021, 5, 3, 12, 0, 0),
+			New Date(2021, 6, 7, 12, 0, 0),
+			New Date(2021, 7, 5, 12, 0, 0),
+			New Date(2021, 8, 2, 12, 0, 0),
+			New Date(2021, 9, 6, 12, 0, 0),
+			New Date(2021, 10, 4, 12, 0, 0)
+			}
+
+		Debug.Assert(matches.Count = 12)
+		For i As Integer = 0 To 11
+			Debug.Assert(matches(i) = expected(i))
+		Next
+
+	End Sub
+
+	<TestMethod()>
+	Sub Test11_ValidationErrorOnCreation()
 		Dim exception As ParserException
-		Dim misHapsAsText As String(,) = {{"", ""}, {"Q", "Q"}, {"5.7", "5.7"}, {"MUN", "MUN"}, {"MUN-FRI", "MUN"}} ' syntax errors
+		Dim misHapsAsText As String(,) = {{"", ""}, {"Q", "Q"}, {"5.7", "5.7"}, {"MUN", "MUN"}, {"MUN-FRI", "MUN"}, {"-1", ""}} ' syntax errors -> -1 is interpreted as a range with an empty start value
 		Dim misHapsAsValue As String(,) = {{"1/2-3", "Step"}} ' type errors with name of erroneus value
 
 		For i As Integer = 0 To CInt((misHapsAsText.Length / 2) - 1)
@@ -227,29 +253,107 @@ Public Class BuilderTests
 	End Sub
 
 	<TestMethod()>
-	Sub Test11_ValidationErrorOnBuild()
-		Dim misHapsDayOfWeekAndMonthOfYear As IEnumerable(Of String) = {"MON", "JAN"}
+	Sub Test12_ValidationErrorOnBuild()
+		Dim wrongMinutes As IEnumerable(Of String) = {"TUE", "MAR", "60"} ' valid minute values are numbers between 0 and 59
+		Dim wrongHours As IEnumerable(Of String) = {"MON", "JAN", "24"} ' valid hour values are numbers between 0 and 23
+		Dim wrongDays As IEnumerable(Of String) = {"0", "WED", "32"} ' valid day values are numbers between 1 and 31
+		Dim wrongMonths As IEnumerable(Of String) = {"0", "WED", "13"} ' valid month values are numbers between 1 and 12 or a MonthOfYear value
+		Dim wrongDaysOfWeek As IEnumerable(Of String) = {"0", "7", "APR"} ' valid days of week values are numbers between 0 and 6 or a DayOfWeek value
 		Dim count As Integer = 0
 		Dim errorCount As Integer = 0
 
-		For Each value As String In misHapsDayOfWeekAndMonthOfYear
+		For Each value As String In wrongMinutes
 			count += 1
 			Try
-				Dim expr As Expression = mBuilder.With(ParameterType.Hour, value).Build
-			Catch ex As ParserAggregateException
+				Dim expr As Expression = mBuilder.With(ParameterType.Minute, value).Build
+			Catch ex As AggregateException
 				errorCount += 1
 			End Try
 
 			Debug.Assert(errorCount = count)
 		Next
 
+		count = 0
+		errorCount = 0
+
+		For Each value As String In wrongHours
+			count += 1
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.Hour, value).Build
+			Catch ex As AggregateException
+				errorCount += 1
+			End Try
+
+			Debug.Assert(errorCount = count)
+		Next
+
+		count = 0
+		errorCount = 0
+
+		For Each value As String In wrongDays
+			count += 1
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.Day, value).Build
+			Catch ex As AggregateException
+				errorCount += 1
+			End Try
+
+			Debug.Assert(errorCount = count)
+		Next
+
+		count = 0
+		errorCount = 0
+
+		For Each value As String In wrongMonths
+			count += 1
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.Month, value).Build
+			Catch ex As AggregateException
+				errorCount += 1
+			End Try
+
+			Debug.Assert(errorCount = count)
+		Next
+
+		count = 0
+		errorCount = 0
+
+		For Each value As String In wrongDaysOfWeek
+			count += 1
+			Try
+				Dim expr As Expression = mBuilder.With(ParameterType.DayOfWeek, value).Build
+			Catch ex As AggregateException
+				errorCount += 1
+			End Try
+
+			Debug.Assert(errorCount = count)
+		Next
+
+		count = 0
+		errorCount = 0
+
+		Try
+			Dim expr As Expression = mBuilder.
+				With(ParameterType.Minute, "62").
+				With(ParameterType.Hour, "25").
+				With(ParameterType.Day, "33").
+				With(ParameterType.Month, "0").
+				With(ParameterType.DayOfWeek, "7").
+				Build ' one expression with 5 wrong parameters -> 5 exceptions in AggregateException
+		Catch ex As AggregateException
+			count = 1
+			errorCount = ex.InnerExceptions.Count
+		End Try
+
+		Debug.Assert(count = 1 AndAlso errorCount = 5)
+
 	End Sub
 
-	<TestMethod> Sub Test12_Humanizing()
+	<TestMethod> Sub Test13_Humanizing()
 		Dim humanized As String
 		Dim expected As String() = {
 			String.Format("{0} {1} {2}", Resources.atMinute, Resources.every, Resources.minute),
-			String.Format("", 1, 2, 3, 4, 5, 6, 7, 8) ' op 12:00 van elke dag 1 t/m 7 in elke 2 maanden beginnend met februari op maandag
+			String.Format("", 1, 2, 3, 4, 5, 6, 7, 8)
 		}
 		Dim expressions As IEnumerable(Of Expression) = {
 			mBuilder.
@@ -257,22 +361,36 @@ Public Class BuilderTests
 				WithAny(ParameterType.Hour).
 				WithAny(ParameterType.Day).
 				WithAny(ParameterType.Month).
-				WithAny(ParameterType.WeekDay).
+				WithAny(ParameterType.DayOfWeek).
 				Build(), ' every minute
 			mBuilder.
 				WithValue(ParameterType.Minute, ParameterValue.Number(0)).
-				WithValue(ParameterType.Hour, ParameterValue.Number(12)).
+				WithStep(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(6)).
 				WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
-				WithStep(ParameterType.Month, ParameterValue.Number(2), ParameterValue.Number(2)).
-				WithValue(ParameterType.WeekDay, ParameterValue.DayOfWeek(DayOfWeek.MON)).
-				Build() ' every first monday of even months at noon
+				WithList(ParameterType.Month, ParameterValue.Number(3), ParameterValue.Number(6), ParameterValue.Number(9), ParameterValue.Number(12)).
+				WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+				Build()
 		}
 
-		For i As Integer = 0 To expected.Count - 1
+		For i As Integer = 0 To expected.Count - 2
 			humanized = expressions(i).Display
 
 			Debug.Assert(humanized = expected(i))
 		Next
+
+	End Sub
+
+	<TestMethod> Sub Test14_Operators()
+
+		Debug.Assert(ParameterValue.Number(1).Equals(1) = False)
+
+		Debug.Assert(ParameterValue.Number(1).Equals("1") = True)
+
+		Debug.Assert(ParameterValue.Number(1) <> ParameterValue.DayOfWeek(DayOfWeek.MON))
+
+		Debug.Assert(ParameterValue.DayOfWeek(DayOfWeek.MON).Equals("MON"))
+
+		Debug.Assert(ParameterValue.Any.Equals("*"))
 
 	End Sub
 

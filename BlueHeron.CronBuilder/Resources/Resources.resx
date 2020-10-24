@@ -145,7 +145,10 @@
     <value>Invalid number of parameters.</value>
   </data>
   <data name="errParameterValueType" xml:space="preserve">
-    <value>Invalid ParameterValueType value: '{0}'.</value>
+    <value>Invalid ValueType: '{0}'.</value>
+  </data>
+  <data name="errValueOutOfRange" xml:space="preserve">
+    <value>'{0}' is out of range.</value>
   </data>
   <data name="every" xml:space="preserve">
     <value>every</value>

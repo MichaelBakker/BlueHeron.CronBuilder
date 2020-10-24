@@ -100,7 +100,7 @@ Public Enum ParameterType
 	''' </summary>
 	Hour = 1
 	''' <summary>
-	''' The parameter describes the day (of the month) part of the expression.
+	''' The parameter describes the day part of the expression.
 	''' </summary>
 	Day = 2
 	''' <summary>
@@ -108,9 +108,9 @@ Public Enum ParameterType
 	''' </summary>
 	Month = 3
 	''' <summary>
-	''' The parameter describes the day (of the week) part of the expression.
+	''' The parameter describes the day-of-week part of the expression.
 	''' </summary>
-	WeekDay = 4
+	DayOfWeek = 4
 End Enum
 
 ''' <summary>
