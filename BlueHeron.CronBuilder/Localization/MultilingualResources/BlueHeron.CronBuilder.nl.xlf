@@ -7,8 +7,8 @@
     <body>
       <group id="BLUEHERON.CRONBUILDER/RESOURCES/RESOURCES.RESX" datatype="resx">
         <trans-unit id="errArgumentCount" translate="yes" xml:space="preserve">
-          <source>Invalid number of arguments.</source>
-          <target state="final" state-qualifier="tm-suggestion">Ongeldig aantal argumenten.</target>
+          <source>Invalid number of arguments in {0}.</source>
+          <target state="final">Ongeldig aantal argumenten in {0}.</target>
         </trans-unit>
         <trans-unit id="errParameter" translate="yes" xml:space="preserve">
           <source>'{0}' is invalid.</source>

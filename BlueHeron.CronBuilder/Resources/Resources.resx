@@ -136,7 +136,7 @@
     <value>One or more errors occurred when validating parameter values.</value>
   </data>
   <data name="errArgumentCount" xml:space="preserve">
-    <value>Invalid number of arguments.</value>
+    <value>Invalid number of arguments in {0}.</value>
   </data>
   <data name="errParameter" xml:space="preserve">
     <value>'{0}' is invalid.</value>

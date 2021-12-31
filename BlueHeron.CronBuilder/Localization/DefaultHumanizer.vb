@@ -1,4 +1,26 @@
-﻿Imports System.Text
+﻿' The MIT License (MIT)
+' 
+' Copyright (c) 2020 Michael Bakker
+' 
+' Permission is hereby granted, free of charge, to any person obtaining a copy
+' of this software and associated documentation files (the "Software"), to deal
+' in the Software without restriction, including without limitation the rights
+' to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+' copies of the Software, and to permit persons to whom the Software is
+' furnished to do so, subject to the following conditions:
+' 
+' The above copyright notice and this permission notice shall be included in all
+' copies or substantial portions of the Software.
+' 
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+' IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE And NONINFRINGEMENT. IN NO EVENT SHALL THE
+' AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+' LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+' SOFTWARE.
+
+Imports System.Text
 
 Namespace Localization
 
@@ -27,7 +49,7 @@ Namespace Localization
 
 				sb.AppendFormat(fmtSpaceRight, prepositions(0))
 				If .Parameters(0).Value.ValueType = ValueType.Number AndAlso .Parameters(1).Value.ValueType = ValueType.Number Then
-					sb.AppendFormat(fmtTime, New Date(1, 1, 1, .Parameters(0).Value.Value, .Parameters(1).Value.Value, 0))
+					sb.AppendFormat(fmtTime, New Date(Date.MinValue.Year, 1, 1, .Parameters(1).Value.Value, .Parameters(0).Value.Value, 0))
 					prepositions(2) = Resources._of
 				Else
 					If Not .Parameters(0).Value.ValueType.IsSingleValueType Then

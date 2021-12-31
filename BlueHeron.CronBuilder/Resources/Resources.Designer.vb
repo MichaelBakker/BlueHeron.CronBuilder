@@ -128,7 +128,7 @@ Namespace Localization
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Invalid number of arguments..
+        '''  Looks up a localized string similar to Invalid number of arguments in {0}..
         '''</summary>
         Public Shared ReadOnly Property errArgumentCount() As String
             Get

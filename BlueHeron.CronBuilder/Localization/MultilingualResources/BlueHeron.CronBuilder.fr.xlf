@@ -31,8 +31,8 @@
           <target state="translated">Une ou plusieurs erreurs se sont produites lors de la validation des valeurs des paramètres.</target>
         </trans-unit>
         <trans-unit id="errArgumentCount" translate="yes" xml:space="preserve">
-          <source>Invalid number of arguments.</source>
-          <target state="translated">Nombre d'arguments non valide.</target>
+          <source>Invalid number of arguments in {0}.</source>
+          <target state="translated">Nombre d'arguments non valide en {0}.</target>
         </trans-unit>
         <trans-unit id="errParameter" translate="yes" xml:space="preserve">
           <source>'{0}' is invalid.</source>

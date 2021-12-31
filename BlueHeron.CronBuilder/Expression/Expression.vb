@@ -1,10 +1,33 @@
-﻿Imports BlueHeron.Cron.Localization
+﻿' The MIT License (MIT)
+' 
+' Copyright (c) 2020 Michael Bakker
+' 
+' Permission is hereby granted, free of charge, to any person obtaining a copy
+' of this software and associated documentation files (the "Software"), to deal
+' in the Software without restriction, including without limitation the rights
+' to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+' copies of the Software, and to permit persons to whom the Software is
+' furnished to do so, subject to the following conditions:
+' 
+' The above copyright notice and this permission notice shall be included in all
+' copies or substantial portions of the Software.
+' 
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+' IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE And NONINFRINGEMENT. IN NO EVENT SHALL THE
+' AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+' LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+' SOFTWARE.
+
+Imports BlueHeron.Cron.Localization
 
 ''' <summary>
 ''' Object, that represents a Cron expression.
 ''' </summary>
 <DebuggerDisplay("{Expression}")>
 Public NotInheritable Class Expression
+	Implements IEquatable(Of Expression)
 
 #Region " Objects and variables "
 
@@ -51,6 +74,63 @@ Public NotInheritable Class Expression
 #Region " Public methods and functions "
 
 	''' <summary>
+	''' Indicates whether the current <see cref="Expression"/> is equal to the object.
+	''' </summary>
+	''' <param name="other">The object to compare</param>
+	''' <returns>True, if both objects are equal</returns>
+	Public Shadows Function Equals(other As Object) As Boolean
+
+		If (other Is Nothing) OrElse (Not TypeOf (other) Is Expression) Then
+			Return False
+		End If
+
+		Return Equals(DirectCast(other, Expression))
+
+	End Function
+
+	''' <summary>
+	''' Indicates whether the current <see cref="Expression"/> is equal to another <see cref="Expression"/>.
+	''' </summary>
+	''' <param name="other">The <see cref="Expression"/> to compare</param>
+	''' <returns>True, if both objects are equal</returns>
+	Public Shadows Function Equals(other As Expression) As Boolean Implements IEquatable(Of Expression).Equals
+
+		If other Is Nothing Then
+			Return False
+		End If
+		For i As Integer = 0 To 4
+			If Parameters(i).Value <> other.Parameters(i).Value Then
+				Return False
+			End If
+		Next
+
+		Return True
+
+	End Function
+
+	''' <summary>
+	''' Equality operator.
+	''' </summary>
+	''' <param name="left">The left <see cref="Expression"/></param>
+	''' <param name="right">The right <see cref="Expression"/></param>
+	Public Shared Operator =(left As Expression, right As Expression) As Boolean
+
+		Return left.Equals(right)
+
+	End Operator
+
+	''' <summary>
+	''' Inequality operator.
+	''' </summary>
+	''' <param name="left">The left <see cref="Expression"/></param>
+	''' <param name="right">The right <see cref="Expression"/></param>
+	Public Shared Operator <>(left As Expression, right As Expression) As Boolean
+
+		Return Not left = right
+
+	End Operator
+
+	''' <summary>
 	''' Returns the next date and time at which the schedule that is represented by this expression is matched.
 	''' </summary>
 	''' <returns>A date and time</returns>
@@ -74,19 +154,37 @@ Public NotInheritable Class Expression
 	''' <summary>
 	''' Returns the given number of date and time instances on or after the given date at which the schedule that is represented by this expression is matched.
 	''' </summary>
-	''' <param name="datum">The date and time to which the closest match in the future must be found</param>
+	''' <param name="datum">The date and time from which to start matching future occurrences</param>
 	''' <param name="count">The number of matched dates to return</param>
 	''' <returns>An <see cref="IEnumerable(Of Date)"/></returns>
-	Public Function [Next](datum As Date, count As Integer) As IEnumerable(Of Date)
-		Dim lstResults As New List(Of Date)
+	Public Iterator Function [Next](datum As Date, count As Integer) As IEnumerable(Of Date)
 
 		For i As Integer = 1 To Math.Max(1, count)
 			datum = FindClosestDate(datum, False)
-			lstResults.Add(datum)
+			Yield datum
 			datum = datum.AddMinutes(1) ' move to 1 minute after current match
 		Next
 
-		Return lstResults
+	End Function
+
+	''' <summary>
+	''' Returns the instances of date and time, falling in the given date range, at which the schedule that is represented by this expression is matched.
+	''' The <paramref name="toDate"/> must be áfter the <paramref name="fromDate"/> parameter, else zero matches will be returned.
+	''' </summary>
+	''' <param name="fromDate">The start date and time from which to start matching future occurrences</param>
+	''' <param name="toDate">The end date and time after which to stop matching future occurrences</param>
+	''' <returns>An <see cref="IEnumerable(Of Date)"/></returns>
+	Public Iterator Function [Next](fromDate As Date, toDate As Date) As IEnumerable(Of Date)
+
+		If fromDate > toDate Then
+			Yield Nothing
+		End If
+
+		Do While fromDate < toDate
+			fromDate = FindClosestDate(fromDate, False)
+			Yield fromDate
+			fromDate = fromDate.AddMinutes(1) ' move to 1 minute after current match
+		Loop
 
 	End Function
 
@@ -95,10 +193,19 @@ Public NotInheritable Class Expression
 	''' </summary>
 	''' <returns>Boolean, True when the current date and time match the date and time pattern defined by this expression</returns>
 	Public Function Poll() As Boolean
-		Dim dtmNow As Date = Date.Now
-		Dim dtmNext As Date = [Next](dtmNow)
 
-		Return (dtmNow.Year = dtmNext.Year) AndAlso (dtmNow.Month = dtmNext.Month) AndAlso (dtmNow.Day = dtmNext.Day) AndAlso (dtmNow.Hour = dtmNext.Hour) AndAlso (dtmNow.Minute = dtmNext.Minute)
+		Return Poll(Date.Now)
+
+	End Function
+
+	''' <summary>
+	''' Returns a boolean, determining whether the given date and time are a match for this schedule.
+	''' </summary>
+	''' <returns>Boolean, True when the given date and time match the date and time pattern defined by this expression</returns>
+	Public Function Poll(datum As Date) As Boolean
+		Dim dtmNext As Date = [Next](datum)
+
+		Return (datum.Year = dtmNext.Year) AndAlso (datum.Month = dtmNext.Month) AndAlso (datum.Day = dtmNext.Day) AndAlso (datum.Hour = dtmNext.Hour) AndAlso (datum.Minute = dtmNext.Minute)
 
 	End Function
 
@@ -129,16 +236,33 @@ Public NotInheritable Class Expression
 	''' <param name="datum">The date and time to which the closest match in the past must be found</param>
 	''' <param name="count">The number of matched dates to return</param>
 	''' <returns>An <see cref="IEnumerable(Of Date)"/></returns>
-	Public Function Previous(datum As Date, count As Integer) As IEnumerable(Of Date)
-		Dim lstResults As New List(Of Date)
+	Public Iterator Function Previous(datum As Date, count As Integer) As IEnumerable(Of Date)
 
 		For i As Integer = 1 To Math.Max(1, count)
 			datum = FindClosestDate(datum, True)
-			lstResults.Add(datum)
+			Yield datum
 			datum = datum.AddMinutes(-1) ' move to 1 minute before current match
 		Next
 
-		Return lstResults
+	End Function
+
+	''' <summary>
+	''' Returns the instances of date and time, falling in the given date range, at which the schedule that is represented by this expression is matched.
+	''' The <paramref name="toDate"/> must be befóre the <paramref name="fromDate"/> parameter, else zero matches will be returned.
+	''' </summary>
+	''' <param name="fromDate">The start date and time from which to start matching past occurrences</param>
+	''' <param name="toDate">The end date and time after which to stop matching past occurrences</param>
+	''' <returns>An <see cref="IEnumerable(Of Date)"/></returns>
+	Public Iterator Function Previous(fromDate As Date, toDate As Date) As IEnumerable(Of Date)
+
+		If toDate > fromDate Then
+			Yield Nothing
+		End If
+		Do While fromDate > toDate
+			fromDate = FindClosestDate(fromDate, True)
+			Yield fromDate
+			fromDate = fromDate.AddMinutes(-1) ' move to 1 minute before current match
+		Loop
 
 	End Function
 
@@ -221,7 +345,7 @@ Public NotInheritable Class Expression
 	''' <param name="goBack">If true, search backwards for the closest match</param>
 	''' <param name="carry">-1, 0 or +1 to be added to the next level</param>
 	''' <returns>The closest matching number</returns>
-	<DebuggerStepThrough()> Private Function FindClosestValue(pattern As IEnumerable(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
+	Private Function FindClosestValue(pattern As IEnumerable(Of Integer), value As Integer, goBack As Boolean, ByRef carry As Integer) As Integer
 
 		If pattern.Contains(value) Then
 			Return value ' exact match
@@ -258,11 +382,12 @@ Public NotInheritable Class Expression
 	''' <param name="goBack">If true, search backwards for the closest match</param>
 	''' <param name="carry"></param>
 	''' <returns></returns>
-	<DebuggerStepThrough()> Private Function FindClosestDay(datum As Date, goBack As Boolean, ByRef carry As Integer) As Integer
+	Private Function FindClosestDay(datum As Date, goBack As Boolean, ByRef carry As Integer) As Integer
 		Dim daysInMonth As Integer = Date.DaysInMonth(datum.Year, datum.Month)
 		Dim dayPattern As List(Of Integer) = Parameters(ParameterType.Day).Matches.Take(daysInMonth).ToList ' current month may be 28, 29, 30 or 31 days in length
+		Dim dowValueType As ValueType = Parameters(ParameterType.DayOfWeek).Value.ValueType
 
-		If Parameters(ParameterType.DayOfWeek).Value.ValueType <> ValueType.Any Then ' take intersection with DayOfWeek pattern
+		If dowValueType <> ValueType.Any Then
 			Dim dayOfWeekPattern As IEnumerable(Of Integer) = Parameters(ParameterType.DayOfWeek).Matches
 			Dim filteredDayPattern As New List(Of Integer)
 
@@ -271,7 +396,14 @@ Public NotInheritable Class Expression
 									   filteredDayPattern.Add(d)
 								   End If
 							   End Sub)
-			dayPattern = filteredDayPattern
+
+			If dowValueType = ValueType.DayOfWeek Then ' take intersection with DayOfWeek pattern
+				dayPattern = filteredDayPattern
+			ElseIf dowValueType = ValueType.Symbol_Hash Then ' take intersection with Hash pattern
+				Dim n As Integer = Parameters(ParameterType.DayOfWeek).Value.Values(1).Value
+
+				dayPattern = If(n > filteredDayPattern.Count, New List(Of Integer), {filteredDayPattern(n - 1)}.ToList)
+			End If
 		End If
 
 		If dayPattern.Contains(datum.Day) Then

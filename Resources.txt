@@ -1,13 +1,18 @@
 Cron expression reference:	https://en.wikipedia.org/wiki/Cron
 							https://crontab.guru/
+							http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
 
 Nuget Package creation:		https://docs.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package-using-visual-studio?tabs=netcore-cli
 							https://github.com/NuGet/docs.microsoft.com-nuget/blob/master/docs/quickstart/create-and-publish-a-package-using-visual-studio.md
 
 Multi-targeting:			https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-multitarget
 							https://docs.microsoft.com/en-us/dotnet/standard/frameworks
+							https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if
 
 Localization:				https://github.com/Humanizr/Humanizer
 
 Markdown editing:			https://docs.github.com/en/free-pro-team@latest/github/writing-on-github
 							https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+DayLightSaving Time			https://en.wikipedia.org/wiki/Daylight_saving_time_by_country
+

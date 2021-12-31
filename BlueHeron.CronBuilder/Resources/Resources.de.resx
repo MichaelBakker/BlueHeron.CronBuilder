@@ -31,7 +31,7 @@
     <value>Beim überprüfen der parameterwerte sind ein oder mehrere fehler aufgetreten.</value>
   </data>
   <data name="errArgumentCount" xml:space="preserve">
-    <value>Ungültige anzahl von argumenten.</value>
+    <value>Ungültige anzahl von argumenten in {0}.</value>
   </data>
   <data name="errParameter" xml:space="preserve">
     <value>'{0}' ist ungültig.</value>

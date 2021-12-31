@@ -51,6 +51,7 @@
     <None Remove="bin\**" />
     <None Remove="Parameters\**" />
     <None Remove="BlueHeron.CronBuilder.1.0.0.nupkg" />
+    <None Remove="nuget.config" />
     <None Include="Resources\CompanyLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

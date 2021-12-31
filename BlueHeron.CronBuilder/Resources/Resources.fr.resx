@@ -31,7 +31,7 @@
     <value>Une ou plusieurs erreurs se sont produites lors de la validation des valeurs des paramètres.</value>
   </data>
   <data name="errArgumentCount" xml:space="preserve">
-    <value>Nombre d'arguments non valide.</value>
+    <value>Nombre d'arguments non valide en {0}.</value>
   </data>
   <data name="errParameter" xml:space="preserve">
     <value>'{0}' est invalide.</value>
