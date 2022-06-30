@@ -34,49 +34,55 @@ Namespace Localization
 
 		''' <inheritdoc cref="IHumanizer.Humanize(Expression)"/>
 		Public Overridable Function Humanize(expression As Expression) As String Implements IHumanizer.Humanize
-			Dim parameterDisplays(4) As String
-			Dim prepositions(4) As String
-			Dim sb As New StringBuilder(256)
-			Dim isAny As Boolean
 
-			With expression
-				For i As Integer = 0 To 4
-					Dim p As Parameter = .Parameters(i)
+			Try
+				Dim parameterDisplays(4) As String
+				Dim prepositions(4) As String
+				Dim sb As New StringBuilder(256)
+				Dim isAny As Boolean
 
-					parameterDisplays(i) = GetDisplay(p.Value, p.ParameterType)
-					prepositions(i) = GetPreposition(p.ParameterType)
-				Next
+				With expression
+					For i As Integer = 0 To 4
+						Dim p As Parameter = .Parameters(i)
 
-				sb.AppendFormat(fmtSpaceRight, prepositions(0))
-				If .Parameters(0).Value.ValueType = ValueType.Number AndAlso .Parameters(1).Value.ValueType = ValueType.Number Then
-					sb.AppendFormat(fmtTime, New Date(Date.MinValue.Year, 1, 1, .Parameters(1).Value.Value, .Parameters(0).Value.Value, 0))
-					prepositions(2) = Resources._of
-				Else
-					If Not .Parameters(0).Value.ValueType.IsSingleValueType Then
-						sb.AppendFormat(fmtSpaceRight, Resources.every)
-					End If
+						parameterDisplays(i) = GetDisplay(p.Value, p.ParameterType)
+						prepositions(i) = GetPreposition(p.ParameterType)
+					Next
 
-					isAny = .Parameters(0).Value.ValueType = ValueType.Any
-					sb.AppendFormat(fmtSpaceRight, parameterDisplays(0))
-
-					If Not (.Parameters(1).Value.ValueType = ValueType.Any AndAlso isAny) Then
-						sb.AppendFormat(fmtSpaceRight, String.Format(fmtTriple, prepositions(1), If(Not .Parameters(1).Value.ValueType.IsSingleValueType, Resources.every, String.Empty), parameterDisplays(1)))
-					End If
-					isAny = .Parameters(1).Value.ValueType = ValueType.Any
-				End If
-				For i As Integer = 2 To 4
-					If Not (isAny AndAlso .Parameters(i).Value.ValueType = ValueType.Any) Then
-						sb.AppendFormat(fmtSpaceRight, prepositions(i))
-						If Not .Parameters(i).Value.ValueType.IsSingleValueType Then
+					sb.AppendFormat(fmtSpaceRight, prepositions(0))
+					If .Parameters(0).Value.ValueType = ValueType.Number AndAlso .Parameters(1).Value.ValueType = ValueType.Number Then
+						sb.AppendFormat(fmtTime, New Date(Date.MinValue.Year, 1, 1, .Parameters(1).Value.Value, .Parameters(0).Value.Value, 0))
+						prepositions(2) = Resources._of
+					Else
+						If Not .Parameters(0).Value.ValueType.IsSingleValueType Then
 							sb.AppendFormat(fmtSpaceRight, Resources.every)
 						End If
-						sb.AppendFormat(fmtSpaceRight, parameterDisplays(i))
-					End If
-					isAny = .Parameters(i).Value.ValueType = ValueType.Any
-				Next
-			End With
 
-			Return sb.ToString.TrimEnd
+						isAny = .Parameters(0).Value.ValueType = ValueType.Any
+						sb.AppendFormat(fmtSpaceRight, parameterDisplays(0))
+
+						If Not (.Parameters(1).Value.ValueType = ValueType.Any AndAlso isAny) Then
+							sb.AppendFormat(fmtSpaceRight, String.Format(fmtTriple, prepositions(1), If(Not .Parameters(1).Value.ValueType.IsSingleValueType, Resources.every, String.Empty), parameterDisplays(1)))
+						End If
+						isAny = .Parameters(1).Value.ValueType = ValueType.Any
+					End If
+					For i As Integer = 2 To 4
+						If Not (isAny AndAlso .Parameters(i).Value.ValueType = ValueType.Any) Then
+							sb.AppendFormat(fmtSpaceRight, prepositions(i))
+							If Not .Parameters(i).Value.ValueType.IsSingleValueType Then
+								sb.AppendFormat(fmtSpaceRight, Resources.every)
+							End If
+							sb.AppendFormat(fmtSpaceRight, parameterDisplays(i))
+						End If
+						isAny = .Parameters(i).Value.ValueType = ValueType.Any
+					Next
+				End With
+
+				Return sb.ToString.TrimEnd
+			Catch ex As Exception
+			End Try
+
+			Return Resources.errAggregateMessage
 
 		End Function
 
@@ -150,7 +156,13 @@ Namespace Localization
 					Case ValueDisplayType.Prefix
 						rst = If(.Value > 1, String.Format(fmtTuple, .Value, paramType.ToDisplay(True)), paramType.ToDisplay(False))
 					Case ValueDisplayType.Postfix
-						rst = String.Format(fmtTuple, paramType.ToDisplay(False), .Value)
+						If paramType = ParameterType.DayOfWeek Or .ValueType = ValueType.DayOfWeek Then
+							rst = CType(.Value, DayOfWeek).ToDisplay
+						ElseIf paramType = ParameterType.Month Or .ValueType = ValueType.MonthOfYear Then
+							rst = CType(.Value, MonthOfYear).ToDisplay
+						Else
+							rst = String.Format(fmtTuple, paramType.ToDisplay(False), .Value)
+						End If
 				End Select
 			End With
 

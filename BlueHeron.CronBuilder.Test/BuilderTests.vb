@@ -24,6 +24,8 @@ Public Class BuilderTests
 
 		Debug.Assert(defaultExpression = _ANY)
 
+		mBuilder = New Builder
+
 	End Sub
 
 	<TestMethod>

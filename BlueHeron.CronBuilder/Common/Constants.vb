@@ -44,7 +44,7 @@ Friend Module Constants
 	Friend Const fmtSpaceBoth As String = Space & fmtSpaceRight
 	Friend Const fmtStep As String = "{0}/{1}"
 	Friend Const fmtSteppedRange As String = "{0}-{1}/{2}"
-	Friend Const fmtTime As String = "{0:mm:HH} "
+	Friend Const fmtTime As String = "{0:HH:mm} "
 	Friend Const fmtTuple As String = "{0} {1}"
 	Friend Const fmtTriple As String = fmtTuple & " {2}"
 	Friend Const fmtTupleSpacedLeft As String = Space & fmtTuple

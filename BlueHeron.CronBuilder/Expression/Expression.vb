@@ -80,7 +80,7 @@ Public NotInheritable Class Expression
 	''' <returns>True, if both objects are equal</returns>
 	Public Shadows Function Equals(other As Object) As Boolean
 
-		If (other Is Nothing) OrElse (Not TypeOf (other) Is Expression) Then
+		If (other Is Nothing) OrElse (TypeOf (other) IsNot Expression) Then
 			Return False
 		End If
 
