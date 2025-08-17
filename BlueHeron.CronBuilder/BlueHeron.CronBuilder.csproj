@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>Latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<RootNamespace>BlueHeron.Cron</RootNamespace>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<RepositoryType>Git</RepositoryType>
+		<PackageTags>Cron, Schedule, Scheduling, .NET, .NET Standard, .NET Core</PackageTags>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<GenerateGlobalUsings>false</GenerateGlobalUsings>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>CompanyLogo.png</PackageIcon>
+		<Version>12.0.0.0</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+		<FileVersion>2.0.0.0</FileVersion>
+	</PropertyGroup>
+	<PropertyGroup Label="MultilingualAppToolkit">
+		<MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
+		<MultilingualFallbackLanguage>en-US</MultilingualFallbackLanguage>
+		<TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
+		<SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+	</PropertyGroup>
+	<Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
+	<Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
+		<Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
+	</Target>
+	<ItemGroup>
+	  <None Include="Resources\CompanyLogo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+		<None Include="Resources\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\Resources.Designer.cs">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Resources.resx">
+			<SubType>Designer</SubType>
+			<CustomToolNamespace>Localization</CustomToolNamespace>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>
