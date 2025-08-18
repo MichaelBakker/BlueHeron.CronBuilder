@@ -51,29 +51,26 @@ The BlueHeron.CronBuilder package is a .NET implementation of this notation.
 
 ### Create cron expressions
 
-```vb
-Dim mBuilder as New BlueHeron.Cron.Builder
-Dim expectedExpression As String = "23 0-20 1/2 1 *"
-Dim parameterizedExpression As Expression = mBuilder.
-	WithValue(ParameterType.Minute, ParameterValue.Number(23)).
-	WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(20)).
-	WithStep(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(2)).
-	WithValue(ParameterType.Month, ParameterValue.Number(1)).
-	WithAny(ParameterType.DayOfWeek).
-	Build()
+```csharp
+var expectedExpression = "23 0-20 1/2 1 *";
+var expression = mBuilder.
+    WithValue(ParameterType.Minute, ParameterValue.Number(23)).
+    WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(20)).
+    WithStep(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(2)).
+    WithValue(ParameterType.Month, ParameterValue.Number(1)).
+    WithAny(ParameterType.DayOfWeek). // not always necessary; when using a new CronBuilder instance all parameters default to 'Any' (see Test01_Default)
+    Build();
+Assert.AreEqual(expectedExpression, expression.ToString());
 
-Debug.Assert(parameterizedExpression.Expression = expectedExpression)
-
-expectedExpression = "0 0-23 * APR-OCT MON"  ' integer, text and enum value are supported
-parameterizedExpression = mBuilder.
-	WithValue(ParameterType.Minute, ParameterValue.Number(0)).
-	WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(23)).
-	WithAny(ParameterType.Day).
-	WithRange(ParameterType.Month, ParameterValue.FromString("APR"), ParameterValue.FromString("OCT")).
-	WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
-	Build() ' validation is performed automatically
-
-Debug.Assert(parameterizedExpression.Expression = expectedExpression)
+expectedExpression = "0 0-23 * APR-OCT MON"; // integer, text and enum value   supported
+expression = mBuilder.
+    WithValue(ParameterType.Minute, ParameterValue.Number(0)).
+    WithRange(ParameterType.Hour, ParameterValue.Number(0), ParameterValue.Number(23)).
+    WithAny(ParameterType.Day).
+    WithRange(ParameterType.Month, ParameterValue.Parse("APR"), ParameterValue.Parse("OCT")).
+    WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
+    Build(); // validation is performed automatically
+Assert.AreEqual(expectedExpression, expression.ToString());
 
 ```
 
@@ -81,11 +78,11 @@ Debug.Assert(parameterizedExpression.Expression = expectedExpression)
 
 ### Parse cron expressions
 
-```vb
-Dim expectedExpression As String = "23 0-20 1/2 1 *"
-Dim expression As Expression = mBuilder.Build(expectedExpression)
+```csharp
+var expectedExpression = "23 0-20 1/2 1 *";
+var expression = mBuilder.Build(expectedExpression);
 
-Debug.Assert(expression.ToString = expectedExpression)
+Assert.AreEqual(expectedExpression, expression.ToString());
 
 ```
 
@@ -93,38 +90,35 @@ Debug.Assert(expression.ToString = expectedExpression)
 
 ### Matching and polling
 
-```vb
-Dim expression As Expression = mBuilder.
-	WithValue(ParameterType.Minute, ParameterValue.Number(0)).
-	WithValue(ParameterType.Hour, ParameterValue.Number(12)).
-	WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).
-	WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).
-	WithAny(ParameterType.Month).
-	Build() 'every first monday of the month at noon
-Dim matches As IEnumerable(Of Date) = expression.Next(New Date(2020, 10, 29, 13, 0, 0), 12) ' next 12 matches, starting at the given date and time
-Dim expected As Date() = {
-	New Date(2020, 11, 2, 12, 0, 0),
-	New Date(2020, 12, 7, 12, 0, 0),
-	New Date(2021, 1, 4, 12, 0, 0),
-	New Date(2021, 2, 1, 12, 0, 0),
-	New Date(2021, 3, 1, 12, 0, 0),
-	New Date(2021, 4, 5, 12, 0, 0),
-	New Date(2021, 5, 3, 12, 0, 0),
-	New Date(2021, 6, 7, 12, 0, 0),
-	New Date(2021, 7, 5, 12, 0, 0),
-	New Date(2021, 8, 2, 12, 0, 0),
-	New Date(2021, 9, 6, 12, 0, 0),
-	New Date(2021, 10, 4, 12, 0, 0)
-	}
+```csharp
+var expression = mBuilder.WithValue(ParameterType.Minute, ParameterValue.Number(0)).WithValue(ParameterType.Hour, ParameterValue.Number(12)).WithRange(ParameterType.Day, ParameterValue.Number(1), ParameterValue.Number(7)).WithValue(ParameterType.DayOfWeek, ParameterValue.DayOfWeek(DayOfWeek.MON)).WithAny(ParameterType.Month).Build(); // every first monday of the month at noon
+var matches12 = expression.Next(new DateTime(2020, 10, 29, 13, 0, 0), 12).ToList(); // next 12 matches, starting at the given date and time
+var matchesDate = expression.Next(new DateTime(2020, 10, 29, 13, 0, 0), new DateTime(2021, 10, 4, 12, 0, 0)).ToList(); // all matches within the date range starting at the given date and time ending at the given date and time
+DateTime[] expected = [
+    new DateTime(2020, 11, 2, 12, 0, 0),
+    new DateTime(2020, 12, 7, 12, 0, 0),
+    new DateTime(2021, 1, 4, 12, 0, 0),
+    new DateTime(2021, 2, 1, 12, 0, 0),
+    new DateTime(2021, 3, 1, 12, 0, 0),
+    new DateTime(2021, 4, 5, 12, 0, 0),
+    new DateTime(2021, 5, 3, 12, 0, 0),
+    new DateTime(2021, 6, 7, 12, 0, 0),
+    new DateTime(2021, 7, 5, 12, 0, 0),
+    new DateTime(2021, 8, 2, 12, 0, 0),
+    new DateTime(2021, 9, 6, 12, 0, 0),
+    new DateTime(2021, 10, 4, 12, 0, 0)
+    ];
 
-Debug.Assert(matches.Count = 12)
-For i As Integer = 0 To 11
-	Debug.Assert(matches(i) = expected(i))
-Next
-
-Dim expression As Expression = mBuilder.Build(_ANY) ' every minute
-
-Debug.Assert(expression.Poll() = True) ' current date and time is a match
+Assert.HasCount(12, matches12);
+for (var i = 0; i < 12; i++)
+{
+    Assert.IsTrue(matches12[i] == expected[i]);
+}
+Assert.HasCount(12, matchesDate);
+for (var i = 0; i < 12; i++)
+{
+    Assert.IsTrue(matchesDate[i] == expected[i]);
+}
 
 ```
 

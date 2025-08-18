@@ -16,16 +16,44 @@
 		<RepositoryUrl>https://github.com/MichaelBakker/BlueHeron.CronBuilder</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageIcon>CompanyLogo.png</PackageIcon>
-		<Version>12.0.0.0</Version>
+		<Version>1.2.0.0</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2.0.0.0</AssemblyVersion>
-		<FileVersion>2.0.0.0</FileVersion>
+		<AssemblyVersion>1.2.0.0</AssemblyVersion>
+		<FileVersion>1.2.0.0</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Label="MultilingualAppToolkit">
 		<MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
 		<MultilingualFallbackLanguage>en-US</MultilingualFallbackLanguage>
 		<TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
 		<SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+		<Authors>Michael Bakker</Authors>
+		<Company>The Blue Heron</Company>
+		<Description>Library for creating, parsing and polling CRON expressions.</Description>
+		<Copyright>Copyright © 2025 The Blue Heron</Copyright>
+		<PackageReleaseNotes>Port to C# 13 for .NET 9, .NET Standard 2.1 and .NET Core 3.1.
+Simplify and clarify parameter generation.</PackageReleaseNotes>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <WarningLevel>3</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <WarningLevel>3</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <WarningLevel>3</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <WarningLevel>3</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+	  <DebugType>none</DebugType>
 	</PropertyGroup>
 	<Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
 	<Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
