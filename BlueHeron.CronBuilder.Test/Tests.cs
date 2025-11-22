@@ -23,7 +23,7 @@ public sealed class Tests
         mBuilder = new();
     }
 
-    [ClassCleanup(ClassCleanupBehavior.EndOfClass)]
+    [ClassCleanup(InheritanceBehavior.None)]
     public static void ClassCleanup()
     {
         mBuilder = null!;
@@ -378,7 +378,7 @@ public sealed class Tests
     public void Test14_Humanizing()
     {
         var e = mBuilder.Build("30 0 * * MON-SAT");
-        var strHum = e.Display;
+        _ = e.Display;
 
         // stuff
     }
